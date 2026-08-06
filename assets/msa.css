@@ -439,3 +439,67 @@ footer a{color:#A79E8D}
    class rather than :has(), because page structure should not depend on a
    selector feature — if it failed the page would render dark-on-dark. */
 body.flat{background:var(--vellum)}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PLATES JOIN THE DESCENT (2026-08-06, superseding "plates stay lit")
+
+   Each plate's ground tracks the page gradient at its own position, and its
+   text contrast inverts precisely in reverse: as the sheet darkens, ink gives
+   way to bone. Four steps, each measured — primary 8.6:1 to 15.1:1, secondary
+   6.0:1 to 8.2:1, muted at or above AA. The crossover between steps 2 and 3 is
+   where the text flips, and both sides of it are verified rather than judged.
+
+   Plate-to-ground separation is deliberately slight (~1.2:1): the plate is a
+   sheet lying on the descent, not a box cut into it. The hairline and the
+   shadow do the separating, so nothing reads as a ruled edge.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.plate.d1{--pbg:#F2ECDB;--pt1:#1A1714;--pt2:#4A443B;--pt3:#6E6659;--pbd:rgba(120,104,70,.26);--prule:rgba(120,104,70,.22)}
+.plate.d2{--pbg:#C6BBA0;--pt1:#241F1A;--pt2:#3F3930;--pt3:#4E463A;--pbd:rgba(80,68,44,.34);--prule:rgba(80,68,44,.26)}
+.plate.d3{--pbg:#4A4236;--pt1:#F4EFE3;--pt2:#D6CFC0;--pt3:#BEB6A6;--pbd:rgba(232,222,198,.22);--prule:rgba(232,222,198,.18)}
+.plate.d4{--pbg:#211D17;--pt1:#F2EDE0;--pt2:#BDB5A6;--pt3:#8E8778;--pbd:rgba(232,222,198,.16);--prule:rgba(232,222,198,.13)}
+
+.plate.d1,.plate.d2,.plate.d3,.plate.d4,
+.depth .plate.d1,.depth .plate.d2,.depth .plate.d3,.depth .plate.d4,
+.membrane .plate.d1,.membrane .plate.d2,.membrane .plate.d3,.membrane .plate.d4{
+  background:var(--pbg);border-color:var(--pbd);
+  box-shadow:0 3px 20px rgba(16,13,9,.14), 0 1px 3px rgba(16,13,9,.10);
+}
+/* every text tier inside a stepped plate derives from that step — one rule,
+   no per-zone overrides, so a plate can never inherit a colour meant for
+   another ground (the bone-on-bone and charcoal-on-soot failures both came
+   from exactly that). */
+.plate[class*="d"] p,.plate[class*="d"] .ecorow .what,.plate[class*="d"] .ob p,
+.plate[class*="d"] .opstage p,.plate[class*="d"] .observ p,.plate[class*="d"] .observ .figl{color:var(--pt2)}
+.plate[class*="d"] .overview,.plate[class*="d"] p b,.plate[class*="d"] .plate-title,
+.plate[class*="d"] .opstage h3,.plate[class*="d"] .ob h4,.plate[class*="d"] .ecorow .name,
+.plate[class*="d"] figcaption b{color:var(--pt1)}
+.plate[class*="d"] .plate-sub,.plate[class*="d"] .plate-state,
+.plate[class*="d"] .restnote,.plate[class*="d"] figcaption{color:var(--pt3)}
+.plate[class*="d"] .plate-sub,.plate[class*="d"] .ob,.plate[class*="d"] .ecorow,
+.plate[class*="d"] .eco,.plate[class*="d"] h2{border-color:var(--prule)}
+.plate[class*="d"] figure.ev img,.plate[class*="d"] .orbit .in{border-color:var(--prule)}
+/* accents hold their meaning at every depth */
+.plate.d3 .plate-no,.plate.d4 .plate-no,.plate.d3 .ob .mark,.plate.d4 .ob .mark{color:var(--crimson-lt)}
+.plate.d3 .ecorow .layer,.plate.d4 .ecorow .layer,.plate.d3 .ecofoot,.plate.d4 .ecofoot{color:var(--gold)}
+.plate.d3 .checks a,.plate.d4 .checks a,.plate.d3 .vlinks a,.plate.d4 .vlinks a{color:var(--verdigris-lt)}
+.plate.d3 mark.hl,.plate.d4 mark.hl{background:rgba(96,142,201,.22);color:#B7CFEC}
+.plate.d3 .aperture,.plate.d4 .aperture{background:rgba(0,0,0,.22);border-color:#6E8FB8;color:#A9C6E8}
+.plate.d3 .orbit,.plate.d4 .orbit{background:rgba(0,0,0,.20)}
+.plate.d3 .observ,.plate.d4 .observ{background:rgba(0,0,0,.20);border-color:var(--prule)}
+.plate.d3 .observ .fig,.plate.d4 .observ .fig{color:var(--gold)}
+.plate.d3 .symb .half,.plate.d4 .symb .half{background:rgba(0,0,0,.22);border-color:var(--prule);color:var(--pt2)}
+.plate.d3 .symb .half b,.plate.d4 .symb .half b{color:var(--pt1)}
+.plate.d3 .folio,.plate.d4 .folio{background:#EFE9DA;color:var(--ink)}
+.plate.d3 .folio p,.plate.d4 .folio p{color:var(--slate)}
+.plate.d3 .grants li,.plate.d4 .grants li{color:var(--slate);border-color:var(--umber-pale)}
+.plate.d3 .grants li b,.plate.d4 .grants li b{color:var(--ink)}
+
+/* subpages are flat and hold step 1 throughout */
+body.flat .plate{--pbg:#F2ECDB;--pt1:#1A1714;--pt2:#4A443B;--pt3:#6E6659;
+  --pbd:rgba(120,104,70,.26);--prule:rgba(120,104,70,.22);
+  background:var(--pbg);border-color:var(--pbd)}
+
+/* one rail, every page — the current station marked by an obelus rather than a
+   pill or an underline, because this apparatus marks position with a mark */
+.rail .stations a.here{color:var(--crimson);font-weight:600}
+.rail .stations a.here::before{content:"† ";color:var(--crimson)}
