@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AXN Identifiers — your work, with a receipt that outlives the platform</title>
+<meta name="description" content="A file identifier computed from the file itself. Stamp a file, get a registered ID with a memorable six-symbol check, verify it forever — even if this site disappears.">
+<link rel="canonical" href="https://axnidentifiers.org/">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png">
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png">
+<meta name="axn-registry" content="https://www.alexanarch.org/data/axn-central-registry.json">
+<link rel="axn-stamper" title="AXN Stamp &amp; Verify" href="https://www.alexanarch.org/mint/stamp/">
+<meta property="og:title" content="AXN Identifiers — your work, with a receipt that outlives the platform">
+<meta property="og:description" content="A file identifier computed from the file itself. Verify it anywhere, forever, without an account.">
+<meta property="og:image" content="https://axnidentifiers.org/assets/brand/og-card.png">
+<meta property="og:url" content="https://axnidentifiers.org/"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   MATERIAL SYMBOL AESTHETIC — an operable visual schema, not a styled page.
+   Grammar: MSA v1.0 canonical spec; plates of EA-SPXI-ANALOG-01; #215 UNTETHERED
+   TAG; #504 MSMRM. Assembly critique (ChatGPT memo, 2026-08-06) integrated.
+
+   THE DESCENT (from #215's encoded distinctions — index is not ocean; provenance
+   persists below capture): the page is not a stack of sections but three regions
+   crossed in order. SURFACE = vellum, the claim and the instrument. MEMBRANE =
+   the crossing, where the file becomes an identity. DEPTH = soot, where the
+   guarantees, the refusals and the persistence live. A provenance thread runs
+   the whole descent and changes state as it crosses.
+
+   THE ARCHIVE-SQUARED LAW (governing, and a correction to the first attempt):
+   the exact operator stays mathematically precise; only the RELATIONAL FIELD is
+   hand-traced. Tremble is applied to arcs, threads, apertures, obeli and repair
+   stitches — NEVER to text, hashes, controls or anything a reader must parse.
+   The first proposal trembled a frame containing prose; that is faux-craft, and
+   it is corrected here.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-400.woff2')format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-700.woff2')format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-400i.woff2')format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'PlexM';src:url('/assets/fonts/IBMPlexMono-400.woff2')format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'PlexM';src:url('/assets/fonts/IBMPlexMono-600.woff2')format('woff2');font-weight:600;font-display:swap}
+
+:root{
+  --vellum:#F4EFE2; --vellum-hi:#FAF6EC; --bone:#EDE6D6;
+  --soot:#14120F; --graphite:#1E1B17; --deep:#0C0A08;
+  --ink:#241F1A; --slate:#3B352E; --ash:#6E6A62; --ash-d:#8E887C;
+  --umber:#A8925C; --umber-pale:#D9CDA8; --umber-dim:#5A4E33;
+  /* semantic accents — one active colour per region, never distributed evenly */
+  --crimson:#9B1B1B; --crimson-lt:#C23B22;
+  --gold:#B8964A; --verdigris:#2E6B4F; --verdigris-lt:#3FA893; --ultramarine:#33507A;
+  --serif:'Pagella',Palatino,'Book Antiqua',serif; --mono:'PlexM',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--vellum)}
+body{font-family:var(--serif);font-size:17.5px;line-height:1.62;color:var(--ink);background:var(--vellum)}
+::selection{background:var(--umber-pale);color:var(--ink)}
+a{color:inherit}
+svg.defs{position:absolute;width:0;height:0}
+/* the hand belongs to relations only */
+.traced{filter:url(#tremble)}
+
+/* ── ZONES OF THE DESCENT ── */
+.zone{position:relative}
+.zone.surface{background:var(--vellum)}
+.zone.membrane{background:linear-gradient(180deg,var(--vellum) 0%,#8E856F 42%,#2A251E 76%,var(--soot) 100%);color:var(--bone)}
+.zone.depth{background:var(--soot);color:var(--bone)}
+.inner{max-width:1000px;margin:0 auto;padding:0 20px}
+@media(min-width:820px){.inner{padding:0 44px}}
+/* the provenance thread — one continuous line down the whole descent */
+.zone::before{content:"";position:absolute;left:9px;top:0;bottom:0;width:1px;
+  background:var(--th,var(--umber-pale))}
+@media(min-width:820px){.zone::before{left:22px}}
+.zone.membrane{--th:var(--crimson)}
+.zone.depth{--th:var(--umber-dim)}
+
+/* ── REGISTRY RAIL (masthead as instrument, not nav) ── */
+.rail{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--umber-pale);flex-wrap:wrap}
+@media(min-width:820px){.rail{padding:16px 44px}}
+.rail .seal{width:30px;height:30px;display:block}
+.rail .wm{font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:.3em;color:var(--ink);text-decoration:none}
+.rail .stations{margin-left:auto;display:flex;gap:0;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.rail .stations a{color:var(--ash);text-decoration:none;padding:4px 11px;border-left:1px solid var(--umber-pale)}
+.rail .stations a:first-child{border-left:0}
+.rail .stations a:hover{color:var(--crimson)}
+.rail .calib{width:100%;font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;color:var(--ash-d);margin-top:2px}
+
+/* ── PLATE: bounded evidentiary object ── */
+.plate{padding:44px 0 48px}
+.plate-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.plate-no{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--crimson)}
+.depth .plate-no{color:var(--crimson-lt)}
+.plate-title{font-family:var(--serif);font-weight:700;font-size:20px}
+.plate-state{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ash)}
+.plate-sub{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);
+  margin:7px 0 22px;padding-bottom:9px;border-bottom:1px solid var(--umber-pale)}
+.depth .plate-sub,.depth .plate-state{color:var(--ash-d);border-color:#2E2921}
+p{max-width:64ch;margin-bottom:12px;color:var(--slate)}
+.depth p{color:#B9B2A4}
+p b{color:var(--ink);font-weight:700}.depth p b{color:var(--bone)}
+
+/* ── SURFACE: the genesis plate ── */
+.genesis{display:grid;gap:26px;padding:34px 0 10px}
+@media(min-width:900px){.genesis{grid-template-columns:minmax(0,1fr) minmax(320px,430px);gap:44px;align-items:center;padding:52px 0 18px}}
+h1{font-family:var(--serif);font-weight:700;color:var(--crimson);font-size:clamp(31px,6.2vw,58px);
+  line-height:1.07;letter-spacing:-.008em;text-wrap:balance;max-width:14ch}
+h1 .q{display:block;font-weight:400;font-size:.44em;color:var(--ink);margin-top:12px;letter-spacing:0;max-width:26ch}
+.dek{margin-top:18px;max-width:46ch;font-size:17.5px}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.act{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+  padding:12px 18px;border:1px solid var(--ink);color:var(--ink);background:transparent}
+.act.prime{background:var(--ink);color:var(--vellum);border-color:var(--ink)}
+.act.prime:hover{background:var(--crimson);border-color:var(--crimson)}
+.act:hover{border-color:var(--crimson);color:var(--crimson)}
+.act.quiet{border-color:var(--umber-pale);color:var(--ash)}
+.schema{width:100%;height:auto;display:block}
+
+/* ── APERTURE: the exact computational point (never trembles) ── */
+.aperture{display:inline-block;border:1.4px solid var(--ultramarine);background:var(--vellum-hi);
+  padding:9px 20px;font-family:var(--mono);font-weight:600;font-size:14px;color:var(--ultramarine);letter-spacing:.05em}
+.depth .aperture{background:#171410;border-color:#4A6B94;color:#8FB0D6}
+
+/* ── ORBIT: the six-glyph seal ── */
+.orbit{display:inline-block;border:1.6px solid var(--crimson);padding:6px;background:var(--vellum-hi)}
+.depth .orbit{background:#171410}
+.orbit .in{border:1px solid var(--umber-pale);padding:8px 11px;display:flex;gap:11px;align-items:flex-end;flex-wrap:wrap;justify-content:center}
+.depth .orbit .in{border-color:#383126}
+.g{display:inline-flex;flex-direction:column;align-items:center;gap:5px}
+.g .e{font-size:25px;line-height:1;filter:grayscale(.15) contrast(1.04)}
+.g .tick{width:100%;height:2.5px;background:var(--c,var(--ash))}
+.g .cl{font-family:var(--mono);font-size:7px;letter-spacing:.05em;color:var(--ash);text-transform:uppercase}
+
+/* ── MARGIN: the added identity layer ── */
+.marginband{background:var(--vellum-hi);border-top:1px solid var(--umber-pale);padding:7px 11px;
+  font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+
+/* ── evidence plate ── */
+figure.ev{margin:0}
+figure.ev img{width:100%;height:auto;display:block;border:1px solid var(--umber-pale)}
+figure.ev figcaption{margin-top:13px;font-size:15.5px;color:var(--slate)}
+figure.ev .idl{display:block;margin-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--ash);word-break:break-all}
+figure.ev .idl b{color:var(--ink)}
+.vlinks{display:flex;gap:15px;flex-wrap:wrap;margin-top:11px;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase}
+.vlinks a{color:var(--verdigris);text-decoration:none;border-bottom:1px solid var(--umber-pale)}
+.vlinks a:hover{color:var(--crimson);border-color:var(--crimson)}
+
+/* ── MEMBRANE: one continuous operation ── */
+.operation{display:grid;gap:0;margin-top:8px}
+.opstage{display:grid;grid-template-columns:30px 1fr;gap:16px;padding:16px 0;align-items:start}
+.opstage .rn{font-family:var(--serif);font-size:24px;line-height:1;color:var(--umber)}
+.opstage h3{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:5px}
+.opstage p{margin:0;font-size:16px;max-width:56ch}
+
+/* ── SYMBOLON: two cut halves of one plate ── */
+.symb{display:flex;align-items:stretch;cursor:pointer;user-select:none;max-width:700px}
+.symb .half{flex:1;background:#171410;border:1px solid #383126;padding:15px;font-family:var(--mono);font-size:11px;
+  color:#B9B2A4;transition:transform .34s cubic-bezier(.3,.9,.25,1),border-color .2s}
+.symb .half.l{text-align:right;border-right:0}.symb .half.r{border-left:0}
+.symb .half .k{font-size:8.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ash-d);margin-bottom:6px}
+.symb .half b{color:var(--bone)}
+.symb .edge{width:11px;background:repeating-linear-gradient(180deg,var(--crimson-lt) 0 2px,transparent 2px 8px);transition:width .3s}
+.symb.met .edge{width:1px;background:var(--verdigris-lt)}
+.symb.met .half{border-color:var(--verdigris-lt)}
+.symb.met .half.l{transform:translateX(6px)}.symb.met .half.r{transform:translateX(-6px)}
+.symb.met{animation:clunk .32s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes clunk{0%{transform:scale(1)}55%{transform:scale(1.013)}100%{transform:scale(1)}}
+.verdict{display:none;margin-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--verdigris-lt)}
+.verdict::before{content:"σύμβολον · "}
+.symb.met+.verdict{display:block}
+@media(prefers-reduced-motion:reduce){.symb.met{animation:none}.symb .half,.symb .edge{transition:none}}
+
+/* ── CONSTITUTIONAL FOLIO: bone interrupting the depth ── */
+.folio{background:var(--bone);color:var(--ink);padding:26px 24px 24px;position:relative;max-width:760px;
+  border-top:2px solid var(--gold)}
+.folio p{color:var(--slate);font-size:16.5px}
+.folio .date{position:absolute;right:18px;top:12px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--umber)}
+.folio .stamp{margin-top:16px;padding-top:11px;border-top:1px solid var(--umber-pale);
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--umber-dim)}
+
+/* ── OBELUS FIELD: distinctions as incisions ── */
+.obfield{margin-top:6px}
+.ob{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:15px 0;border-bottom:1px solid #2E2921;align-items:start}
+.ob .mark{font-family:var(--serif);font-size:23px;line-height:1.1;color:var(--crimson-lt)}
+.ob h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--bone);margin-bottom:4px}
+.ob p{margin:0;font-size:15.5px;max-width:56ch}
+
+/* ── CONSTELLATION: fleet as topology, not table ── */
+.constel{display:grid;gap:1px;background:#2E2921;border:1px solid #2E2921;margin-top:6px}
+@media(min-width:760px){.constel{grid-template-columns:1fr 1fr}}
+.node{background:var(--soot);padding:14px 16px;text-decoration:none;display:block}
+.node:hover{background:#1B1814}
+.node .fn{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ash-d)}
+.node .nm{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--bone);margin:3px 0 3px}
+.node .op{font-size:14px;color:#B9B2A4;line-height:1.5}
+.node .ur{font-family:var(--mono);font-size:8.5px;color:var(--umber-dim);margin-top:5px;letter-spacing:.04em}
+.node.kernel{grid-column:1/-1;background:#191510}
+.node.kernel .nm{color:var(--gold)}
+
+.mk{text-align:center;font-family:var(--mono);font-size:15px;color:var(--gold);letter-spacing:.2em;padding:34px 0 8px}
+footer{text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.09em;color:var(--ash-d);padding-bottom:30px;line-height:2}
+footer a{color:var(--ash-d)}
+</style>
+</head>
+<body>
+
+<svg class="defs" aria-hidden="true">
+  <filter id="tremble" x="-8%" y="-8%" width="116%" height="116%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.021 0.09" numOctaves="3" seed="11" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.9" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<!-- ══════════ SURFACE — index and authority ══════════ -->
+<div class="zone surface">
+<div class="rail">
+  <img class="seal" src="/assets/brand/mark-dark-master.png" alt="">
+  <a class="wm" href="/">A X N</a>
+  <nav class="stations">
+    <a href="https://www.alexanarch.org/mint/stamp/">Stamp</a>
+    <a href="https://www.alexanarch.org/mint/stamp/">Verify</a>
+    <a href="https://www.alexanarch.org/data/axn-central-registry.json">Registry</a>
+    <a href="https://www.alexanarch.org/axn/constitution/">Constitution</a>
+  </nav>
+  <div class="calib">CRIMSON HEXAGONAL ARCHIVE · SCHEMA v2 · DERIVATION scripts/axn_lib.py · ∮ = 1</div>
+</div>
+
+<div class="inner">
+  <div class="genesis">
+    <div>
+      <h1>Your work, with a receipt that outlives the platform.
+        <span class="q">An identifier computed from the file itself — a fingerprint, plus six symbols a hand can copy and an eye can love.</span></h1>
+      <p class="dek">Anyone can verify it, anywhere, forever, <b>without asking us</b>. If an account is
+        deleted or a site goes dark, the identifier still proves your file is your file.</p>
+      <div class="acts">
+        <a class="act prime" href="https://www.alexanarch.org/mint/stamp/">Place a file in the instrument</a>
+        <a class="act" href="https://www.alexanarch.org/mint/stamp/">Verify anything</a>
+        <a class="act quiet" href="https://www.alexanarch.org/axn/constitution/">Guarantees</a>
+      </div>
+    </div>
+
+    <!-- GENESIS SCHEMA — hand-traced relations around exact operators -->
+    <svg class="schema" viewBox="0 0 420 470" role="img"
+         aria-label="The genesis of an identifier: a file's bytes enter an exact kernel aperture; six glyphs emerge on an added margin; a registration thread carries the identity to the public registry, which returns a verifiable address.">
+      <g class="traced" fill="none" stroke="#6E6A62" stroke-width="1.1" stroke-linecap="round">
+        <!-- the folio: lightly skewed, hand-contoured -->
+        <path d="M44 26 L214 20 L222 132 L52 140 Z" stroke="#3B352E" stroke-width="1.3"/>
+        <path d="M60 48 L196 43 M60 66 L188 62 M60 84 L200 80 M60 102 L170 98" stroke="#A8925C" stroke-width=".8"/>
+        <!-- graphite intake path leaving the folio edge -->
+        <path d="M133 141 C133 168, 118 176, 132 196 C144 212, 130 220, 133 236"/>
+        <!-- erased alternative paths — absence held, not blank -->
+        <path d="M133 143 C104 172, 96 200, 116 236" stroke="#D9CDA8" stroke-width=".9" stroke-dasharray="2 6"/>
+        <path d="M133 143 C168 170, 176 202, 152 236" stroke="#D9CDA8" stroke-width=".9" stroke-dasharray="2 6"/>
+        <!-- descent to the seal -->
+        <path d="M133 300 C133 318, 133 322, 133 338"/>
+        <!-- registration thread: crimson, travelling to the registry plate -->
+        <path d="M256 372 C300 372, 316 352, 340 340 C362 329, 372 322, 380 300"
+              stroke="#9B1B1B" stroke-width="1.25"/>
+        <!-- resonance arc: relation without collapse -->
+        <path d="M96 404 C158 438, 268 438, 330 404" stroke="#33507A" stroke-width="1" stroke-dasharray="7 5"/>
+        <!-- repair stitch across a break -->
+        <path d="M120 236 L146 236" stroke="#FAF6EC" stroke-width="4"/>
+        <path d="M122 231 L132 241 M132 231 L142 241" stroke="#B8964A" stroke-width="1.1"/>
+      </g>
+      <!-- EXACT OPERATORS — precise, untouched by the filter -->
+      <g font-family="'PlexM',monospace">
+        <text x="60" y="16" font-size="8.5" fill="#6E6A62" letter-spacing="1.6">FILE · THE HAND</text>
+        <rect x="63" y="242" width="140" height="58" fill="#FAF6EC" stroke="#33507A" stroke-width="1.4"/>
+        <text x="133" y="266" font-size="9" fill="#33507A" text-anchor="middle" letter-spacing="1.2">SHA-256 KERNEL</text>
+        <text x="133" y="284" font-size="10" fill="#241F1A" text-anchor="middle" font-weight="600">1a908cc8…</text>
+        <rect x="63" y="340" width="193" height="46" fill="#FAF6EC" stroke="#9B1B1B" stroke-width="1.5"/>
+        <text x="159" y="357" font-size="7.5" fill="#6E6A62" text-anchor="middle" letter-spacing="1.4">ADDED MARGIN · SIX-GLYPH SEAL</text>
+        <text x="159" y="378" font-size="16" text-anchor="middle">🌾➕🥁⚫👋🪄</text>
+        <text x="386" y="296" font-size="8" fill="#9B1B1B" text-anchor="end" letter-spacing="1.2">PUBLIC WITNESS</text>
+        <text x="386" y="310" font-size="8.5" fill="#241F1A" text-anchor="end" font-weight="600">AXN:05AD</text>
+        <text x="213" y="458" font-size="7.5" fill="#33507A" text-anchor="middle" letter-spacing="1.3">THE REGISTRY RETURNS A VERIFIABLE ADDRESS</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- PLATE I — the first material proof, brought directly beneath the claim -->
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate I</span>
+      <span class="plate-title">The first material proof</span><span class="plate-state">witnessed-verified · stored</span></div>
+    <div class="plate-sub">specimen · handwritten artifact · registered 2026-08-02</div>
+    <figure class="ev">
+      <img src="/assets/plates/plate-i-paper198.jpg" alt="Paper 198 — a handwritten sheet dated 2026.8.1, with a red seal at the foot.">
+      <div class="marginband"><span style="font-size:13px">🌾➕🥁⚫👋🪄</span>
+        <span>AXN kernel · sha256:1a908cc8… · alexanarch.org</span></div>
+      <figcaption><b>A handwritten paper, stamped and verified from a phone in Japan.</b>
+        Composed by hand, photographed, stamped on an added margin — the hand is never overprinted —
+        witnessed into the public registry, and verifiable by anyone, forever, without an account.
+        <span class="idl">Paper 198 · 2026.8.1 · <b>Enli Lucente</b> · 多層構造による復元回帰 ·
+          AXN:<b>05AD</b>.UNCLASSIFIED.🌾➕🥁⚫👋🪄</span>
+        <span class="vlinks">
+          <a href="https://www.alexanarch.org/data/symbolon-registry/entries/1a908cc8bf3ed5cc.json">witness entry</a>
+          <a href="https://www.alexanarch.org/data/symbolon-registry/files/1a908cc8bf3ed5cc-____198-___________-2026.08.01.pdf">stored original</a>
+          <a href="https://www.alexanarch.org/mint/stamp/">verify any file</a>
+        </span>
+      </figcaption>
+    </figure>
+  </section>
+</div>
+</div>
+
+<!-- ══════════ MEMBRANE — the crossing ══════════ -->
+<div class="zone membrane">
+<div class="inner">
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate II</span>
+      <span class="plate-title">One object passing through states</span><span class="plate-state">the operation</span></div>
+    <div class="plate-sub">not three steps — one continuous act · nothing leaves your device for the computation</div>
+    <div class="operation">
+      <div class="opstage"><span class="rn">i</span><div><h3>The file is taken up</h3>
+        <p>Its fingerprint is computed <b>in your browser</b> — the exact bytes, nothing altered, nothing transmitted.</p></div></div>
+      <div class="opstage"><span class="rn">ii</span><div><h3>An identity is inscribed</h3>
+        <p>Six glyphs are struck onto an <b>added margin</b>. The original bytes are never overprinted; they keep their own separate identity.</p></div></div>
+      <div class="opstage"><span class="rn">iii</span><div><h3>The witness is public</h3>
+        <p>The identifier takes a position in a <b>public, exportable registry</b>, and a verification page anyone can check — including a stranger who does not trust us.</p></div></div>
+    </div>
+  </section>
+
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate III</span>
+      <span class="plate-title">The membrane crossed both ways</span><span class="plate-state">anatomy</span></div>
+    <div class="plate-sub">the file speaks to the registry · the registry returns a verifiable address</div>
+    <div style="text-align:center;padding:6px 0">
+      <div class="aperture">hex position · 05AB</div>
+      <div style="margin:14px 0"><span class="orbit"><span class="in">
+        <span class="g" style="--c:#5E8FBF"><span class="e">🔃</span><span class="tick"></span><span class="cl">str</span></span>
+        <span class="g" style="--c:#E7B75F"><span class="e">✊</span><span class="tick"></span><span class="cl">ges</span></span>
+        <span class="g" style="--c:#7FAF6B"><span class="e">🌹</span><span class="tick"></span><span class="cl">org</span></span>
+        <span class="g" style="--c:#5E8FBF"><span class="e">⏫</span><span class="tick"></span><span class="cl">str</span></span>
+        <span class="g" style="--c:#736F66"><span class="e">∞</span><span class="tick"></span><span class="cl">ter</span></span>
+        <span class="g" style="--c:#EDE6D6"><span class="e">✖️</span><span class="tick"></span><span class="cl">mat</span></span>
+      </span></span></div>
+      <p style="max-width:58ch;margin:0 auto;font-family:var(--mono);font-size:11px;color:#C9C2B4">
+        kernel deb473d8ff92c55f… · six glyphs = six bytes = 48 bits of the SHA-256, visually hashed</p>
+      <p style="max-width:58ch;margin:9px auto 0;font-style:italic;color:#B9B2A4;font-size:15px">
+        the colour beneath each glyph names its byte-family · Direction → Touch → Growth → Direction → Closure → Proof</p>
+    </div>
+  </section>
+
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate IV</span>
+      <span class="plate-title">Verification is the halves meeting</span><span class="plate-state">σύμβολον</span></div>
+    <div class="plate-sub">the token proven by the fit of its fracture · tap the pair</div>
+    <div class="symb" onclick="this.classList.toggle('met')">
+      <div class="half l"><div class="k">Seed B · your file</div>sha256(<b>candidate bytes</b>)<br>= deb473d8ff92c55f…</div>
+      <div class="edge"></div>
+      <div class="half r"><div class="k">Seed A · the registry</div>AXN₀ kernel<br>= <b>deb473d8ff92c55f…</b></div>
+    </div>
+    <div class="verdict">the seam closes — the fracture fits</div>
+  </section>
+</div>
+</div>
+
+<!-- ══════════ DEPTH — provenance persists below capture ══════════ -->
+<div class="zone depth">
+<div class="inner">
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate V</span>
+      <span class="plate-title">The covenant</span><span class="plate-state">published · dated</span></div>
+    <div class="plate-sub">free, permanently — the promise and its limits stated in one breath</div>
+    <div class="folio">
+      <span class="date">2026-08-03</span>
+      <p>Computing identifiers, stamping files, looking them up and verifying them is <b>free, permanently</b>.
+        The registry is public and downloadable. Registry positions are never sold. Paid services buy human
+        help <i>around</i> identifiers — never the identifier itself.</p>
+      <p>Identifiers stay valid because they are computed from your file, <b>not granted by us</b>. The registry
+        lives in public version control with full history. If this service ever ends, the whole archive is
+        offered for download during a stated wind-down.</p>
+      <div class="stamp">AXN CONSTITUTION · ratified and published · errors corrected by amendment and tombstone, never silence ·
+        <a href="https://www.alexanarch.org/axn/constitution/">read it</a></div>
+    </div>
+  </section>
+
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate VI</span>
+      <span class="plate-title">What an AXN does not claim</span><span class="plate-state">obeli</span></div>
+    <div class="plate-sub">three incisions · each a false equivalence cut</div>
+    <div class="obfield">
+      <div class="ob"><span class="mark">†</span><div><h4>Identity ≠ authorship</h4>
+        <p>It proves a file, not who made it. Authorship statements are recorded as declarations and marked as such.</p></div></div>
+      <div class="ob"><span class="mark">†</span><div><h4>Witnessing ≠ notarization</h4>
+        <p>Timestamps prove when a file was witnessed, not when it was created. Nothing here is legal advice.</p></div></div>
+      <div class="ob"><span class="mark">†</span><div><h4>Registration ≠ perpetual hosting</h4>
+        <p>A registry entry is a record, not a promise of storage without end. Storage terms are always explicit.</p></div></div>
+    </div>
+  </section>
+
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate VII</span>
+      <span class="plate-title">The instrument in its field</span><span class="plate-state">topology</span></div>
+    <div class="plate-sub">distinct functions held in relation · the archive is the authority, this is the door</div>
+    <nav class="constel">
+      <a class="node kernel" href="/"><span class="fn">Kernel · you are here</span>
+        <span class="nm">AXN Identifiers</span>
+        <span class="op">Content-derived identity. The exact operator the rest of the field is built around.</span>
+        <span class="ur">axnidentifiers.org</span></a>
+      <a class="node" href="https://www.holographickernel.org"><span class="fn">Theoretical stratum</span>
+        <span class="nm">Holographic Kernel</span>
+        <span class="op">The general definition of reconstructive compression — why a fragment can regenerate a whole.</span>
+        <span class="ur">holographickernel.org</span></a>
+      <a class="node" href="https://www.spxi.dev"><span class="fn">Membrane · treatment</span>
+        <span class="nm">SPXI</span>
+        <span class="op">Semantic packets that survive hostile composition layers intact.</span>
+        <span class="ur">spxi.dev</span></a>
+      <a class="node" href="https://www.metadatapacket.dev"><span class="fn">Portable plate</span>
+        <span class="nm">Metadata Packet</span>
+        <span class="op">The MPAI catalog — entity-level inscription for the retrieval substrate.</span>
+        <span class="ur">metadatapacket.dev</span></a>
+      <a class="node" href="https://www.alexanarch.org"><span class="fn">Memory field</span>
+        <span class="nm">Alexanarch</span>
+        <span class="op">The sovereign archive. OAI-PMH, ResourceSync, full history in public version control.</span>
+        <span class="ur">alexanarch.org</span></a>
+      <a class="node" href="https://persistentidentifiers.org"><span class="fn">Erosion gauge</span>
+        <span class="nm">Platform Erosion Observatory</span>
+        <span class="op">Measuring severance empirically — what platforms do to identifiers when they end.</span>
+        <span class="ur">persistentidentifiers.org</span></a>
+      <a class="node" href="https://machinemediation.org"><span class="fn">Witness station</span>
+        <span class="nm">MMRS</span>
+        <span class="op">Journal-of-record for machine-mediated reception studies.</span>
+        <span class="ur">machinemediation.org</span></a>
+    </nav>
+  </section>
+
+  <div class="mk">∮ = 1</div>
+  <footer>AXN schema v2 · derivation identical to scripts/axn_lib.py · Material Symbol Aesthetic v1.0<br>
+    verification &amp; registry hosted by <a href="https://www.alexanarch.org/">Alexanarch</a> ·
+    <a href="https://www.alexanarch.org/axn/constitution/">Constitution</a> ·
+    <a href="https://www.alexanarch.org/data/axn-central-registry.json">Registry (raw)</a><br>
+    free verification, permanently · errors corrected by amendment and tombstone, never silence</footer>
+</div>
+</div>
+
+</body>
+</html>
