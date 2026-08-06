@@ -8,6 +8,16 @@
 <meta name="axn-registry" content="https://www.alexanarch.org/data/axn-central-registry.json">
 <link rel="axn-stamper" title="AXN Stamp &amp; Verify" href="https://www.alexanarch.org/mint/stamp/">
 <link rel="canonical" href="https://axnidentifiers.org/">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png">
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png">
+<meta property="og:title" content="AXN Identifiers — your work, with a receipt that outlives the platform">
+<meta property="og:description" content="A file identifier computed from the file itself. Verify it anywhere, forever, without an account.">
+<meta property="og:image" content="https://axnidentifiers.org/assets/brand/og-card.png">
+<meta property="og:url" content="https://axnidentifiers.org/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 /* AXN design language v0.2 — "The Critical Edition, Sealed" — ratified surface v1.0
    Laws (SIG·0): color is data · one family, three voices · one mechanical interaction ·
@@ -43,7 +53,9 @@ code{font-family:var(--mono)}
 
 .mast{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;border-bottom:1px solid var(--hair)}
 @media(min-width:761px){.mast{padding:20px 48px}}
-.mast .t{font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:.3em}
+.mast .t{font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:.3em;display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--bone)}
+.mast .t .mark{width:26px;height:26px;display:block}
+@media(min-width:761px){.mast .t .mark{width:30px;height:30px}}
 .mast .t small{color:var(--steel);letter-spacing:.16em;font-weight:400;margin-left:12px}
 .mast nav{display:flex;gap:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
 .mast nav a{color:var(--steel);text-decoration:none}
@@ -184,7 +196,7 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
 <div class="wrap">
 
 <div class="mast">
-  <div class="t">A&nbsp;X&nbsp;N<small>IDENTIFIERS</small></div>
+  <a class="t" href="/"><img class="mark" src="/assets/brand/mark-bone-96.png" width="48" height="48" alt="AXN mark"><span>A&nbsp;X&nbsp;N</span><small>IDENTIFIERS</small></a>
   <nav>
     <a href="https://www.alexanarch.org/mint/stamp/">Stamp</a>
     <a class="opt" href="https://www.alexanarch.org/mint/stamp/">Verify</a>
