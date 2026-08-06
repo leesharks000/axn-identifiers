@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AXN — Design Language Specimen Sheet v0.1 · "The Critical Edition, Sealed" · TACHYON Round 1</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap');
+
+/* ————————————————————————————————————————————————
+   00 · TOKENS — every color must justify itself structurally.
+   Ground is warm archive-dark (lamp-lit, not OLED). The ONLY
+   polychrome on the site is protocol-derived: 16 cluster hues,
+   each carrying the byte-cluster of the glyph it marks.
+   ———————————————————————————————————————————————— */
+:root{
+  --ink:#0B0A08;          /* sealed ink — ground */
+  --shadow:#14120E;       /* vellum shadow — surfaces */
+  --bone:#EDE6D6;         /* bone — primary text (archival, not clinical) */
+  --steel:#8A857A;        /* steel — secondary text */
+  --hair:#262218;         /* hairline rules */
+  --rubric:#C23B22;       /* rubrication — the Crimson Hexagonal's own red.
+                             Initials, warnings, obeli, tombstones. Shared with
+                             cluster SIGNAL by design: alarm and rubric are one register. */
+  --seal:#C9A227;         /* seal gold — constitutional authority only */
+  --proof:#FFFFFF;        /* pure white appears ONCE in the system: cluster PROOF */
+
+  /* 16 cluster hues — the protocol's own palette (bytes 0x00–0xFF, 16 per cluster) */
+  --c-celestial:#8E9DE6; --c-elemental:#E56B3C; --c-architectural:#C9A227;
+  --c-instrumental:#9AA3AD; --c-scriptural:#E4D3A1; --c-navigational:#3FA893;
+  --c-temporal:#A88BC0; --c-organic:#7FAF6B; --c-symbolic:#DD7FA8;
+  --c-mathematical:#FFFFFF; --c-alchemical:#C98B5A; --c-gestural:#E7B75F;
+  --c-signal:#C23B22; --c-structural:#5E8FBF; --c-liminal:#79E0C3;
+  --c-terminal:#736F66;
+
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans',sans-serif;
+  --serif:'IBM Plex Serif',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:16px;line-height:1.55}
+::selection{background:var(--rubric);color:var(--bone)}
+a{color:inherit}
+
+/* ledger grid: apparatus margin · content · gutter */
+.folio{display:grid;grid-template-columns:88px minmax(0,1fr);border-top:1px solid var(--hair)}
+.folio>.margin{border-right:1px solid var(--hair);padding:28px 12px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--steel);writing-mode:vertical-rl;text-orientation:mixed}
+.folio>.margin .siglum{color:var(--rubric);font-weight:600}
+.folio>.leaf{padding:44px 48px 56px;min-width:0}
+@media(max-width:760px){.folio{grid-template-columns:44px 1fr}.folio>.leaf{padding:28px 18px 40px}}
+
+h1,h2{font-family:var(--mono);font-weight:600;letter-spacing:-.01em}
+h2{font-size:13px;letter-spacing:.18em;color:var(--steel);text-transform:uppercase;margin-bottom:22px}
+h2 b{color:var(--bone)}
+p{max-width:62ch;color:var(--bone)}
+p.mut{color:var(--steel)}
+.rubric-init::first-letter{color:var(--rubric);font-weight:600}
+hr{border:0;border-top:1px solid var(--hair);margin:28px 0}
+code{font-family:var(--mono)}
+
+/* ————— masthead ————— */
+.mast{display:flex;justify-content:space-between;align-items:baseline;padding:20px 48px;border-bottom:1px solid var(--hair)}
+.mast .t{font-family:var(--mono);font-weight:600;font-size:15px;letter-spacing:.32em}
+.mast .t small{color:var(--steel);letter-spacing:.18em;font-weight:400;margin-left:14px}
+.mast .v{font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:.1em}
+.mast .v i{color:var(--seal);font-style:normal}
+
+/* ————— hero manifesto ————— */
+.hero{padding:72px 48px 64px;border-bottom:1px solid var(--hair)}
+.hero h1{font-size:clamp(34px,6.2vw,72px);line-height:1.04;max-width:15ch;font-weight:700}
+.hero h1 em{font-style:normal;color:var(--rubric)}
+.hero .sub{margin-top:26px;font-family:var(--serif);font-size:19px;color:var(--steel);max-width:52ch}
+.hero .sub b{color:var(--bone);font-weight:500}
+.cta-row{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
+.cta{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+     padding:14px 22px;border:1px solid var(--bone);background:transparent;color:var(--bone);
+     cursor:pointer;text-decoration:none;transition:background .12s,color .12s,transform .05s}
+.cta.primary{background:var(--bone);color:var(--ink)}
+.cta:hover{background:var(--rubric);border-color:var(--rubric);color:var(--bone)}
+.cta:active{transform:translateY(1px)}
+
+/* ————— THE SIGNATURE: the Specimen Plate ————— */
+.plate{position:relative;background:var(--shadow);border:1px solid var(--hair);padding:30px 34px 24px;max-width:760px}
+.plate::before{ /* the symbolon fracture: this object is one HALF */
+  content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:10px;
+  background:var(--ink);
+  clip-path:polygon(0 0,100% 0,20% 14%,100% 26%,10% 40%,100% 55%,25% 68%,100% 82%,0 94%,0 100%,0 0);
+  border-right:1px solid var(--rubric);
+}
+.plate .cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--steel);text-transform:uppercase;margin-bottom:16px}
+.plate .cap i{color:var(--rubric);font-style:normal;font-weight:600}
+.axn-lockup{font-family:var(--mono);font-size:clamp(15px,2.6vw,22px);letter-spacing:.02em;word-break:break-all}
+.axn-lockup .pre{color:var(--steel)}
+.axn-lockup .hex{color:var(--bone);font-weight:600}
+.axn-lockup .fam{color:var(--steel)}
+.glyph-row{display:inline-flex;gap:.14em;vertical-align:-0.12em}
+.g{display:inline-flex;flex-direction:column;align-items:center;gap:5px}
+.g .e{font-size:1.55em;line-height:1;filter:saturate(.92)}
+.g .tick{width:100%;height:3px;border-radius:0}
+.g .cl{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;color:var(--steel);text-transform:uppercase}
+.plate .kernel{margin-top:18px;font-family:var(--mono);font-size:11.5px;color:var(--steel);letter-spacing:.04em}
+.plate .kernel b{color:var(--bone);font-weight:500}
+.plate .reading{margin-top:10px;font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--steel)}
+.plate .plateno{position:absolute;right:14px;top:12px;font-family:var(--mono);font-size:10px;color:var(--steel);letter-spacing:.2em}
+
+/* ————— cluster table ————— */
+.clusters{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.cl-cell{background:var(--ink);padding:13px 14px}
+.cl-cell .sw{height:4px;margin-bottom:9px}
+.cl-cell .nm{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.cl-cell .rd{font-family:var(--serif);font-style:italic;font-size:12px;color:var(--steel)}
+.cl-cell .bt{font-family:var(--mono);font-size:9.5px;color:var(--steel);margin-top:5px;letter-spacing:.06em}
+
+/* disambiguation demo */
+.disambig{display:flex;gap:40px;flex-wrap:wrap;margin-top:26px}
+.disambig .g .e{font-size:2.3em}
+
+/* ————— stamp band mock ————— */
+.band-stage{background:#f6f2e8;padding:34px 30px 0;border:1px solid var(--hair)}
+.band-stage .doc{background:#fffdf7;color:#221f1a;font-family:var(--serif);padding:26px 28px 34px;box-shadow:0 1px 0 #d8d2c2}
+.band-stage .doc h3{font-family:var(--serif);font-weight:500;font-size:17px;margin-bottom:8px}
+.band-stage .doc p{font-size:12.5px;color:#4a463e;max-width:none}
+.stamp-band{background:#fffdf7;border-top:1px solid #c9c2b0;padding:10px 16px;display:flex;align-items:center;gap:16px;font-family:var(--mono)}
+.stamp-band .mark{width:26px;height:26px;flex:0 0 26px}
+.stamp-band .glyphs .e{font-size:19px}
+.stamp-band .glyphs .tick{height:2.5px}
+.stamp-band .meta{font-size:9.5px;color:#5c574c;letter-spacing:.05em;line-height:1.5}
+.stamp-band .meta b{color:#221f1a}
+.band-note{font-family:var(--mono);font-size:10.5px;color:var(--steel);letter-spacing:.08em;padding:12px 2px 0}
+
+/* ————— verify: the halves meet ————— */
+.verify{display:flex;align-items:stretch;max-width:760px;cursor:pointer}
+.verify .half{flex:1;background:var(--shadow);border:1px solid var(--hair);padding:22px 24px;font-family:var(--mono);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.verify .half.l{border-right:0;text-align:right}
+.verify .half.r{border-left:0}
+.verify .edge{width:12px;background:
+   repeating-linear-gradient(180deg,var(--rubric) 0 2px,transparent 2px 9px);
+   transition:opacity .35s}
+.verify .half .k{font-size:10px;letter-spacing:.2em;color:var(--steel);text-transform:uppercase;margin-bottom:10px}
+.verify .half .v{font-size:13px;word-break:break-all}
+.verify .half .v b{color:var(--bone)}
+.verify.met .edge{opacity:0;width:0}
+.verify.met .half{border-color:var(--c-navigational)}
+.verify.met .half.l{transform:translateX(6px)}
+.verify.met .half.r{transform:translateX(-6px)}
+.verdict{margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.16em}
+.verdict.ok{color:var(--c-navigational)}
+.verdict.ok::before{content:"σύμβολον · "}
+
+/* ————— hero plate (real artifact) ————— */
+.artifact{display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:0;border:1px solid var(--hair);max-width:760px}
+.artifact .scan{background:
+  linear-gradient(160deg,#efe9da 0%,#e4dcc8 60%,#d9d0b8 100%);
+  min-height:250px;position:relative;color:#33302a}
+.artifact .scan .hand{position:absolute;inset:20px 18px 44px;font-family:var(--serif);font-style:italic;
+  font-size:11px;line-height:1.9;color:#4b463c;overflow:hidden;
+  background:repeating-linear-gradient(180deg,transparent 0 18px,#c7bfa8 18px 19px)}
+.artifact .scan .hand span{writing-mode:vertical-rl;position:absolute;right:6px;top:4px;font-size:13px;letter-spacing:.3em;color:#5a5344}
+.artifact .scan .mini-band{position:absolute;left:0;right:0;bottom:0;background:#fffdf7;border-top:1px solid #b9b19a;padding:5px 10px;font-family:var(--mono);font-size:8px;color:#5c574c;display:flex;gap:8px;align-items:center}
+.artifact .scan .mini-band .e{font-size:11px}
+.artifact figcaption{padding:26px 28px;font-family:var(--serif);font-size:14.5px;color:var(--steel)}
+.artifact figcaption b{color:var(--bone);font-weight:500}
+.artifact figcaption .id{display:block;margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--steel);word-break:break-all}
+.artifact figcaption .id b{color:var(--bone)}
+@media(max-width:640px){.artifact{grid-template-columns:1fr}}
+
+/* ————— strata (ecosystem) ————— */
+.strata{border:1px solid var(--hair);max-width:760px}
+.stratum{display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:baseline;
+  padding:13px 18px;border-bottom:1px solid var(--hair);text-decoration:none}
+.stratum:last-child{border-bottom:0}
+.stratum .layer{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--steel);text-transform:uppercase}
+.stratum .name{font-family:var(--mono);font-size:13px;font-weight:600}
+.stratum .what{font-family:var(--serif);font-size:12.5px;color:var(--steel)}
+.stratum:hover{background:var(--shadow)}
+.stratum.here .layer::before{content:"● ";color:var(--rubric)}
+@media(max-width:640px){.stratum{grid-template-columns:96px 1fr}.stratum .what{grid-column:1/-1}}
+
+/* type scale table */
+.typerow{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--hair)}
+.typerow .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--steel);text-transform:uppercase}
+
+footer{padding:34px 48px;border-top:1px solid var(--hair);font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:.08em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer i{color:var(--seal);font-style:normal}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="t">A&nbsp;X&nbsp;N<small>IDENTIFIERS</small></div>
+  <div class="v">DESIGN LANGUAGE v0.1 · "THE CRITICAL EDITION, SEALED" · TACHYON ROUND 1 · <i>∮ = 1</i></div>
+</div>
+
+<!-- ————————————————— HERO ————————————————— -->
+<section class="hero">
+  <h1>Proof that outlives<br>the platform, set in<br>the archive's <em>own hand</em>.</h1>
+  <p class="sub">Not a terminal. Not a SaaS. A <b>critical edition of the file itself</b> — kernel, apparatus,
+  and plate — on grounds an archivist would trust and a cryptographer can check. The only color
+  on these pages is the protocol speaking: sixteen cluster hues, one per byte-family, nothing decorative.</p>
+  <div class="cta-row">
+    <a class="cta primary" href="#">Stamp a file</a>
+    <a class="cta" href="#">Verify anything</a>
+    <a class="cta" href="#">Read the constitution</a>
+  </div>
+</section>
+
+<!-- ————————————————— 01 SPECIMEN PLATE ————————————————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;I</span>&nbsp;&nbsp;THE SPECIMEN PLATE — SIGNATURE COMPONENT</div>
+<div class="leaf">
+  <h2><b>01</b> · The specimen plate <span style="color:var(--rubric)">— the signature</span></h2>
+  <p class="rubric-init" style="margin-bottom:26px">Every identifier renders as a plate in an edition: glyphs above, cluster ticks beneath — each
+  tick's hue naming the byte-family of the glyph it carries. The torn left edge is doctrinal, not decorative:
+  a symbolon is one half. Note the reading line — dormant in <code>axn_lib.py</code> since founding, surfaced here for the first time.</p>
+
+  <figure class="plate">
+    <div class="plateno">PLATE I</div>
+    <div class="cap">REGISTERED IDENTIFIER · <i>witnessed-verified</i> · 2026-08-02</div>
+    <div class="axn-lockup">
+      <span class="pre">AXN:</span><span class="hex">05AB</span><span class="fam">.UNCLASSIFIED.</span>
+      <span class="glyph-row">
+        <span class="g"><span class="e">🔃</span><span class="tick" style="background:var(--c-structural)"></span><span class="cl">STR</span></span>
+        <span class="g"><span class="e">✊</span><span class="tick" style="background:var(--c-gestural)"></span><span class="cl">GES</span></span>
+        <span class="g"><span class="e">🌹</span><span class="tick" style="background:var(--c-organic)"></span><span class="cl">ORG</span></span>
+        <span class="g"><span class="e">⏫</span><span class="tick" style="background:var(--c-structural)"></span><span class="cl">STR</span></span>
+        <span class="g"><span class="e">∞</span><span class="tick" style="background:var(--c-terminal)"></span><span class="cl">TER</span></span>
+        <span class="g"><span class="e">✖️</span><span class="tick" style="background:var(--c-mathematical)"></span><span class="cl">MAT</span></span>
+      </span>
+    </div>
+    <div class="kernel">kernel <b>deb473d8ff92c55f</b>… · SHA-256 of the sealed core · 6 glyphs = 6 bytes = 48 bits, visually hashed</div>
+    <div class="reading">reading: Direction → Touch → Growth → Direction → Closure → Proof</div>
+  </figure>
+</div></div>
+
+<!-- ————————————————— 02 CLUSTER PALETTE ————————————————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;II</span>&nbsp;&nbsp;PROTOCOL-DERIVED POLYCHROME</div>
+<div class="leaf">
+  <h2><b>02</b> · Sixteen clusters, sixteen hues — the only accents that exist</h2>
+  <p style="margin-bottom:24px">Four substrates proposed four accent colors and every one was a mood.
+  This palette is <b>data</b>: byte 0x00–0xFF partitions into sixteen families in the canonical table;
+  each family owns one hue. A color may appear on these pages <i>only</i> when it names a cluster —
+  plus two constants: rubric crimson (shared with SIGNAL by design) and seal gold (shared with ARCHITECTURAL).</p>
+
+  <div class="clusters">
+    <div class="cl-cell"><div class="sw" style="background:var(--c-celestial)"></div><div class="nm">Celestial</div><div class="rd">Origin</div><div class="bt">0x00–0x0F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-elemental)"></div><div class="nm">Elemental</div><div class="rd">Force</div><div class="bt">0x10–0x1F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-architectural)"></div><div class="nm">Architectural</div><div class="rd">Foundation</div><div class="bt">0x20–0x2F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-instrumental)"></div><div class="nm">Instrumental</div><div class="rd">Method</div><div class="bt">0x30–0x3F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-scriptural)"></div><div class="nm">Scriptural</div><div class="rd">Text</div><div class="bt">0x40–0x4F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-navigational)"></div><div class="nm">Navigational</div><div class="rd">Search</div><div class="bt">0x50–0x5F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-temporal)"></div><div class="nm">Temporal</div><div class="rd">Duration</div><div class="bt">0x60–0x6F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-organic)"></div><div class="nm">Organic</div><div class="rd">Growth</div><div class="bt">0x70–0x7F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-symbolic)"></div><div class="nm">Symbolic</div><div class="rd">Play</div><div class="bt">0x80–0x8F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-mathematical)"></div><div class="nm">Mathematical</div><div class="rd">Proof</div><div class="bt">0x90–0x9F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-alchemical)"></div><div class="nm">Alchemical</div><div class="rd">Transmutation</div><div class="bt">0xA0–0xAF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-gestural)"></div><div class="nm">Gestural</div><div class="rd">Touch</div><div class="bt">0xB0–0xBF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-signal)"></div><div class="nm">Signal</div><div class="rd">Alarm</div><div class="bt">0xC0–0xCF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-structural)"></div><div class="nm">Structural</div><div class="rd">Direction</div><div class="bt">0xD0–0xDF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-liminal)"></div><div class="nm">Liminal</div><div class="rd">Threshold</div><div class="bt">0xE0–0xEF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-terminal)"></div><div class="nm">Terminal</div><div class="rd">Closure</div><div class="bt">0xF0–0xFF</div></div>
+  </div>
+
+  <hr>
+  <h2><b>02a</b> · The palette repairs a defect the bytes cannot</h2>
+  <p style="margin-bottom:18px">The canonical table is frozen and not injective: ❤️ occupies <b>0x81</b> (Symbolic)
+  <i>and</i> <b>0xCF</b> (Signal). In monochrome the two are indistinguishable. Under cluster ticks they never were:</p>
+  <div class="disambig">
+    <span class="g"><span class="e">❤️</span><span class="tick" style="background:var(--c-symbolic);width:2.3em"></span><span class="cl">0x81 · SYMBOLIC · <i>play</i></span></span>
+    <span class="g"><span class="e">❤️</span><span class="tick" style="background:var(--c-signal);width:2.3em"></span><span class="cl">0xCF · SIGNAL · <i>alarm</i></span></span>
+  </div>
+</div></div>
+
+<!-- ————————————————— 03 TYPE ————————————————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;III</span>&nbsp;&nbsp;ONE FAMILY · THREE VOICES</div>
+<div class="leaf">
+  <h2><b>03</b> · Type — the fleet already has a voice; deepen it, don't fork it</h2>
+  <p style="margin-bottom:8px">Seventeen satellite sites speak IBM Plex through the MSP token layer. The redesign
+  keeps the family and splits it into registers:</p>
+  <div class="typerow"><div class="lbl">Display &amp; data<br>Plex Mono</div><div style="font-family:var(--mono);font-weight:700;font-size:30px;letter-spacing:-.01em">The hash face is the headline face.</div></div>
+  <div class="typerow"><div class="lbl">Interface<br>Plex Sans</div><div style="font-size:16px">Controls, explanations, everything a hand touches. Plain verbs, sentence case, no filler.</div></div>
+  <div class="typerow"><div class="lbl">Document<br>Plex Serif</div><div style="font-family:var(--serif);font-size:17px">Reserved for the constitution and for captions on plates — the founding-document register, reclaimed <i>as apparatus</i>, never for UI.</div></div>
+</div></div>
+
+<!-- ————————————————— 04 STAMP BAND ————————————————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;IV</span>&nbsp;&nbsp;THE BAND — FINDINGS 1 + 2, RESOLVED TOGETHER</div>
+<div class="leaf">
+  <h2><b>04</b> · Stamp band v2 — the same language on paper</h2>
+  <p style="margin-bottom:24px">The band and the site are one system. Glyphs enter the PDF as plates from a
+  <b>canonical glyph atlas</b> (pre-rendered once, versioned, itself deposited) — so every device stamps
+  identical bytes and the flagship format finally shows the six-symbol check it sells. Cluster ticks ride beneath. Shown on light ground because that is where stamps live.</p>
+
+  <div class="band-stage">
+    <div class="doc">
+      <h3>手書論文 198 — 多層構造による復元回帰</h3>
+      <p>…the last lines of the depositor's page. The hand is never overprinted; the band below is added margin, scaffold not payload, trimmed exactly by <code>strip_stamp()</code> to recover the sealed core…</p>
+    </div>
+    <div class="stamp-band">
+      <svg class="mark" viewBox="0 0 26 26" aria-label="AXN mark"><g stroke="#221f1a" stroke-width="1"><line x1="13" y1="2" x2="13" y2="24"/><line x1="2" y1="13" x2="24" y2="13"/><line x1="5" y1="5" x2="21" y2="21"/><line x1="21" y1="5" x2="5" y2="21"/><line x1="13" y1="13" x2="20" y2="7"/><circle cx="13" cy="13" r="2.2" fill="#221f1a"/></g></svg>
+      <span class="glyphs glyph-row">
+        <span class="g"><span class="e">🌾</span><span class="tick" style="background:var(--c-organic)"></span></span>
+        <span class="g"><span class="e">➕</span><span class="tick" style="background:var(--c-mathematical);outline:1px solid #c9c2b0"></span></span>
+        <span class="g"><span class="e">🥁</span><span class="tick" style="background:var(--c-symbolic)"></span></span>
+        <span class="g"><span class="e">⚫</span><span class="tick" style="background:var(--c-signal)"></span></span>
+        <span class="g"><span class="e">👋</span><span class="tick" style="background:var(--c-gestural)"></span></span>
+        <span class="g"><span class="e">🪄</span><span class="tick" style="background:var(--c-instrumental)"></span></span>
+      </span>
+      <span class="meta"><b>AXN kernel</b> · sha256:1a908cc8bf3ed5cc… · 2026-08-02 · <b>alexanarch.org</b><br>atlas v1 · verify: any device, any decade, no account</span>
+    </div>
+  </div>
+  <div class="band-note">GEOMETRY DECLARED IN SEED A · BAND = ADDED MARGIN · ATLAS MAKES PDF STAMPS DETERMINISTIC ACROSS DEVICES</div>
+</div></div>
+
+<!-- ————————————————— 05 VERIFY ————————————————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;V</span>&nbsp;&nbsp;THE ONE MECHANICAL INTERACTION</div>
+<div class="leaf">
+  <h2><b>05</b> · Verification is the halves meeting <span style="color:var(--steel)">(click the pair)</span></h2>
+  <p style="margin-bottom:24px">σύμβολον against διάβολον: the token proven by the fit of its fracture. When a
+  candidate file's kernel matches the registry, the torn edges close. This is the site's single orchestrated
+  motion — everything else stays still.</p>
+
+  <div class="verify" id="ver" onclick="this.classList.toggle('met');document.getElementById('vd').style.display=this.classList.contains('met')?'block':'none'">
+    <div class="half l"><div class="k">Seed B · your file</div><div class="v">sha256(<b>candidate bytes</b>)<br>= deb473d8ff92c55f…</div></div>
+    <div class="edge"></div>
+    <div class="half r"><div class="k">Seed A · the registry</div><div class="v">AXN₀ kernel<br>= <b>deb473d8ff92c55f…</b></div></div>
+  </div>
+  <div class="verdict ok" id="vd" style="display:none">VERIFIED — the fracture fits · AXN:05AB.UNCLASSIFIED.🔃✊🌹⏫∞✖️</div>
+</div></div>
+
+<!-- ————————————————— 06 HERO PLATE ————————————————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;VI</span>&nbsp;&nbsp;NO SOCIAL PROOF · CRYPTOGRAPHIC PROOF · REAL ARTIFACTS</div>
+<div class="leaf">
+  <h2><b>06</b> · The hero is a holding, not a nebula</h2>
+  <p style="margin-bottom:24px">Both mockups reached for a generated energy-burst. The archive owns something no
+  competitor can render: <b>real stamped artifacts</b>. Plate treatment below is a placeholder sketch — production
+  uses the actual scan of the actual holding.</p>
+
+  <figure class="artifact">
+    <div class="scan"><div class="hand"><span>手書論文一九八</span></div>
+      <div class="mini-band"><span class="e">🌾➕🥁⚫👋🪄</span><span>AXN kernel · sha256:1a908cc8… · alexanarch.org</span></div>
+    </div>
+    <figcaption>
+      <b>A handwritten paper, stamped and verified from a phone in Japan.</b>
+      Paper 198 of the Strutturista della Psiche — composed by hand, photographed,
+      stamped on added margin, witnessed into the public registry, and verifiable by
+      anyone, forever, without asking us.
+      <span class="id">AXN:<b>05AD</b>.UNCLASSIFIED.🌾➕🥁⚫👋🪄 · <i>witnessed-verified</i></span>
+    </figcaption>
+  </figure>
+</div></div>
+
+<!-- ————————————————— 07 STRATA ————————————————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;VII</span>&nbsp;&nbsp;THE STACK, NOT A NAV SPRAWL</div>
+<div class="leaf">
+  <h2><b>07</b> · Strata — one identifier inside a knowledge ecosystem</h2>
+  <p style="margin-bottom:24px">The answer to "should the suite appear here": yes — as geology, not menu.
+  Six hairline strata, one line each, the current layer marked in rubric. AXN stays the page's subject;
+  the ecosystem is its ground. (Funders read this band too: infrastructure, not utility.)</p>
+
+  <nav class="strata">
+    <a class="stratum here"><span class="layer">Kernel</span><span class="name">AXN</span><span class="what">content-derived identity · this site</span></a>
+    <a class="stratum"><span class="layer">Treatment</span><span class="name">SPXI</span><span class="what">tokenizer-survivable metadata through hostile composition layers</span></a>
+    <a class="stratum"><span class="layer">Witness</span><span class="name">Symbolon Stamp</span><span class="what">inscription + sidecar, offline-capable, in any browser</span></a>
+    <a class="stratum"><span class="layer">Memory</span><span class="name">Alexanarch</span><span class="what">the sovereign archive · OAI-PMH · ResourceSync · full history in public git</span></a>
+    <a class="stratum"><span class="layer">Observation</span><span class="name">Platform Erosion Observatory</span><span class="what">measuring severance empirically at persistentidentifiers.org</span></a>
+    <a class="stratum"><span class="layer">Journal</span><span class="name">MMRS / machinemediation.org</span><span class="what">journal-of-record for machine-mediated reception</span></a>
+  </nav>
+</div></div>
+
+<footer>
+  <span>AXN schema v2 · derivation identical to <b>scripts/axn_lib.py</b> · glyph atlas v1 (proposed)</span>
+  <span>free verification, permanently · errors corrected by amendment and tombstone, never silence · <i>∮ = 1</i></span>
+</footer>
+
+</body>
+</html>

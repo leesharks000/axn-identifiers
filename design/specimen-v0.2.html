@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AXN — Design Language Specimen v0.2 · "The Critical Edition, Sealed" · TACHYON R1 + KIMI R2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap');
+/* LAW (SIG·0 §6): production self-hosts all fonts. No external calls that can observe a reader. */
+
+:root{
+  --ink:#0B0A08; --shadow:#14120E; --bone:#EDE6D6; --steel:#8A857A; --steel-sm:#9A958A;
+  --hair:#262218; --rubric:#C23B22; --seal:#C9A227; --tomb:#111111;
+  --c-celestial:#8E9DE6; --c-elemental:#E56B3C; --c-architectural:#C9A227;
+  --c-instrumental:#9AA3AD; --c-scriptural:#E4D3A1; --c-navigational:#3FA893;
+  --c-temporal:#A88BC0; --c-organic:#7FAF6B; --c-symbolic:#DD7FA8;
+  --c-mathematical:#FFFFFF; --c-alchemical:#C98B5A; --c-gestural:#E7B75F;
+  --c-signal:#C23B22; --c-structural:#5E8FBF; --c-liminal:#79E0C3; --c-terminal:#736F66;
+  --mono:'IBM Plex Mono',monospace; --sans:'IBM Plex Sans',sans-serif; --serif:'IBM Plex Serif',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:16px;line-height:1.55}
+::selection{background:var(--rubric);color:var(--bone)}
+a{color:inherit}
+.folio{display:grid;grid-template-columns:88px minmax(0,1fr);border-top:1px solid var(--hair)}
+.folio>.margin{border-right:1px solid var(--hair);padding:28px 12px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.14em;color:var(--steel-sm);writing-mode:vertical-rl}
+.folio>.margin .siglum{color:var(--rubric);font-weight:600}
+.folio>.leaf{padding:44px 48px 56px;min-width:0}
+@media(max-width:760px){.folio{grid-template-columns:44px 1fr}.folio>.leaf{padding:28px 18px 40px}}
+h1,h2{font-family:var(--mono);font-weight:600;letter-spacing:-.01em}
+h2{font-size:13px;letter-spacing:.18em;color:var(--steel);text-transform:uppercase;margin-bottom:22px}
+h2 b{color:var(--bone)}
+p{max-width:62ch;color:var(--bone)}
+p.mut{color:var(--steel)}
+hr{border:0;border-top:1px solid var(--hair);margin:28px 0}
+code{font-family:var(--mono)}
+
+/* masthead */
+.mast{display:flex;justify-content:space-between;align-items:baseline;padding:20px 48px;border-bottom:1px solid var(--hair);flex-wrap:wrap;gap:8px}
+.mast .t{font-family:var(--mono);font-weight:600;font-size:15px;letter-spacing:.32em}
+.mast .t small{color:var(--steel);letter-spacing:.18em;font-weight:400;margin-left:14px}
+.mast .v{font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:.1em}
+
+/* SIG 0 laws */
+.laws{counter-reset:law;max-width:66ch}
+.law{counter-increment:law;display:grid;grid-template-columns:54px 1fr;gap:18px;padding:13px 0;border-bottom:1px solid var(--hair);align-items:baseline}
+.law::before{content:counter(law,upper-roman);font-family:var(--mono);font-weight:600;color:var(--rubric);font-size:14px;letter-spacing:.1em}
+.law b{font-weight:600}
+.ratif{margin-top:26px;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--steel)}
+.ratif i{color:var(--seal);font-style:normal;font-weight:600}
+
+/* hero */
+.hero{padding:72px 48px 64px;border-bottom:1px solid var(--hair)}
+.hero h1{font-size:clamp(34px,6.2vw,72px);line-height:1.04;max-width:15ch;font-weight:700}
+.hero h1 em{font-style:normal;color:var(--rubric)}
+.hero .sub{margin-top:26px;font-family:var(--serif);font-size:19px;color:var(--steel);max-width:52ch}
+.hero .sub b{color:var(--bone);font-weight:500}
+.cta-row{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
+.cta{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:14px 22px;border:1px solid var(--bone);background:transparent;color:var(--bone);cursor:pointer;text-decoration:none;transition:background .12s,color .12s,transform .05s}
+.cta.primary{background:var(--bone);color:var(--ink)}
+.cta:hover{background:var(--rubric);border-color:var(--rubric);color:var(--bone)}
+.cta:active{transform:translateY(1px)}
+@media(max-width:480px){.cta-row{flex-direction:column}.cta{width:100%;text-align:center}}
+
+/* SIGNATURE: specimen plate — fracture v2: violent */
+.plate{position:relative;background:var(--shadow);border:1px solid var(--hair);border-left:0;padding:30px 34px 24px 40px;max-width:760px;margin-left:16px;
+  filter:drop-shadow(-7px 4px 10px rgba(0,0,0,.55))}
+.plate::before{content:"";position:absolute;left:-15px;top:-1px;bottom:-1px;width:16px;background:var(--shadow);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  clip-path:polygon(100% 0,64% 3%,88% 7%,38% 11%,72% 15%,18% 20%,60% 24%,8% 30%,52% 34%,26% 39%,74% 44%,12% 50%,58% 55%,4% 61%,66% 66%,22% 71%,80% 76%,10% 82%,55% 87%,30% 92%,70% 96%,42% 100%,100% 100%)}
+.plate::after{content:"";position:absolute;left:-15px;top:0;bottom:0;width:16px;
+  clip-path:inherit;box-shadow:inset 2px 0 3px rgba(194,59,34,.35)}
+.plate .cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--steel-sm);text-transform:uppercase;margin-bottom:16px}
+.plate .cap i{color:var(--rubric);font-style:normal;font-weight:600}
+.axn-lockup{font-family:var(--mono);font-size:clamp(15px,2.6vw,22px);letter-spacing:.02em;word-break:break-all}
+.axn-lockup .pre{color:var(--steel)}
+.axn-lockup .hex{color:var(--bone);font-weight:600}
+.axn-lockup .fam{color:var(--steel)}
+.glyph-row{display:inline-flex;gap:.14em;vertical-align:-0.12em}
+.g{display:inline-flex;flex-direction:column;align-items:center;gap:5px}
+.g .e{font-size:1.55em;line-height:1;filter:saturate(.92)}
+.g .tick{width:100%;height:3px}
+.g .cl{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;color:var(--steel-sm);text-transform:uppercase}
+.plate .kernel{margin-top:18px;font-family:var(--mono);font-size:11.5px;color:var(--steel);letter-spacing:.04em}
+.plate .kernel b{color:var(--bone);font-weight:500}
+.plate .reading{margin-top:10px;font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--steel)}
+.plate .reading b{color:var(--rubric);font-weight:400}
+.plate .plateno{position:absolute;right:14px;top:12px;font-family:var(--mono);font-size:10px;color:var(--steel);letter-spacing:.2em}
+
+/* cluster taxonomy — stable matrix */
+.clusters{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair)}
+@media(max-width:820px){.clusters{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:430px){.clusters{grid-template-columns:1fr}}
+.cl-cell{background:var(--ink);padding:13px 14px}
+.cl-cell .sw{height:4px;margin-bottom:9px}
+.cl-cell .nm{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.cl-cell .rd{font-family:var(--serif);font-style:italic;font-size:12px;color:var(--steel)}
+.cl-cell .bt{font-family:var(--mono);font-size:9.5px;color:var(--steel-sm);margin-top:5px;letter-spacing:.06em}
+.disambig{display:flex;gap:40px;flex-wrap:wrap;margin-top:26px}
+.disambig .g .e{font-size:2.3em}
+
+/* type rows */
+.typerow{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--hair)}
+.typerow .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--steel-sm);text-transform:uppercase}
+@media(max-width:560px){.typerow{grid-template-columns:1fr}}
+
+/* stamp band */
+.band-stage{background:#f6f2e8;padding:34px 30px 0;border:1px solid var(--hair)}
+.band-stage .doc{background:#fffdf7;color:#221f1a;font-family:var(--serif);padding:26px 28px 34px;box-shadow:0 1px 0 #d8d2c2}
+.band-stage .doc h3{font-family:var(--serif);font-weight:500;font-size:17px;margin-bottom:8px}
+.band-stage .doc p{font-size:12.5px;color:#4a463e;max-width:none}
+.stamp-band{background:#fffdf7;border-top:1px solid #c9c2b0;padding:10px 16px;display:flex;align-items:center;gap:16px;font-family:var(--mono);flex-wrap:wrap}
+.stamp-band .mark{width:26px;height:26px;flex:0 0 26px}
+.stamp-band .glyphs .e{font-size:19px}
+.stamp-band .glyphs .tick{height:2.5px}
+.stamp-band .meta{font-size:9.5px;color:#5c574c;letter-spacing:.05em;line-height:1.5}
+.stamp-band .meta b{color:#221f1a}
+.band-note{font-family:var(--mono);font-size:10.5px;color:var(--steel-sm);letter-spacing:.08em;padding:12px 2px 0}
+
+/* verify v2 — the clunk */
+.verify{display:flex;align-items:stretch;max-width:760px;cursor:pointer;user-select:none}
+.verify .half{flex:1;background:var(--shadow);border:1px solid var(--hair);padding:22px 24px;font-family:var(--mono);transition:transform .34s cubic-bezier(.3,.9,.25,1),border-color .2s}
+.verify .half.l{border-right:0;text-align:right}
+.verify .half.r{border-left:0}
+.verify .edge{width:14px;background:repeating-linear-gradient(180deg,var(--rubric) 0 2px,transparent 2px 9px);transition:width .3s cubic-bezier(.6,0,.9,.4),background .12s}
+.verify .half .k{font-size:10px;letter-spacing:.2em;color:var(--steel-sm);text-transform:uppercase;margin-bottom:10px}
+.verify .half .v{font-size:13px;word-break:break-all}
+.verify .half .v b{color:var(--bone)}
+.verify.met{animation:clunk .32s cubic-bezier(.2,.9,.3,1.2)}
+.verify.met .edge{width:1px;background:var(--c-navigational)}
+.verify.met .half{border-color:var(--c-navigational)}
+.verify.met .half.l{transform:translateX(7px)}
+.verify.met .half.r{transform:translateX(-7px)}
+@keyframes clunk{0%{transform:scale(1)}55%{transform:scale(1.016)}100%{transform:scale(1)}}
+.verdict{margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;display:none}
+.verdict.ok{color:var(--c-navigational)}
+.verdict.ok::before{content:"σύμβολον · "}
+.verify.met+.verdict{display:block;animation:stamp .14s steps(2,end)}
+@keyframes stamp{0%{transform:scale(1.07)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){.verify.met{animation:none}.verify .half,.verify .edge{transition:none}.verify.met+.verdict{animation:none}}
+
+/* artifact — THE REAL HOLDING */
+.artifact{display:grid;grid-template-columns:minmax(220px,340px) 1fr;border:1px solid var(--hair);max-width:820px}
+.artifact .scanwrap{position:relative;background:#0e0d0b;display:flex;flex-direction:column}
+.artifact img{display:block;width:100%;height:auto;filter:contrast(1.04)}
+.artifact .mini-band{background:#fffdf7;border-top:1px solid #b9b19a;padding:6px 10px;font-family:var(--mono);font-size:8.5px;color:#5c574c;display:flex;gap:8px;align-items:center}
+.artifact .mini-band .e{font-size:12px}
+.artifact figcaption{padding:26px 28px;font-family:var(--serif);font-size:14.5px;color:var(--steel)}
+.artifact figcaption b{color:var(--bone);font-weight:500}
+.artifact figcaption .id{display:block;margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--steel);word-break:break-all}
+.artifact figcaption .id b{color:var(--bone)}
+.artifact figcaption .prov{display:block;margin-top:10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--steel-sm)}
+@media(max-width:640px){.artifact{grid-template-columns:1fr}}
+
+/* strata */
+.strata{border:1px solid var(--hair);max-width:760px}
+.stratum{display:grid;grid-template-columns:130px 1fr;gap:6px 16px;align-items:baseline;padding:13px 18px;border-bottom:1px solid var(--hair);text-decoration:none}
+.stratum:last-child{border-bottom:0}
+.stratum .layer{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--steel-sm);text-transform:uppercase}
+.stratum .name{font-family:var(--mono);font-size:13px;font-weight:600}
+.stratum .what{grid-column:2;font-family:var(--serif);font-size:12.5px;color:var(--steel)}
+.stratum:hover{background:var(--shadow)}
+.stratum.here .layer::before{content:"● ";color:var(--rubric)}
+
+/* SIG VIII — constitution */
+.cons{position:relative;max-width:66ch}
+.cons .artno{position:absolute;left:-96px;top:-6px;font-family:var(--mono);font-weight:700;font-size:4rem;line-height:1;color:var(--bone);opacity:.13;letter-spacing:-.02em}
+@media(max-width:900px){.cons .artno{position:static;display:block;font-size:2.6rem;margin-bottom:6px}}
+.cons h3{font-family:var(--mono);font-size:15px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 14px;color:var(--bone)}
+.cons h3 .n{color:var(--seal)}
+.cons .epigraph{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--steel);border-left:1px solid var(--hair);padding-left:16px;margin:0 0 22px;max-width:52ch}
+.cons p{font-family:var(--serif);font-size:16.5px;line-height:1.65;margin-bottom:14px}
+.notclaim{border-left:4px solid var(--rubric);background:
+  repeating-linear-gradient(-45deg,rgba(194,59,34,.05) 0 8px,transparent 8px 16px),var(--shadow);
+  padding:18px 20px;margin:24px 0;max-width:62ch}
+.notclaim .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--rubric);text-transform:uppercase;margin-bottom:10px}
+.notclaim p{font-size:14.5px;margin-bottom:8px}
+.tombstone{background:var(--tomb);border:1px solid var(--hair);padding:20px 22px 18px;margin:24px 0;max-width:62ch;position:relative}
+.tombstone::before{content:"†";position:absolute;right:16px;top:10px;font-family:var(--serif);font-size:22px;color:var(--steel)}
+.tombstone p{font-family:var(--serif);font-size:15.5px;color:var(--bone)}
+.tombstone .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--steel-sm);text-transform:uppercase;margin-bottom:10px}
+
+/* maker's mark + footer */
+.makers{padding:44px 0 26px;text-align:center;border-top:1px solid var(--hair)}
+.makers .mk{font-family:var(--mono);font-size:16px;color:var(--seal);letter-spacing:.2em}
+.makers .sub{font-family:var(--mono);font-size:10px;color:var(--steel-sm);letter-spacing:.16em;margin-top:8px}
+footer{padding:20px 48px 34px;font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:.08em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(max-width:640px){footer{flex-direction:column;gap:6px}}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="t">A&nbsp;X&nbsp;N<small>IDENTIFIERS</small></div>
+  <div class="v">DESIGN LANGUAGE v0.2 · TACHYON R1 · KIMI R2 INTEGRATED · STATUS: PROPOSAL</div>
+</div>
+
+<!-- ————— SIG 0 · LAWS ————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;0</span>&nbsp;&nbsp;COVER — THE LAWS OF THIS LANGUAGE</div>
+<div class="leaf">
+  <h2><b>00</b> · Design laws — stated once, enforced everywhere</h2>
+  <div class="laws">
+    <div class="law"><span><b>Color is data.</b> A hue may appear only when it names a byte-cluster. Two constants: rubric crimson (= SIGNAL) and seal gold (= ARCHITECTURAL, constitutional authority only).</span></div>
+    <div class="law"><span><b>The hash face is the headline face.</b> One family, three voices: Plex Mono (display &amp; data), Plex Sans (interface), Plex Serif (constitution &amp; plate captions only).</span></div>
+    <div class="law"><span><b>One mechanical interaction.</b> The symbolon halves meeting. Everything else stays still.</span></div>
+    <div class="law"><span><b>No social proof, no gradients, no rounded corners, no generated mysticism.</b> Real holdings are the only imagery.</span></div>
+    <div class="law"><span><b>Stamps live on paper.</b> The band renders on light ground; the registry on sealed dark. The contrast is the material truth of the system.</span></div>
+    <div class="law"><span><b>No reader is observed.</b> Production self-hosts fonts and assets; zero external calls. The archive's standard, kept on its own door.</span></div>
+    <div class="law"><span><b>Errors are corrected by amendment and tombstone,</b> in the interface as in the registry. Nothing is silently deleted, including design decisions.</span></div>
+  </div>
+  <div class="ratif">CHANGELOG · v0.1 TACHYON R1 (2026-08-06) → v0.2 + KIMI R2 (same day) · RATIFICATION: <i>AWAITING MANUS</i></div>
+</div></div>
+
+<!-- ————— HERO ————— -->
+<section class="hero">
+  <h1>Your work, with a<br>receipt that <em>outlives</em><br>the platform.</h1>
+  <p class="sub">Not a terminal. Not a SaaS. A <b>critical edition of the file itself</b> — kernel, apparatus,
+  and plate — on grounds an archivist would trust and a cryptographer can check. The canonical phrase
+  restored; the register unchanged: sanctuary with teeth.</p>
+  <div class="cta-row">
+    <a class="cta primary" href="#">Stamp a file</a>
+    <a class="cta" href="#">Verify anything</a>
+    <a class="cta" href="#">Read the constitution</a>
+  </div>
+</section>
+
+<!-- ————— SIG I · SPECIMEN PLATE ————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;I</span>&nbsp;&nbsp;THE SPECIMEN PLATE — SIGNATURE COMPONENT</div>
+<div class="leaf">
+  <h2><b>01</b> · The specimen plate <span style="color:var(--rubric)">— fracture v2, violent</span></h2>
+  <p style="margin-bottom:30px">Kimi ruled the tear too polite. It now bites: irregular twenty-two-point break,
+  the plate ripped from a larger sheet, casting shadow into the gap, a hairline of rubric bruising the raw edge.
+  The reading line's arrows now travel in rubric — a path, not punctuation.</p>
+
+  <figure class="plate">
+    <div class="plateno">PLATE I</div>
+    <div class="cap">REGISTERED IDENTIFIER · <i>witnessed-verified</i> · 2026-08-02</div>
+    <div class="axn-lockup">
+      <span class="pre">AXN:</span><span class="hex">05AB</span><span class="fam">.UNCLASSIFIED.</span>
+      <span class="glyph-row">
+        <span class="g"><span class="e">🔃</span><span class="tick" style="background:var(--c-structural)"></span><span class="cl">STR</span></span>
+        <span class="g"><span class="e">✊</span><span class="tick" style="background:var(--c-gestural)"></span><span class="cl">GES</span></span>
+        <span class="g"><span class="e">🌹</span><span class="tick" style="background:var(--c-organic)"></span><span class="cl">ORG</span></span>
+        <span class="g"><span class="e">⏫</span><span class="tick" style="background:var(--c-structural)"></span><span class="cl">STR</span></span>
+        <span class="g"><span class="e">∞</span><span class="tick" style="background:var(--c-terminal)"></span><span class="cl">TER</span></span>
+        <span class="g"><span class="e">✖️</span><span class="tick" style="background:var(--c-mathematical)"></span><span class="cl">MAT</span></span>
+      </span>
+    </div>
+    <div class="kernel">kernel <b>deb473d8ff92c55f</b>… · SHA-256 of the sealed core · 6 glyphs = 6 bytes = 48 bits, visually hashed</div>
+    <div class="reading">reading: Direction <b>→</b> Touch <b>→</b> Growth <b>→</b> Direction <b>→</b> Closure <b>→</b> Proof</div>
+  </figure>
+</div></div>
+
+<!-- ————— SIG II · CLUSTERS ————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;II</span>&nbsp;&nbsp;PROTOCOL-DERIVED POLYCHROME — STABLE MATRIX</div>
+<div class="leaf">
+  <h2><b>02</b> · Sixteen clusters — a taxonomy, so a fixed 4×4</h2>
+  <p style="margin-bottom:24px">Kimi: a taxonomy is not a responsive flow. Adopted — 4×4 on desktop, 2×8 on tablet, one column on phones. The matrix never rewraps unevenly again.</p>
+  <div class="clusters">
+    <div class="cl-cell"><div class="sw" style="background:var(--c-celestial)"></div><div class="nm">Celestial</div><div class="rd">Origin</div><div class="bt">0x00–0x0F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-elemental)"></div><div class="nm">Elemental</div><div class="rd">Force</div><div class="bt">0x10–0x1F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-architectural)"></div><div class="nm">Architectural</div><div class="rd">Foundation</div><div class="bt">0x20–0x2F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-instrumental)"></div><div class="nm">Instrumental</div><div class="rd">Method</div><div class="bt">0x30–0x3F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-scriptural)"></div><div class="nm">Scriptural</div><div class="rd">Text</div><div class="bt">0x40–0x4F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-navigational)"></div><div class="nm">Navigational</div><div class="rd">Search</div><div class="bt">0x50–0x5F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-temporal)"></div><div class="nm">Temporal</div><div class="rd">Duration</div><div class="bt">0x60–0x6F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-organic)"></div><div class="nm">Organic</div><div class="rd">Growth</div><div class="bt">0x70–0x7F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-symbolic)"></div><div class="nm">Symbolic</div><div class="rd">Play</div><div class="bt">0x80–0x8F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-mathematical)"></div><div class="nm">Mathematical</div><div class="rd">Proof</div><div class="bt">0x90–0x9F</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-alchemical)"></div><div class="nm">Alchemical</div><div class="rd">Transmutation</div><div class="bt">0xA0–0xAF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-gestural)"></div><div class="nm">Gestural</div><div class="rd">Touch</div><div class="bt">0xB0–0xBF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-signal)"></div><div class="nm">Signal</div><div class="rd">Alarm</div><div class="bt">0xC0–0xCF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-structural)"></div><div class="nm">Structural</div><div class="rd">Direction</div><div class="bt">0xD0–0xDF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-liminal)"></div><div class="nm">Liminal</div><div class="rd">Threshold</div><div class="bt">0xE0–0xEF</div></div>
+    <div class="cl-cell"><div class="sw" style="background:var(--c-terminal)"></div><div class="nm">Terminal</div><div class="rd">Closure</div><div class="bt">0xF0–0xFF</div></div>
+  </div>
+  <hr>
+  <h2><b>02a</b> · The palette repairs a defect the bytes cannot</h2>
+  <div class="disambig">
+    <span class="g"><span class="e">❤️</span><span class="tick" style="background:var(--c-symbolic);width:2.3em"></span><span class="cl">0x81 · SYMBOLIC · <i>play</i></span></span>
+    <span class="g"><span class="e">❤️</span><span class="tick" style="background:var(--c-signal);width:2.3em"></span><span class="cl">0xCF · SIGNAL · <i>alarm</i></span></span>
+  </div>
+</div></div>
+
+<!-- ————— SIG III · TYPE ————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;III</span>&nbsp;&nbsp;ONE FAMILY · THREE VOICES</div>
+<div class="leaf">
+  <h2><b>03</b> · Type — the fleet already has a voice; deepen it, don't fork it</h2>
+  <div class="typerow"><div class="lbl">Display &amp; data<br>Plex Mono</div><div style="font-family:var(--mono);font-weight:700;font-size:30px;letter-spacing:-.01em">The hash face is the headline face.</div></div>
+  <div class="typerow"><div class="lbl">Interface<br>Plex Sans</div><div style="font-size:16px">Controls, explanations, everything a hand touches. Plain verbs, sentence case, no filler.</div></div>
+  <div class="typerow"><div class="lbl">Document<br>Plex Serif</div><div style="font-family:var(--serif);font-size:17px">Reserved for the constitution and plate captions — the founding-document register, reclaimed <i>as apparatus</i>, never for UI.</div></div>
+</div></div>
+
+<!-- ————— SIG IV · BAND ————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;IV</span>&nbsp;&nbsp;THE BAND — FINDINGS 1 + 2 RESOLVED TOGETHER</div>
+<div class="leaf">
+  <h2><b>04</b> · Stamp band v2 — the same language on paper</h2>
+  <div class="band-stage">
+    <div class="doc">
+      <h3>手書論文 198 — 多層構造による復元回帰</h3>
+      <p>…the last lines of the depositor's page. The hand is never overprinted; the band below is added margin, scaffold not payload, trimmed exactly by <code>strip_stamp()</code> to recover the sealed core…</p>
+    </div>
+    <div class="stamp-band">
+      <svg class="mark" viewBox="0 0 26 26" aria-label="AXN mark"><g stroke="#221f1a" stroke-width="1"><line x1="13" y1="2" x2="13" y2="24"/><line x1="2" y1="13" x2="24" y2="13"/><line x1="5" y1="5" x2="21" y2="21"/><line x1="21" y1="5" x2="5" y2="21"/><line x1="13" y1="13" x2="20" y2="7"/><circle cx="13" cy="13" r="2.2" fill="#221f1a"/></g></svg>
+      <span class="glyphs glyph-row">
+        <span class="g"><span class="e">🌾</span><span class="tick" style="background:var(--c-organic)"></span></span>
+        <span class="g"><span class="e">➕</span><span class="tick" style="background:var(--c-mathematical);outline:1px solid #c9c2b0"></span></span>
+        <span class="g"><span class="e">🥁</span><span class="tick" style="background:var(--c-symbolic)"></span></span>
+        <span class="g"><span class="e">⚫</span><span class="tick" style="background:var(--c-signal)"></span></span>
+        <span class="g"><span class="e">👋</span><span class="tick" style="background:var(--c-gestural)"></span></span>
+        <span class="g"><span class="e">🪄</span><span class="tick" style="background:var(--c-instrumental)"></span></span>
+      </span>
+      <span class="meta"><b>AXN kernel</b> · sha256:1a908cc8bf3ed5cc… · 2026-08-02 · <b>alexanarch.org</b><br>atlas v1 · verify: any device, any decade, no account</span>
+    </div>
+  </div>
+  <div class="band-note">GEOMETRY DECLARED IN SEED A · BAND = ADDED MARGIN · ATLAS MAKES PDF STAMPS DETERMINISTIC ACROSS DEVICES</div>
+</div></div>
+
+<!-- ————— SIG V · VERIFY ————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;V</span>&nbsp;&nbsp;THE ONE MECHANICAL INTERACTION — NOW WITH WEIGHT</div>
+<div class="leaf">
+  <h2><b>05</b> · Verification is the halves meeting <span style="color:var(--steel)">(click the pair — feel the clunk)</span></h2>
+  <p style="margin-bottom:24px">Kimi asked for the die striking the coin. Adopted: deeper travel, a contact pulse
+  through the whole assembly, the fracture <b>compressing to a single solid line</b> in navigational teal — severance
+  reversed — and the verdict cutting in hard like a stamp, never fading.</p>
+  <div class="verify" id="ver" onclick="this.classList.toggle('met')">
+    <div class="half l"><div class="k">Seed B · your file</div><div class="v">sha256(<b>candidate bytes</b>)<br>= deb473d8ff92c55f…</div></div>
+    <div class="edge"></div>
+    <div class="half r"><div class="k">Seed A · the registry</div><div class="v">AXN₀ kernel<br>= <b>deb473d8ff92c55f…</b></div></div>
+  </div>
+  <div class="verdict ok">VERIFIED — the fracture fits · AXN:05AB.UNCLASSIFIED.🔃✊🌹⏫∞✖️</div>
+</div></div>
+
+<!-- ————— SIG VI · THE REAL HOLDING ————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;VI</span>&nbsp;&nbsp;NO PLACEHOLDER — THE ACTUAL ARTIFACT</div>
+<div class="leaf">
+  <h2><b>06</b> · The hero is a holding — and here it is</h2>
+  <p style="margin-bottom:24px">Kimi flagged the CSS sketch as a liability. Resolved by substitution: this is the
+  <b>actual page-1 raster of the actual stamped PDF</b>, pulled from the symbolon store (6 KB, grayscale — plates
+  are monochrome; the color belongs to the ticks). The phone-shadow across the paper stays: it is the proof of
+  the hand and the phone. Production uses a higher-resolution crop of the same holding, band visible.</p>
+  <figure class="artifact">
+    <div class="scanwrap">
+      <img alt="Paper 198, handwritten, dated 2026.8.1, with seal — page 1 of the stamped PDF" src="data:image/jpeg;base64,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">
+      <div class="mini-band"><span class="e">🌾➕🥁⚫👋🪄</span><span>AXN kernel · sha256:1a908cc8… · alexanarch.org</span></div>
+    </div>
+    <figcaption>
+      <b>A handwritten paper, stamped and verified from a phone in Japan.</b>
+      Paper 198 of the Strutturista della Psiche — composed by hand, photographed,
+      stamped on added margin, witnessed into the public registry, and verifiable by
+      anyone, forever, without asking us.
+      <span class="id">AXN:<b>05AD</b>.UNCLASSIFIED.🌾➕🥁⚫👋🪄 · <i>witnessed-verified</i></span>
+      <span class="prov">SOURCE: data/symbolon-registry/files/1a908cc8… · RETRIEVABLE BY KERNEL · NOT A MOCKUP</span>
+    </figcaption>
+  </figure>
+</div></div>
+
+<!-- ————— SIG VII · STRATA ————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;VII</span>&nbsp;&nbsp;THE STACK, NOT A NAV SPRAWL</div>
+<div class="leaf">
+  <h2><b>07</b> · Strata — one identifier inside a knowledge ecosystem</h2>
+  <nav class="strata">
+    <a class="stratum here"><span class="layer">Kernel</span><span class="name">AXN</span><span class="what">content-derived identity · this site</span></a>
+    <a class="stratum"><span class="layer">Treatment</span><span class="name">SPXI</span><span class="what">tokenizer-survivable metadata through hostile composition layers</span></a>
+    <a class="stratum"><span class="layer">Witness</span><span class="name">Symbolon Stamp</span><span class="what">inscription + sidecar, offline-capable, in any browser</span></a>
+    <a class="stratum"><span class="layer">Memory</span><span class="name">Alexanarch</span><span class="what">the sovereign archive · OAI-PMH · ResourceSync · full history in public git</span></a>
+    <a class="stratum"><span class="layer">Observation</span><span class="name">Platform Erosion Observatory</span><span class="what">measuring severance empirically at persistentidentifiers.org</span></a>
+    <a class="stratum"><span class="layer">Journal</span><span class="name">MMRS / machinemediation.org</span><span class="what">journal-of-record for machine-mediated reception</span></a>
+  </nav>
+</div></div>
+
+<!-- ————— SIG VIII · THE CONSTITUTION ————— -->
+<div class="folio"><div class="margin"><span class="siglum">SIG&nbsp;·&nbsp;VIII</span>&nbsp;&nbsp;THE CONSTITUTION — THE OTHER HALF OF THE SITE</div>
+<div class="leaf">
+  <h2><b>08</b> · Constitution layout — founding document, etched</h2>
+  <p style="margin-bottom:38px" class="mut">Kimi's structural finding: the authority page was missing from the specimen.
+  Added. Ghosted monumental article numerals in the apparatus margin; the preamble as epigraph; the
+  does-not-claim enclosure in warning tape; the tombstone clause pulled from flow under its own dagger.
+  Article text in Plex Serif — the one place the document voice speaks.</p>
+
+  <div class="cons">
+    <span class="artno">III</span>
+    <h3><span class="n">ARTICLE III</span> · CONTINUITY</h3>
+    <p class="epigraph">Ratified by the archive's editorial authority and published against the day no one asks permission.</p>
+    <p>Identifiers stay valid because they are computed from the file, not granted by this
+    service. The registry lives in public version control with full history. If this service
+    ends, the whole archive is offered for download during a stated wind-down.</p>
+
+    <div class="notclaim">
+      <div class="k">What an AXN does not claim</div>
+      <p><b>Identity ≠ authorship.</b> It proves a file, not who made it.</p>
+      <p><b>Witnessing ≠ notarization.</b> Timestamps prove when a file was witnessed, not created.</p>
+      <p><b>A registry entry ≠ perpetual hosting.</b> Storage terms are always explicit.</p>
+    </div>
+
+    <div class="tombstone">
+      <div class="k">The correction clause</div>
+      <p>Errors are corrected by amendment and tombstone — never by silent deletion. A retired
+      position keeps resolving; a withdrawn work is marked, not erased. The registry's history
+      is itself part of the registry.</p>
+    </div>
+  </div>
+</div></div>
+
+<div class="makers">
+  <div class="mk">∮ = 1</div>
+  <div class="sub">MAKER'S MARK · SEAL GOLD APPEARS HERE, ON RATIFICATION DATES, AND NOWHERE ELSE</div>
+</div>
+<footer>
+  <span>AXN schema v2 · derivation identical to <b style="color:var(--bone)">scripts/axn_lib.py</b> · glyph atlas v1 (proposed)</span>
+  <span>free verification, permanently · errors corrected by amendment and tombstone, never silence</span>
+</footer>
+
+</body>
+</html>
