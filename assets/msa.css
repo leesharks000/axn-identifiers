@@ -300,7 +300,7 @@ footer a{color:var(--ash-d)}
    is its interpretive tier and must carry the meaning if the image never loads.
    Works on either ground. Never a bare image: an uncaptioned plate is a
    decoration, and this aesthetic has no decorations. ── */
-.plate-fig{margin:22px 0 6px;border:1px solid var(--umber-pale);background:var(--vellum-hi);padding:14px}
+.plate-fig{margin:22px 0 6px;border:1px solid var(--umber-pale);background:none;padding:14px 4px}
 .depth .plate-fig,.membrane .plate-fig{border-color:#3A342B;background:#171410}
 .plate-fig img,.plate-fig svg{display:block;width:100%;height:auto}
 .plate-fig figcaption{margin-top:11px;padding-top:9px;border-top:1px solid var(--umber-pale);
@@ -459,10 +459,16 @@ body.flat{background:var(--vellum)}
    sheet lying on the descent, not a box cut into it. The hairline and the
    shadow do the separating, so nothing reads as a ruled edge.
    ═══════════════════════════════════════════════════════════════════════════ */
-.plate.d1{--pbg:#F2ECDB;--pt1:#1A1714;--pt2:#4A443B;--pt3:#6E6659;--pbd:rgba(120,104,70,.26);--prule:rgba(120,104,70,.22)}
-.plate.d2{--pbg:#C6BBA0;--pt1:#241F1A;--pt2:#3F3930;--pt3:#4E463A;--pbd:rgba(80,68,44,.34);--prule:rgba(80,68,44,.26)}
-.plate.d3{--pbg:#4A4236;--pt1:#F4EFE3;--pt2:#D6CFC0;--pt3:#BEB6A6;--pbd:rgba(232,222,198,.22);--prule:rgba(232,222,198,.18)}
-.plate.d4{--pbg:#211D17;--pt1:#F2EDE0;--pt2:#BDB5A6;--pt3:#8E8778;--pbd:rgba(232,222,198,.16);--prule:rgba(232,222,198,.13)}
+/* Panel separation raised (was ~1.2:1 against the ground at every step, which
+   read as a tint rather than a sheet) and the gold made a PER-STEP value: at
+   1.88:1 on the old step-2 tan the numerals were effectively invisible. Gold
+   inverts like the text — dark ochre on lit plates, bright gold on dark ones.
+   Measured: separation 1.22–1.58:1; primary 10.7–16.5; secondary 7.6–9.0;
+   muted 5.1–6.2; gold 4.3–9.0. */
+.plate.d1{--pbg:#FAF6EA;--pt1:#1A1714;--pt2:#4A443B;--pt3:#6E6659;--pgold:#7A5A18;--pbd:rgba(120,104,70,.30);--prule:rgba(120,104,70,.24)}
+.plate.d2{--pbg:#DCD3BA;--pt1:#241F1A;--pt2:#3F3930;--pt3:#4E463A;--pgold:#7A5A18;--pbd:rgba(80,68,44,.38);--prule:rgba(80,68,44,.28)}
+.plate.d3{--pbg:#3B342A;--pt1:#F4EFE3;--pt2:#D6CFC0;--pt3:#BEB6A6;--pgold:#D4B24A;--pbd:rgba(232,222,198,.26);--prule:rgba(232,222,198,.20)}
+.plate.d4{--pbg:#17140F;--pt1:#F2EDE0;--pt2:#BDB5A6;--pt3:#8E8778;--pgold:#D4B24A;--pbd:rgba(232,222,198,.20);--prule:rgba(232,222,198,.15)}
 
 .plate.d1,.plate.d2,.plate.d3,.plate.d4,
 .depth .plate.d1,.depth .plate.d2,.depth .plate.d3,.depth .plate.d4,
@@ -486,7 +492,11 @@ body.flat{background:var(--vellum)}
 .plate[class*="d"] figure.ev img,.plate[class*="d"] .orbit .in{border-color:var(--prule)}
 /* accents hold their meaning at every depth */
 .plate.d3 .plate-no,.plate.d4 .plate-no,.plate.d3 .ob .mark,.plate.d4 .ob .mark{color:var(--crimson-lt)}
-.plate.d3 .ecorow .layer,.plate.d4 .ecorow .layer,.plate.d3 .ecofoot,.plate.d4 .ecofoot{color:var(--gold)}
+/* gold-bearing marks follow their plate's step rather than one fixed value */
+.plate[class*="d"] .opstage .rn,.plate[class*="d"] .ecorow .layer,
+.plate[class*="d"] .ecofoot,.plate[class*="d"] .observ .fig,
+.plate[class*="d"] .folio .date{color:var(--pgold)}
+.plate[class*="d"] .opstage .rn{font-weight:700}
 .plate.d3 .checks a,.plate.d4 .checks a,.plate.d3 .vlinks a,.plate.d4 .vlinks a{color:var(--verdigris-lt)}
 .plate.d3 mark.hl,.plate.d4 mark.hl{background:rgba(96,142,201,.22);color:#B7CFEC}
 .plate.d3 .aperture,.plate.d4 .aperture{background:rgba(0,0,0,.22);border-color:#6E8FB8;color:#A9C6E8}
@@ -532,6 +542,6 @@ figure.ev .bandnote b{color:var(--pt2)}
 
 /* Plate II's figure carries the argument, so the three prose stages can recede */
 .plate-fig svg{width:100%;height:auto;display:block}
-.plate[class*="d"] .plate-fig{background:rgba(255,253,247,.94);border-color:var(--prule)}
-.plate[class*="d"] .plate-fig figcaption{color:#4A443B;border-color:rgba(120,104,70,.28)}
-.plate[class*="d"] .plate-fig figcaption b{color:#1A1714}
+.plate[class*="d"] .plate-fig{background:none;border-color:var(--prule)}
+.plate[class*="d"] .plate-fig figcaption{color:var(--pt3);border-color:var(--prule)}
+.plate[class*="d"] .plate-fig figcaption b{color:var(--pt1)}
