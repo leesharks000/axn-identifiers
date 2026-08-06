@@ -51,12 +51,13 @@ h2 i{color:var(--rubric);font-style:normal}
 p{max-width:62ch}
 code{font-family:var(--mono)}
 
-.mast{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;border-bottom:1px solid var(--hair)}
+.mast{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 28px;border-bottom:1px solid var(--hair)}
 @media(min-width:761px){.mast{padding:20px 48px}}
 .mast .t{font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:.3em;display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--bone)}
 .mast .t .mark{width:26px;height:26px;display:block}
 @media(min-width:761px){.mast .t .mark{width:30px;height:30px}}
 .mast .t small{color:var(--steel);letter-spacing:.16em;font-weight:400;margin-left:12px}
+@media(max-width:700px){.mast .t small{display:none}}
 .mast nav{display:flex;gap:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
 .mast nav a{color:var(--steel);text-decoration:none}
 .mast nav a:hover{color:var(--rubric)}
@@ -65,7 +66,8 @@ code{font-family:var(--mono)}
 /* hero */
 .hero{padding:64px 28px 56px;border-top:0}
 @media(min-width:761px){.hero{padding:80px 48px 64px}}
-.hero h1{font-family:var(--mono);font-size:clamp(31px,6vw,64px);line-height:1.06;max-width:16ch;font-weight:700;letter-spacing:-.01em}
+.hero h1{font-family:var(--mono);font-size:clamp(26px,5.4vw,64px);line-height:1.08;max-width:16ch;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+@media(max-width:760px){.hero h1 br.mb{display:none}.hero h1{max-width:none}}
 .hero h1 em{font-style:normal;color:var(--rubric)}
 .hero .sub{margin-top:24px;font-family:var(--serif);font-size:18px;color:var(--steel);max-width:52ch}
 .hero .sub b{color:var(--bone);font-weight:500}
@@ -206,7 +208,7 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
 </div>
 
 <section class="hero">
-  <h1>Your work, with a<br>receipt that <em>outlives</em><br>the platform.</h1>
+  <h1>Your work, with&nbsp;a<br class="mb">receipt that <em>outlives</em><br class="mb">the platform.</h1>
   <p class="sub">An AXN is a file identifier computed <b>from the file itself</b> — a fingerprint plus a
   memorable six-symbol check. Anyone can verify it, anywhere, forever, without asking us. If an account
   gets deleted or a site goes dark, the identifier still proves your file is your file.</p>
