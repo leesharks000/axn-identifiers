@@ -97,10 +97,16 @@ svg.defs{position:absolute;width:0;height:0}
    Crimson Hexagon's own figure, used as a colophon rule. Space does the
    containing; the mark says a plate has ended. */
 .plate::after{display:none}
-.sepmark{display:block;text-align:center;margin:0 auto;font-family:var(--mono);font-size:11px;
+.sepmark{display:block;text-align:center;margin:30px auto;font-family:var(--mono);font-size:11px;
   color:var(--umber-dim);width:34px;line-height:18px}
-.membrane .sepmark{background:var(--soot);color:var(--umber-dim)}
-.depth .sepmark{background:var(--soot);color:var(--umber-dim)}
+/* The separator carried an opaque soot background from the discrete-zone era.
+   Once the page became one continuous gradient that background stopped matching
+   anything and rendered as a black box sitting on the descent. It is transparent
+   now, on every ground, and its colour is a translucent gold that reads on both
+   vellum and soot without ever being a filled shape.
+   The mark is ∮ — the semantic closure integral, the archive's own sign for a
+   closed contour. A plate ends where its integral closes. */
+.membrane .sepmark,.depth .sepmark,body.flat .sepmark{background:none}
 .plate:last-of-type::after{display:none}
 .plate-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .plate-no{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--crimson)}
@@ -426,14 +432,14 @@ body{
 .plate .aperture{background:var(--vellum-hi);border-color:var(--ultramarine);color:var(--ultramarine)}
 .plate .orbit{background:var(--vellum-hi)}
 .plate .orbit .in{border-color:var(--umber-pale)}
-.plate .folio{background:rgba(255,253,247,.96);border-top-color:var(--gold)}
+.plate .folio{background:none;border-top-color:var(--gold);padding-left:0;padding-right:0;max-width:none}
 .plate .restnote{color:var(--t3)}
 
 /* things OUTSIDE plates ride the ground and must read against its dark foot */
 .mk{color:var(--gold)}
 footer{color:#8E877A}
 footer a{color:#A79E8D}
-.sepmark{color:rgba(168,146,92,.55)}
+.sepmark{color:rgba(184,150,74,.62);font-size:15px;line-height:1}
 
 /* subpages do not descend: they are one plate on paper, held flat. An explicit
    class rather than :has(), because page structure should not depend on a
@@ -489,10 +495,15 @@ body.flat{background:var(--vellum)}
 .plate.d3 .observ .fig,.plate.d4 .observ .fig{color:var(--gold)}
 .plate.d3 .symb .half,.plate.d4 .symb .half{background:rgba(0,0,0,.22);border-color:var(--prule);color:var(--pt2)}
 .plate.d3 .symb .half b,.plate.d4 .symb .half b{color:var(--pt1)}
-.plate.d3 .folio,.plate.d4 .folio{background:#EFE9DA;color:var(--ink)}
-.plate.d3 .folio p,.plate.d4 .folio p{color:var(--slate)}
-.plate.d3 .grants li,.plate.d4 .grants li{color:var(--slate);border-color:var(--umber-pale)}
-.plate.d3 .grants li b,.plate.d4 .grants li b{color:var(--ink)}
+/* no nested panel: the folio inherits its plate's own tier, at every depth */
+.plate[class*="d"] .folio{background:none}
+.plate[class*="d"] .folio p{color:var(--pt2)}
+.plate[class*="d"] .folio p b,.plate[class*="d"] .folio b{color:var(--pt1)}
+.plate[class*="d"] .folio .date{color:var(--pt3)}
+.plate[class*="d"] .folio .stamp{color:var(--pt3);border-color:var(--prule)}
+.plate[class*="d"] .grants li{color:var(--pt2);border-color:var(--prule)}
+.plate[class*="d"] .grants li b{color:var(--pt1)}
+.plate.d3 .grants li::before,.plate.d4 .grants li::before{color:var(--crimson-lt)}
 
 /* subpages are flat and hold step 1 throughout */
 body.flat .plate{--pbg:#F2ECDB;--pt1:#1A1714;--pt2:#4A443B;--pt3:#6E6659;
