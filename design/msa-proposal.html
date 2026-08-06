@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AXN Identifiers — MSA redesign proposal</title>
+<meta name="robots" content="noindex">
+<style>
+/* ══════════════════════════════════════════════════════════════════════════
+   MATERIAL SYMBOL AESTHETIC — applied to a working surface.
+   Grammar: MSA v1.0 canonical specification (Visual Schema of Schemas),
+   corroborated against the archive's own plates (EA-SPXI-ANALOG-01 #1443:
+   plateII-material-symbol, masthead, diagram4-anatomy, plateVI-handdrawn-fractal).
+
+   THE FIVE INVARIANTS, implemented rather than quoted:
+     I   Monochrome primacy with selective spectral rupture — graphite/soot/
+         umber/ash ground; gold, crimson, cobalt admitted ONLY as thin signal.
+     II  Lineage of the Hand — no perfect vectors. Every rule on this page is
+         displaced by a turbulence filter, so the geometry trembles like pencil.
+     III Recursive density gradient — detail compresses at centres, dissipates
+         at edges (the fractal backdrop, the plate cores).
+     IV  Symbol prefigures object — the AXN anatomy is rendered as apparatus.
+     V   Aesthetic of the book / ledger / codex — margins, double rules, corner
+         circles, annotation micro-marks. Pages from a scripture that never was.
+   ══════════════════════════════════════════════════════════════════════════ */
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-400.woff2')format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-700.woff2')format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-400i.woff2')format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'PlexM';src:url('/assets/fonts/IBMPlexMono-400.woff2')format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'PlexM';src:url('/assets/fonts/IBMPlexMono-600.woff2')format('woff2');font-weight:600;font-display:swap}
+
+:root{
+  /* ground: vellum. The plates are LIGHT — the codex is the substrate. */
+  --vellum:#F4EFE2; --vellum-hi:#FAF6EC; --leaf:#FBF8F1;
+  /* monochrome primacy */
+  --ink:#241F1A; --graphite:#3B352E; --ash:#6E6A62; --soot:#181512;
+  --umber:#A8925C; --umber-pale:#D9CDA8;
+  /* spectral rupture — thin, signal-like, never fill */
+  --crimson:#9B1B1B; --cobalt:#1B3A5C; --verdigris:#2E6B4F; --gold:#B8964A;
+  /* byte-family rupture (the cluster ticks survive: thin signal, protocol-derived) */
+  --c-scriptural:#8A7A46;--c-instrumental:#4A5560;--c-mathematical:#241F1A;
+  --c-liminal:#2E6B4F;--c-architectural:#A8925C;--c-signal:#9B1B1B;
+  --c-gestural:#9A7B2E;--c-terminal:#6E6A62;--c-structural:#1B3A5C;
+  --c-organic:#4F7A3A;--c-symbolic:#8C4A6B;
+  --serif:'Pagella',Palatino,'Book Antiqua',serif; --mono:'PlexM',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--vellum)}
+body{background:var(--vellum);color:var(--ink);font-family:var(--serif);font-size:17.5px;line-height:1.6;
+  /* codex texture: laid-paper tooth, barely there */
+  background-image:repeating-linear-gradient(0deg,rgba(36,31,26,.018) 0 1px,transparent 1px 3px),
+                   radial-gradient(ellipse at 50% 0%,rgba(168,146,92,.10),transparent 62%);}
+::selection{background:var(--umber-pale);color:var(--ink)}
+a{color:var(--cobalt);text-underline-offset:3px}
+
+/* ── LINEAGE OF THE HAND ── every rule trembles. No perfect vectors. */
+svg.defs{position:absolute;width:0;height:0}
+.hand{filter:url(#tremble)}
+
+.sheet{max-width:1080px;margin:0 auto;padding:14px}
+/* THE PLATE FRAME — double rule + corner circles, from plateII */
+.plate-frame{position:relative;border:1px solid var(--umber);padding:26px 18px 30px;background:var(--vellum-hi)}
+@media(min-width:820px){.plate-frame{padding:38px 46px 44px}}
+.plate-frame::before{content:"";position:absolute;inset:5px;border:1px dotted var(--umber-pale);pointer-events:none}
+.corner{position:absolute;width:11px;height:11px;border:1px solid var(--crimson);border-radius:50%;background:var(--vellum-hi)}
+.corner.tl{left:-6px;top:-6px}.corner.tr{right:-6px;top:-6px}
+.corner.bl{left:-6px;bottom:-6px}.corner.br{right:-6px;bottom:-6px}
+
+/* ── MASTHEAD (codex kicker + double rule), after masthead.jpg ── */
+.kicker{text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.34em;color:var(--ash);text-transform:uppercase}
+.kicker .row2{display:block;margin-top:5px;letter-spacing:.22em;font-size:9.5px;color:#8C877C}
+.dblrule{height:4px;margin:14px 0;border-top:1.6px solid var(--umber);border-bottom:.8px solid var(--umber-pale)}
+.colophon-line{text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:#8C877C}
+
+/* ── HERO: attractor core + density gradient + noise-line backdrop ── */
+.hero{position:relative;text-align:center;padding:22px 0 8px;overflow:hidden}
+.hero .noise{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:min(760px,132%);
+  opacity:.20;mix-blend-mode:multiply;pointer-events:none;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 26%,transparent 72%);
+          mask-image:radial-gradient(circle at 50% 50%,#000 26%,transparent 72%)}
+.hero .attractor{position:relative;width:132px;height:132px;margin:0 auto 6px;display:block}
+@media(min-width:820px){.hero .attractor{width:184px;height:184px}}
+h1{position:relative;font-family:var(--serif);font-weight:700;color:var(--crimson);
+   font-size:clamp(30px,6.4vw,58px);line-height:1.08;letter-spacing:-.008em;text-wrap:balance;margin-top:10px}
+h1 .thin{display:block;font-weight:400;font-size:.52em;color:var(--ink);letter-spacing:.01em;margin-top:8px}
+.dek{position:relative;max-width:52ch;margin:16px auto 0;font-size:17.5px;color:var(--graphite)}
+.dek b{font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:20px}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  border:1px solid var(--umber-pale);border-radius:999px;padding:7px 15px;color:var(--graphite);
+  background:var(--leaf);text-decoration:none}
+.chip.act{border-color:var(--crimson);color:var(--crimson)}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+
+/* ── SECTION PLATES ── each section is a plate in an edition */
+section{margin-top:26px}
+.plate-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.plate-no{font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:var(--crimson);text-transform:uppercase}
+.plate-title{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:.01em}
+.plate-read{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cl,var(--ash));margin-left:auto}
+.plate-sub{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ash);text-transform:uppercase;margin-bottom:20px;
+  padding-bottom:9px;border-bottom:1px solid var(--umber-pale)}
+p{max-width:66ch;margin-bottom:12px;color:var(--graphite)}
+p b{color:var(--ink)}
+
+/* ── THE MATERIAL SYMBOL: AXN anatomy as apparatus (live plateII) ── */
+.anatomy{text-align:center;padding:6px 0 2px}
+.anat-cap{font-family:var(--mono);font-size:11px;color:var(--graphite);letter-spacing:.04em}
+.arrow{display:block;margin:9px auto;width:1px;height:26px;background:var(--ash);position:relative}
+.arrow::after{content:"";position:absolute;left:-3.5px;bottom:0;border-left:4px solid transparent;
+  border-right:4px solid transparent;border-top:6px solid var(--ash)}
+.hexbox{display:inline-block;border:1.4px solid var(--cobalt);background:var(--leaf);padding:11px 26px;
+  font-family:var(--mono);font-weight:600;font-size:15px;color:var(--cobalt);letter-spacing:.06em}
+.sealband{display:inline-block;border:1.6px solid var(--crimson);padding:7px;background:var(--leaf);max-width:100%}
+.sealband .inner{border:1px solid var(--umber-pale);padding:9px 12px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;justify-content:center}
+.g{display:inline-flex;flex-direction:column;align-items:center;gap:5px}
+.g .e{font-size:27px;line-height:1;filter:grayscale(.18) contrast(1.05)}
+.g .tick{width:100%;height:2.5px;background:var(--cl2,var(--ash))}
+.g .cl{font-family:var(--mono);font-size:7.5px;letter-spacing:.06em;color:var(--ash);text-transform:uppercase}
+.anat-id{font-family:var(--mono);font-size:11.5px;color:var(--graphite);margin-top:16px;word-break:break-all}
+.anat-id b{color:var(--ink);font-weight:600}
+.anat-tri{font-family:var(--mono);font-size:10.5px;color:var(--crimson);letter-spacing:.1em;margin-top:12px}
+.anat-foot{font-family:var(--mono);font-size:9.5px;color:#8C877C;margin-top:9px;letter-spacing:.03em}
+
+/* ── LEDGER (how it works) — ruled book, not boxes ── */
+.ledger{border-top:1px solid var(--umber-pale)}
+.lrow{display:grid;grid-template-columns:34px 1fr;gap:16px;padding:15px 2px;border-bottom:1px solid var(--umber-pale);align-items:start}
+.lrow .n{font-family:var(--serif);font-size:27px;line-height:1;color:var(--umber)}
+.lrow h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:5px;color:var(--ink)}
+.lrow p{margin:0;font-size:16px}
+
+/* ── EVIDENCE PLATE ── */
+figure.evidence{margin:0}
+figure.evidence img{width:100%;height:auto;display:block;border:1px solid var(--umber-pale)}
+figure.evidence figcaption{margin-top:12px;font-size:15.5px;color:var(--graphite)}
+figure.evidence .idl{display:block;margin-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--ash);word-break:break-all}
+figure.evidence .idl b{color:var(--ink)}
+.vlinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:11px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.vlinks a{color:var(--verdigris);text-decoration:none;border-bottom:1px solid var(--umber-pale)}
+.vlinks a:hover{color:var(--crimson);border-color:var(--crimson)}
+
+/* ── SYMBOLON: the halves meeting (the one mechanical act) ── */
+.symb{display:flex;align-items:stretch;cursor:pointer;user-select:none;max-width:720px}
+.symb .half{flex:1;background:var(--leaf);border:1px solid var(--umber-pale);padding:16px 16px;
+  font-family:var(--mono);font-size:11.5px;transition:transform .34s cubic-bezier(.3,.9,.25,1),border-color .2s}
+.symb .half.l{text-align:right;border-right:0}.symb .half.r{border-left:0}
+.symb .half .k{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ash);margin-bottom:7px}
+.symb .half b{color:var(--ink)}
+.symb .edge{width:12px;background:repeating-linear-gradient(180deg,var(--crimson) 0 2px,transparent 2px 8px);transition:width .3s}
+.symb.met{animation:clunk .32s cubic-bezier(.2,.9,.3,1.2)}
+.symb.met .edge{width:1px;background:var(--verdigris)}
+.symb.met .half{border-color:var(--verdigris)}
+.symb.met .half.l{transform:translateX(6px)}.symb.met .half.r{transform:translateX(-6px)}
+@keyframes clunk{0%{transform:scale(1)}55%{transform:scale(1.014)}100%{transform:scale(1)}}
+.verdict{display:none;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--verdigris)}
+.verdict::before{content:"σύμβολον · "}
+.symb.met+.verdict{display:block}
+@media(prefers-reduced-motion:reduce){.symb.met{animation:none}.symb .half,.symb .edge{transition:none}}
+
+/* ── NOT-CLAIM: containment vessel, faintly broken (MSA motif) ── */
+.vessel{border:1px solid var(--crimson);border-left-width:3px;background:
+  repeating-linear-gradient(-45deg,rgba(155,27,27,.045) 0 7px,transparent 7px 14px),var(--leaf);padding:16px 18px}
+.vessel p{font-size:15.5px;margin-bottom:7px;color:var(--graphite)}
+.vessel p:last-child{margin-bottom:0}
+.vessel b{color:var(--crimson)}
+
+/* ── STRATA ── */
+.strata{border-top:1px solid var(--umber-pale)}
+.srow{display:grid;grid-template-columns:112px 1fr;gap:4px 14px;padding:11px 2px;border-bottom:1px solid var(--umber-pale);text-decoration:none;color:inherit}
+.srow .ly{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ash)}
+.srow .nm{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink)}
+.srow .wt{grid-column:2;font-size:14.5px;color:var(--graphite)}
+.srow:hover{background:var(--vellum)}
+.srow.here .ly::before{content:"● ";color:var(--crimson)}
+
+.mk{text-align:center;font-family:var(--mono);font-size:15px;color:var(--gold);letter-spacing:.2em;padding:26px 0 6px}
+footer{text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:#8C877C;padding-bottom:24px;line-height:1.9}
+</style>
+</head>
+<body>
+
+<!-- LINEAGE OF THE HAND — the displacement filter every rule wears -->
+<svg class="defs" aria-hidden="true"><filter id="tremble" x="-3%" y="-40%" width="106%" height="180%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.019 0.11" numOctaves="3" seed="7" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="2.1" xChannelSelector="R" yChannelSelector="G"/>
+</filter></svg>
+
+<div class="sheet">
+<div class="plate-frame hand">
+  <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+
+  <div class="kicker">CRIMSON HEXAGONAL ARCHIVE — ALEXANARCH
+    <span class="row2">IDENTITY · INSCRIPTION · WITNESS · CONTINUITY</span></div>
+  <div class="dblrule hand"></div>
+
+  <!-- ══ HERO — attractor core, noise-line backdrop, density gradient ══ -->
+  <div class="hero">
+    <img class="noise" src="/assets/plates/handdrawn-fractal.jpg" alt="" aria-hidden="true">
+    <img class="attractor" src="/assets/brand/mark-dark-master.png" alt="The AXN mark">
+    <h1>Your work, with a receipt<br>that outlives the platform.
+      <span class="thin">a file identifier computed from the file itself</span></h1>
+    <p class="dek">An AXN is a fingerprint plus a memorable six-symbol check. Anyone can verify it,
+      anywhere, forever, <b>without asking us</b>. If an account is deleted or a site goes dark,
+      the identifier still proves your file is your file.</p>
+    <div class="chips">
+      <a class="chip act" href="https://www.alexanarch.org/mint/stamp/">Stamp a file — free</a>
+      <a class="chip" href="https://www.alexanarch.org/mint/stamp/">Verify anything</a>
+      <a class="chip" href="https://www.alexanarch.org/axn/constitution/">Read the guarantees</a>
+    </div>
+  </div>
+  <div class="dblrule hand"></div>
+  <div class="colophon-line">the mark is itself a registered identifier · AXN:05AE.OPERATIVE · witnessed-verified</div>
+
+  <!-- ══ PLATE I — THE MATERIAL SYMBOL (live anatomy, after plateII) ══ -->
+  <section style="--cl:var(--c-mathematical)">
+    <div class="plate-head"><span class="plate-no">Plate I</span>
+      <span class="plate-title">The Material Symbol</span><span class="plate-read">Proof</span></div>
+    <div class="plate-sub">anatomy of an AXN — the checksum worn as seal</div>
+    <div class="anatomy">
+      <div class="anat-cap">SHA-256( <b>body bytes</b> )</div>
+      <span class="arrow hand"></span>
+      <div class="hexbox">hex position · 05AD</div>
+      <span class="arrow hand"></span>
+      <div class="sealband"><div class="inner">
+        <span class="g" style="--cl2:var(--c-organic)"><span class="e">🌾</span><span class="tick"></span><span class="cl">org</span></span>
+        <span class="g" style="--cl2:var(--c-mathematical)"><span class="e">➕</span><span class="tick"></span><span class="cl">mat</span></span>
+        <span class="g" style="--cl2:var(--c-symbolic)"><span class="e">🥁</span><span class="tick"></span><span class="cl">sym</span></span>
+        <span class="g" style="--cl2:var(--c-signal)"><span class="e">⚫</span><span class="tick"></span><span class="cl">sig</span></span>
+        <span class="g" style="--cl2:var(--c-gestural)"><span class="e">👋</span><span class="tick"></span><span class="cl">ges</span></span>
+        <span class="g" style="--cl2:var(--c-instrumental)"><span class="e">🪄</span><span class="tick"></span><span class="cl">ins</span></span>
+      </div></div>
+      <div class="anat-id">AXN:<b>05AD</b>.UNCLASSIFIED.🌾➕🥁⚫👋🪄 — Paper 198, Enli Lucente</div>
+      <div class="anat-tri">content-derived · human-legible · machine-verifiable</div>
+      <div class="anat-foot">a machine-computed identity, rendered in glyphs a hand can copy and an eye can love</div>
+    </div>
+  </section>
+
+  <!-- ══ PLATE II — THE EVIDENCE ══ -->
+  <section style="--cl:var(--c-scriptural)">
+    <div class="plate-head"><span class="plate-no">Plate II</span>
+      <span class="plate-title">The evidence</span><span class="plate-read">Text</span></div>
+    <div class="plate-sub">a real registered identifier · witnessed 2026-08-02</div>
+    <figure class="evidence">
+      <img src="/assets/plates/plate-i-paper198.jpg" alt="Paper 198 — handwritten, dated 2026.8.1, with seal.">
+      <figcaption><b>A handwritten paper, stamped and verified from a phone in Japan.</b>
+        Composed by hand, photographed, stamped on an added margin — the hand is never overprinted —
+        witnessed into the public registry, and verifiable by anyone, forever, without an account.
+        <span class="idl">Paper 198 · 2026.8.1 · <b>Enli Lucente</b> · 多層構造による復元回帰 ·
+          AXN:<b>05AD</b>.UNCLASSIFIED.🌾➕🥁⚫👋🪄</span>
+        <span class="vlinks">
+          <a href="https://www.alexanarch.org/data/symbolon-registry/entries/1a908cc8bf3ed5cc.json">witness entry</a>
+          <a href="https://www.alexanarch.org/data/symbolon-registry/files/1a908cc8bf3ed5cc-____198-___________-2026.08.01.pdf">stored original</a>
+          <a href="https://www.alexanarch.org/mint/stamp/">verify any file</a>
+        </span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ══ PLATE III — LEDGER ══ -->
+  <section style="--cl:var(--c-instrumental)">
+    <div class="plate-head"><span class="plate-no">Plate III</span>
+      <span class="plate-title">How it works</span><span class="plate-read">Method</span></div>
+    <div class="plate-sub">three acts · nothing leaves your device for the computation</div>
+    <div class="ledger">
+      <div class="lrow"><span class="n">i</span><div><h3>Upload a file</h3>
+        <p>Its fingerprint is computed <b>in your browser</b> — the file's exact bytes, nothing altered.</p></div></div>
+      <div class="lrow"><span class="n">ii</span><div><h3>It comes back stamped</h3>
+        <p>A band on an <b>added margin</b> carries the identifier; the original bytes stay untouched and separately identified.</p></div></div>
+      <div class="lrow"><span class="n">iii</span><div><h3>It is registered</h3>
+        <p>The identifier takes a position in a <b>public, exportable registry</b> — and a verification page anyone can check.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ══ PLATE IV — SYMBOLON ══ -->
+  <section style="--cl:var(--c-liminal)">
+    <div class="plate-head"><span class="plate-no">Plate IV</span>
+      <span class="plate-title">Verification is the halves meeting</span><span class="plate-read">Threshold</span></div>
+    <div class="plate-sub">σύμβολον — the token proven by the fit of its fracture · tap the pair</div>
+    <div class="symb" onclick="this.classList.toggle('met')">
+      <div class="half l"><div class="k">Seed B · your file</div>sha256(<b>candidate bytes</b>)<br>= deb473d8ff92c55f…</div>
+      <div class="edge"></div>
+      <div class="half r"><div class="k">Seed A · the registry</div>AXN₀ kernel<br>= <b>deb473d8ff92c55f…</b></div>
+    </div>
+    <div class="verdict">VERIFIED — the fracture fits</div>
+  </section>
+
+  <!-- ══ PLATE V — GUARANTEES + LIMITS ══ -->
+  <section style="--cl:var(--c-architectural)">
+    <div class="plate-head"><span class="plate-no">Plate V</span>
+      <span class="plate-title">Free, forever — and what it does not claim</span><span class="plate-read">Foundation</span></div>
+    <div class="plate-sub">the promise is published and dated · the limits are stated in the same breath</div>
+    <p>Computing identifiers, stamping files, looking them up and verifying them is <b>free, permanently</b>.
+      The registry is public and downloadable. Registry positions are never sold. Paid services buy human
+      help <i>around</i> identifiers — never the identifier itself.</p>
+    <div class="vessel hand">
+      <p><b>Identity ≠ authorship.</b> It proves a file, not who made it.</p>
+      <p><b>Witnessing ≠ notarization.</b> Timestamps prove when a file was witnessed, not created.</p>
+      <p><b>A registry entry ≠ perpetual hosting.</b> Storage terms are always explicit.</p>
+    </div>
+  </section>
+
+  <!-- ══ PLATE VI — STRATA ══ -->
+  <section style="--cl:var(--c-structural)">
+    <div class="plate-head"><span class="plate-no">Plate VI</span>
+      <span class="plate-title">The stack this identifier sits in</span><span class="plate-read">Direction</span></div>
+    <div class="plate-sub">one node of a knowledge ecosystem · the archive is the authority, this is the door</div>
+    <nav class="strata">
+      <a class="srow here" href="/"><span class="ly">Kernel</span><span class="nm">AXN</span><span class="wt">content-derived identity · this surface</span></a>
+      <a class="srow" href="https://www.holographickernel.org"><span class="ly">Kernel theory</span><span class="nm">Holographic Kernel</span><span class="wt">the general definition of reconstructive compression</span></a>
+      <a class="srow" href="https://www.spxi.dev"><span class="ly">Treatment</span><span class="nm">SPXI</span><span class="wt">semantic packets that survive hostile composition layers</span></a>
+      <a class="srow" href="https://www.metadatapacket.dev"><span class="ly">Packet</span><span class="nm">Metadata Packet</span><span class="wt">the MPAI catalog</span></a>
+      <a class="srow" href="https://www.alexanarch.org"><span class="ly">Memory</span><span class="nm">Alexanarch</span><span class="wt">the sovereign archive · OAI-PMH · ResourceSync · full history in public git</span></a>
+      <a class="srow" href="https://persistentidentifiers.org"><span class="ly">Observation</span><span class="nm">Platform Erosion Observatory</span><span class="wt">measuring severance empirically</span></a>
+      <a class="srow" href="https://machinemediation.org"><span class="ly">Journal</span><span class="nm">MMRS</span><span class="wt">journal-of-record for machine-mediated reception</span></a>
+    </nav>
+  </section>
+
+  <div class="mk">∮ = 1</div>
+  <div class="dblrule hand"></div>
+  <footer>AXN schema v2 · derivation identical to scripts/axn_lib.py · Material Symbol Aesthetic v1.0<br>
+    free verification, permanently · errors corrected by amendment and tombstone, never silence</footer>
+</div>
+</div>
+</body>
+</html>
