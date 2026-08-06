@@ -29,14 +29,21 @@
 @font-face{font-family:'IBM Plex Serif';src:url('/assets/fonts/IBMPlexSerif-400.woff2')format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:'IBM Plex Serif';src:url('/assets/fonts/IBMPlexSerif-400i.woff2')format('woff2');font-weight:400;font-style:italic;font-display:swap}
 @font-face{font-family:'IBM Plex Serif';src:url('/assets/fonts/IBMPlexSerif-500.woff2')format('woff2');font-weight:500;font-display:swap}
+/* TeX Gyre Pagella — GUST's open Palatino, the face of scholarly typesetting.
+   Palatino Linotype itself is Monotype-licensed and cannot be self-hosted,
+   which SIG·0 VI forbids. Display and document voice; Plex Mono keeps every
+   identifier, hash, label and control, where fixed advance width is a feature. */
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-400.woff2')format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-700.woff2')format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-400i.woff2')format('woff2');font-weight:400;font-style:italic;font-display:swap}
 :root{
-  --ink:#0B0A08;--shadow:#14120E;--bone:#EDE6D6;--steel:#8A857A;--steel-sm:#9A958A;
+  --ink:#080705;--shadow:#14120E;--ground2:#0B0A08;--bone:#EDE6D6;--steel:#8A857A;--steel-sm:#9A958A;
   --hair:#262218;--rubric:#C23B22;--seal:#C9A227;--tomb:#111111;
   --c-celestial:#8E9DE6;--c-elemental:#E56B3C;--c-architectural:#C9A227;--c-instrumental:#9AA3AD;
   --c-scriptural:#E4D3A1;--c-navigational:#3FA893;--c-temporal:#A88BC0;--c-organic:#7FAF6B;
   --c-symbolic:#DD7FA8;--c-mathematical:#FFFFFF;--c-alchemical:#C98B5A;--c-gestural:#E7B75F;
   --c-signal:#C23B22;--c-structural:#5E8FBF;--c-liminal:#79E0C3;--c-terminal:#736F66;
-  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--serif:'IBM Plex Serif',serif;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--serif:'Pagella',Palatino,serif;--ui:'IBM Plex Sans',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -44,10 +51,40 @@ body{background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:1
 ::selection{background:var(--rubric);color:var(--bone)}
 a{color:inherit}
 .wrap{max-width:980px;margin:0 auto}
-section{border-top:1px solid var(--hair);padding:52px 28px 60px}
-@media(min-width:761px){section{padding:56px 48px 64px}}
-h2{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.2em;color:var(--steel);text-transform:uppercase;margin-bottom:26px}
+/* FOLIO APPARATUS — restored. The specimen sheet's strongest device (an 88px
+   margin carrying vertical sigla) was dropped in the production build, which is
+   why the page read as a stack of same-weight boxes. It returns as a true grid
+   on wide screens and as a rubric rail + siglum on narrow ones, so the
+   critical-edition register survives the phone. */
+section{border-top:1px solid var(--hair);padding:44px 24px 54px;position:relative}
+@media(min-width:900px){
+  section{display:grid;grid-template-columns:96px minmax(0,1fr);gap:0;padding:52px 48px 62px}
+  section>.sig{border-right:1px solid var(--hair);margin-right:30px;padding-right:14px;
+    writing-mode:vertical-rl;font-family:var(--mono);font-weight:500;font-size:11px;
+    letter-spacing:.18em;color:var(--steel-sm);text-transform:uppercase;align-self:start}
+  section>.sig b{color:var(--rubric);font-weight:600}
+  section>.leaf{min-width:0}
+}
+@media(max-width:899px){
+  section>.sig{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--steel-sm);border-left:2px solid var(--rubric);
+    padding-left:10px;margin-bottom:18px}
+  section>.sig b{color:var(--rubric);font-weight:600}
+}
+/* A section's rail carries a CLUSTER READING — one of the sixteen byte-family
+   readings from the canonical table. The colour still names a byte-family, so
+   the law holds: colour is data, never decoration. Section accents that merely
+   looked pretty would have broken it. */
+.sig .rd{display:inline-block;margin-left:8px;color:var(--cl,var(--steel));font-weight:600}
+@media(min-width:900px){.sig .rd{margin:8px 0 0;display:block}}
+h2{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.2em;color:var(--steel);text-transform:uppercase;margin-bottom:22px;
+   padding-bottom:10px;border-bottom:1px solid var(--hair);position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:-1px;width:44px;height:2px;background:var(--cl,var(--rubric))}
 h2 i{color:var(--rubric);font-style:normal}
+/* surfaces read as objects ON the ground, not holes in it */
+.steps,.strata,.artifact,.band-stage{background:var(--ground2)}
+.step{background:var(--shadow)}
+.stratum:hover{background:var(--ground2)}
 p{max-width:62ch}
 code{font-family:var(--mono)}
 
@@ -64,12 +101,24 @@ code{font-family:var(--mono)}
 @media(max-width:560px){.mast nav a.opt{display:none}}
 
 /* hero */
-.hero{padding:64px 28px 56px;border-top:0}
-@media(min-width:761px){.hero{padding:80px 48px 64px}}
-.hero h1{font-family:var(--mono);font-size:clamp(26px,5.4vw,64px);line-height:1.08;max-width:16ch;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.hero{padding:52px 24px 48px;border-top:0;display:grid;gap:38px}
+@media(min-width:900px){.hero{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:56px;padding:76px 48px 68px}}
+.heromark{justify-self:start;text-align:left}
+@media(min-width:900px){.heromark{justify-self:end}}
+.heromark img{width:150px;height:150px;display:block}
+@media(min-width:900px){.heromark img{width:290px;height:290px}}
+.heromark figcaption{margin-top:16px;max-width:290px}
+.heromark .ax{display:block;font-family:var(--mono);font-size:11px;color:var(--steel);word-break:break-all}
+.heromark .ax b{color:var(--bone);font-weight:600}
+.heromark .cp{display:block;margin-top:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel-sm)}
+.heromark .cp i{color:var(--c-navigational);font-style:normal}
+.cta.quiet{border-color:var(--hair);color:var(--steel)}
+.cta.quiet:hover{border-color:var(--rubric);color:var(--rubric);background:transparent}
+.cta.primary{font-weight:600;letter-spacing:.14em}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,7.4vw,74px);line-height:1.04;max-width:15ch;font-weight:700;letter-spacing:-.008em;text-wrap:balance}
 @media(max-width:760px){.hero h1 br.mb{display:none}.hero h1{max-width:none}}
 .hero h1 em{font-style:normal;color:var(--rubric)}
-.hero .sub{margin-top:24px;font-family:var(--serif);font-size:18px;color:var(--steel);max-width:52ch}
+.hero .sub{margin-top:22px;font-family:var(--serif);font-size:19.5px;line-height:1.6;color:var(--steel);max-width:50ch}
 .hero .sub b{color:var(--bone);font-weight:500}
 .cta-row{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
 .cta{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:14px 22px;border:1px solid var(--bone);background:transparent;color:var(--bone);cursor:pointer;text-decoration:none;transition:background .12s,border-color .12s,color .12s,transform .05s}
@@ -208,18 +257,29 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
 </div>
 
 <section class="hero">
-  <h1>Your work, with&nbsp;a<br class="mb">receipt that <em>outlives</em><br class="mb">the platform.</h1>
-  <p class="sub">An AXN is a file identifier computed <b>from the file itself</b> — a fingerprint plus a
-  memorable six-symbol check. Anyone can verify it, anywhere, forever, without asking us. If an account
-  gets deleted or a site goes dark, the identifier still proves your file is your file.</p>
-  <div class="cta-row">
-    <a class="cta primary" href="https://www.alexanarch.org/mint/stamp/">Stamp a file — free</a>
-    <a class="cta" href="https://www.alexanarch.org/mint/stamp/">Verify anything</a>
-    <a class="cta" href="https://www.alexanarch.org/axn/constitution/">Read the guarantees</a>
+  <div class="heroleaf">
+    <h1>Your work, with&nbsp;a<br class="mb">receipt that <em>outlives</em><br class="mb">the platform.</h1>
+    <p class="sub">An AXN is a file identifier computed <b>from the file itself</b> — a fingerprint plus a
+    memorable six-symbol check. Anyone can verify it, anywhere, forever, without asking us. If an account
+    gets deleted or a site goes dark, the identifier still proves your file is your file.</p>
+    <div class="cta-row">
+      <a class="cta primary" href="https://www.alexanarch.org/mint/stamp/">Stamp a file — free</a>
+      <a class="cta" href="https://www.alexanarch.org/mint/stamp/">Verify anything</a>
+      <a class="cta quiet" href="https://www.alexanarch.org/axn/constitution/">Read the guarantees</a>
+    </div>
   </div>
+  <figure class="heromark">
+    <img src="/assets/brand/mark-bone-256.png" width="256" height="256" alt="The AXN mark — a hexagonal crystal with a light burst at its centre">
+    <figcaption>
+      <span class="ax">AXN:<b>05AE</b>.OPERATIVE.🖊️🔃🎬🏙️⚖️🕑</span>
+      <span class="cp">the mark carries its own identifier · <i>witnessed-verified</i></span>
+    </figcaption>
+  </figure>
 </section>
 
-<section>
+<section style="--cl:var(--c-scriptural)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;I</b>&nbsp;&nbsp;Plate I · the evidence<span class="rd">Text</span></div>
+  <div class="leaf">
   <h2><i>Plate I</i> · a real registered identifier</h2>
   <figure class="artifact">
     <div class="scanwrap">
@@ -243,18 +303,24 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
       </span>
     </figcaption>
   </figure>
+</div>
 </section>
 
-<section>
+<section style="--cl:var(--c-instrumental)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;II</b>&nbsp;&nbsp;How it works<span class="rd">Method</span></div>
+  <div class="leaf">
   <h2>How it works</h2>
   <div class="steps">
     <div class="step"><div class="n">1</div><h3>Upload a file</h3><p>Its fingerprint is computed <b>in your browser</b> — the file's exact bytes, nothing altered, and nothing leaves your device for the computation.</p></div>
     <div class="step"><div class="n">2</div><h3>It comes back stamped</h3><p>A small band on an <b>added margin</b> carries the identifier; the original bytes stay untouched and separately identified.</p></div>
     <div class="step"><div class="n">3</div><h3>It's registered</h3><p>The identifier gets a position in a <b>public, exportable registry</b> — and a verification page anyone can check.</p></div>
   </div>
+</div>
 </section>
 
-<section>
+<section style="--cl:var(--c-mathematical)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;III</b>&nbsp;&nbsp;The identifier, read closely<span class="rd">Proof</span></div>
+  <div class="leaf">
   <h2>The identifier, read closely</h2>
   <figure class="plate">
     <div class="cap">Registered identifier · <i>witnessed-verified</i> · 2026-08-02</div>
@@ -272,9 +338,12 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
     <div class="kernel">kernel <b>deb473d8ff92c55f</b>… · 6 glyphs = 6 bytes = 48 bits of the SHA-256, visually hashed · full hash in the sidecar</div>
     <div class="reading">the color beneath each glyph names its byte-family · reading: Direction <b>→</b> Touch <b>→</b> Growth <b>→</b> Direction <b>→</b> Closure <b>→</b> Proof</div>
   </figure>
+</div>
 </section>
 
-<section>
+<section style="--cl:var(--c-liminal)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;IV</b>&nbsp;&nbsp;Verification<span class="rd">Threshold</span></div>
+  <div class="leaf">
   <h2>Verification is the halves meeting <span style="color:var(--steel);text-transform:none;letter-spacing:0">— tap the pair</span></h2>
   <div class="verify" onclick="this.classList.toggle('met')">
     <div class="half l"><div class="k">Seed B · your file</div><div class="v">sha256(<b>candidate bytes</b>)<br>= deb473d8ff92c55f…</div></div>
@@ -282,9 +351,12 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
     <div class="half r"><div class="k">Seed A · the registry</div><div class="v">AXN₀ kernel<br>= <b>deb473d8ff92c55f…</b></div></div>
   </div>
   <div class="verdict">VERIFIED — the fracture fits</div>
+</div>
 </section>
 
-<section>
+<section style="--cl:var(--c-architectural)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;V</b>&nbsp;&nbsp;Free, forever<span class="rd">Foundation</span></div>
+  <div class="leaf">
   <h2>Free, forever</h2>
   <div class="freeblock">
     <p>Computing identifiers, stamping files, looking them up, and verifying them is <b>free,
@@ -292,18 +364,24 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
     Paid services buy human help <i>around</i> identifiers — never the identifier itself.</p>
     <div class="dated">THIS PROMISE IS PUBLISHED AND DATED · <a href="https://www.alexanarch.org/axn/constitution/" style="color:var(--seal)">THE CONSTITUTION</a></div>
   </div>
+</div>
 </section>
 
-<section>
+<section style="--cl:var(--c-signal)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;VI</b>&nbsp;&nbsp;What it does not claim<span class="rd">Alarm</span></div>
+  <div class="leaf">
   <h2><i>What an AXN does not claim</i></h2>
   <div class="notclaim">
     <p><b>Identity ≠ authorship.</b> It proves a file, not who made it; authorship statements are recorded as declarations and marked as such.</p>
     <p><b>Witnessing ≠ notarization.</b> Timestamps prove when a file was witnessed, not created; nothing here is legal advice.</p>
     <p><b>A registry entry ≠ perpetual hosting.</b> Storage terms are always explicit.</p>
   </div>
+</div>
 </section>
 
-<section>
+<section style="--cl:var(--c-gestural)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;VII</b>&nbsp;&nbsp;Sealed &amp; Witnessed<span class="rd">Touch</span></div>
+  <div class="leaf">
   <h2>Sealed &amp; Witnessed — founding offer</h2>
   <div class="offer">
     <div class="k">Done by hand, by the person who built this</div>
@@ -316,9 +394,12 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
     Payment by CashApp <span style="font-family:var(--mono)">$PraxisAcademic</span>, only after you have your package.</p>
     <div class="terms">FOUNDING PILOT RATE, NOT A DISCOUNT · TERMS STATED IN THE RECEIPT ITSELF</div>
   </div>
+</div>
 </section>
 
-<section>
+<section style="--cl:var(--c-terminal)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;VIII</b>&nbsp;&nbsp;If we disappear<span class="rd">Closure</span></div>
+  <div class="leaf">
   <h2>If we disappear</h2>
   <div class="disappear">
     <p>Identifiers stay valid, because they're computed from your file — <em>not granted by us.</em></p>
@@ -331,9 +412,12 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
     position keeps resolving; a withdrawn work is marked, not erased. The registry's history
     is itself part of the registry.</p>
   </div>
+</div>
 </section>
 
-<section>
+<section style="--cl:var(--c-structural)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;IX</b>&nbsp;&nbsp;The network<span class="rd">Direction</span></div>
+  <div class="leaf">
   <h2>The fleet — tech nodes of one knowledge ecosystem</h2>
   <nav class="strata">
     <a class="stratum here" href="/"><span class="layer">Kernel</span><span class="name">AXN Identifiers</span><span class="what">content-derived identity · this site</span></a>
@@ -344,6 +428,7 @@ footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
     <a class="stratum" href="https://persistentidentifiers.org"><span class="layer">Observation</span><span class="name">Platform Erosion Observatory</span><span class="what">measuring platform severance empirically</span></a>
     <a class="stratum" href="https://machinemediation.org"><span class="layer">Journal</span><span class="name">MMRS</span><span class="what">journal-of-record for machine-mediated reception studies</span></a>
   </nav>
+</div>
 </section>
 
 <div class="makers"><div class="mk">∮ = 1</div></div>
