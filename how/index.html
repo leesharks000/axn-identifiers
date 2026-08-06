@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>How an AXN works — fingerprint, seal, witness, verification</title>
-<meta name="description" content="One object passing through states: the file is fingerprinted in your browser, sealed on an added margin, witnessed in a public registry, and verified by comparing two independent computations.">
+<meta name="description" content="How a content-derived identifier is made: the identity kernel from canonical bytes, a record address in the registry, locations for verified copies — and verification by comparing two independent computations of the same hash.">
 <link rel="canonical" href="https://axnidentifiers.org/how/">
 <link rel="stylesheet" href="/assets/msa.css">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
@@ -41,7 +41,9 @@
     <div class="plate-head"><span class="plate-no">Plate III</span>
       <span class="plate-title">The membrane crossed both ways</span><span class="plate-state">anatomy</span></div>
     <div class="plate-sub">the file speaks to the registry · the registry returns a verifiable address</div>
-    <p class="overview"><b>Six glyphs encode six bytes of the SHA-256.</b> <mark class="hl">The symbols are memorable; the kernel stays exact.</mark></p>
+    <p class="overview"><b>The grammar is AXN:HEX.FAMILY.⟨six glyphs⟩.</b> The hex marks position in the
+      registry, the family is its semantic classification, and the glyphs are a display hash of the
+      identity kernel — <mark class="hl">the symbols are memorable; the kernel stays exact</mark>.</p>
     <div style="text-align:center;padding:6px 0">
       <div class="aperture">hex position · 05AB</div>
       <div style="margin:14px 0"><span class="orbit"><span class="in">
@@ -53,7 +55,7 @@
         <span class="g" style="--c:#EDE6D6"><span class="e">✖️</span><span class="tick"></span><span class="cl">mat</span></span>
       </span></span></div>
       <p style="max-width:58ch;margin:0 auto;font-family:var(--mono);font-size:11px;color:#C9C2B4">
-        kernel deb473d8ff92c55f… · six bytes · 48 bits, visually hashed</p>
+        identity kernel deb473d8ff92c55f… · first six bytes of the SHA-256 of the canonical bytes</p>
       <p style="max-width:58ch;margin:9px auto 0;font-style:italic;color:#B9B2A4;font-size:15px">
         the colour beneath each glyph names its byte-family · Direction → Touch → Growth → Direction → Closure → Proof</p>
       <div class="checks" style="justify-content:center">

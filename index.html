@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AXN Identifiers — your work, with a receipt that outlives platform erasure</title>
-<meta name="description" content="A file identifier computed from the file itself. Stamp a file, get a registered ID with a memorable six-symbol check, verify it forever — even if this site disappears.">
+<title>AXN Identifiers — distributed, content-derived identifiers that outlive platform erasure</title>
+<meta name="description" content="AXN is a content-derived identifier: the identity kernel is the SHA-256 of a file's canonical bytes, rendered as six glyphs. Derived from the work rather than assigned to it, and verifiable by anyone without an account.">
 <link rel="canonical" href="https://axnidentifiers.org/">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png">
@@ -12,8 +12,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png">
 <meta name="axn-registry" content="https://www.alexanarch.org/data/axn-central-registry.json">
 <link rel="axn-stamper" title="AXN Stamp &amp; Verify" href="https://www.alexanarch.org/mint/stamp/">
-<meta property="og:title" content="AXN Identifiers — your work, with a receipt that outlives platform erasure">
-<meta property="og:description" content="A file identifier computed from the file itself. Verify it anywhere, forever, without an account.">
+<meta property="og:title" content="AXN Identifiers — distributed, content-derived identifiers that outlive platform erasure">
+<meta property="og:description" content="A content-derived identifier: the identity kernel is the SHA-256 of a file's canonical bytes. Derived from the work rather than assigned to it.">
 <meta property="og:image" content="https://axnidentifiers.org/assets/brand/og-card.png">
 <meta property="og:url" content="https://axnidentifiers.org/"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -46,9 +46,11 @@
 <div class="inner">
   <div class="genesis">
     <div>
-      <h1>Your work, with a receipt that outlives platform&nbsp;erasure.</h1>
-      <p class="dek">An identifier computed <b>from the file itself</b> — six symbols a hand can copy
-        and an eye can love. Verify it anywhere, forever, <mark class="hl">without asking us</mark>.</p>
+      <h1>Distributed identifiers that outlive platform&nbsp;erasure.</h1>
+      <p class="dek">An AXN is a <b>content-derived identifier</b>. Its identity kernel is the
+        SHA-256 of your file's canonical bytes, rendered as six glyphs a hand can copy —
+        <mark class="hl">derived from the work rather than assigned to it</mark>, so anyone can
+        verify it anywhere, without asking us.</p>
       <div class="acts">
         <a class="act prime" href="https://www.alexanarch.org/mint/stamp/">Place a file in the instrument</a>
         <a class="act" href="https://www.alexanarch.org/mint/stamp/">Verify anything</a>
@@ -130,7 +132,8 @@
     <div class="plate-head"><span class="plate-no">Plate II</span>
       <span class="plate-title">One object passing through states</span><span class="plate-state">the operation</span></div>
     <div class="plate-sub">the operation, in brief</div>
-    <p class="overview"><b>You give it a file; it gives back an identity.</b> <mark class="hl">Nothing is uploaded to compute it.</mark></p>
+    <p class="overview"><b>Three layers: an identity kernel, a record address, and locations.</b>
+      The kernel is computed from your canonical bytes — <mark class="hl">nothing is uploaded to compute it</mark>.</p>
 <figure class="plate-fig">
       <svg viewBox="0 0 760 250" role="img"
            aria-label="One object in three states: the same sheet is fingerprinted in the browser, then carries a six-glyph seal on a margin added beneath it, then takes a position in a public registry. The sheet itself is unchanged at every step; only what accompanies it grows.">
@@ -175,11 +178,11 @@
     </figure>
     <div class="operation">
       <div class="opstage"><span class="rn">i</span><div><h3>Taken up</h3>
-        <p>Fingerprinted <b>in your browser</b>. Nothing altered, nothing transmitted.</p></div></div>
+        <p>The <b>identity kernel</b> — SHA-256 of the canonical bytes, computed in your browser. No normalization, nothing transmitted.</p></div></div>
       <div class="opstage"><span class="rn">ii</span><div><h3>Inscribed</h3>
-        <p>Six glyphs struck onto an <b>added margin</b>. Your bytes are never overprinted.</p></div></div>
+        <p>Six glyphs from the first six bytes of that hash, struck onto an <b>added margin</b>. Your canonical bytes are never altered.</p></div></div>
       <div class="opstage"><span class="rn">iii</span><div><h3>Witnessed</h3>
-        <p>A position in a <b>public, exportable registry</b> — checkable by <b>a stranger who does not trust us</b>.</p></div></div>
+        <p>A <b>record address</b> — position and semantic family — in a public, exportable registry, plus locations naming where verified copies can be obtained.</p></div></div>
     </div>
     <div class="onward"><a href="/how/">The full operation, anatomy and verification →</a></div>
   </section>
