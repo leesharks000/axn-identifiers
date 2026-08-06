@@ -61,7 +61,12 @@ svg.defs{position:absolute;width:0;height:0}
 .zone::before{content:"";position:absolute;left:9px;top:0;bottom:0;width:1px;
   background:var(--th,var(--umber-pale))}
 @media(min-width:820px){.zone::before{left:22px}}
-.zone.membrane{--th:var(--crimson)}
+/* The provenance thread is umber on every ground and never crimson. It was
+   crimson through the membrane, which meant a crimson vertical dashed line
+   said "thread" in one plate and "the fracture" in the next — the same token
+   carrying two meanings, which is why the lower plates read as confusing.
+   Crimson verticals now belong to the symbolon fracture alone. */
+.zone.membrane{--th:var(--umber-dim)}
 .zone.depth{--th:var(--umber-dim)}
 
 /* ── REGISTRY RAIL (masthead as instrument, not nav) ── */
@@ -82,15 +87,18 @@ svg.defs{position:absolute;width:0;height:0}
 .rail .calib{width:100%;font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;color:var(--ash-d);margin-top:2px}
 
 /* ── PLATE: bounded evidentiary object ── */
-.plate{padding:52px 0 20px}
+.plate{padding:26px 22px 24px;margin:34px 0;border:1px solid var(--umber-pale);
+  background:var(--vellum-hi)}
+@media(min-width:820px){.plate{padding:30px 30px 28px;margin:40px 0}}
+.depth .plate,.membrane .plate{border-color:#3A342B;background:#12100D}
+/* uniform rhythm: every plate is the same object at the same distance from its
+   neighbours. Varying gaps read as accident, not emphasis. */
 /* SEPARATOR — the plate closes with a hairline pair and a hexagonal mark: the
    Crimson Hexagon's own figure, used as a colophon rule. Space does the
    containing; the mark says a plate has ended. */
-.plate::after{content:"";display:block;height:1px;margin:46px auto 0;max-width:520px;
-  background:linear-gradient(90deg,transparent,var(--umber-pale) 22%,var(--umber-pale) 78%,transparent)}
-.depth .plate::after,.membrane .plate::after{background:linear-gradient(90deg,transparent,#3A342B 22%,#3A342B 78%,transparent)}
-.sepmark{display:block;text-align:center;margin:-9px auto 0;font-family:var(--mono);font-size:12px;
-  color:var(--umber);background:var(--vellum);width:34px;line-height:18px;position:relative}
+.plate::after{display:none}
+.sepmark{display:block;text-align:center;margin:0 auto;font-family:var(--mono);font-size:11px;
+  color:var(--umber-dim);width:34px;line-height:18px}
 .membrane .sepmark{background:var(--soot);color:var(--umber-dim)}
 .depth .sepmark{background:var(--soot);color:var(--umber-dim)}
 .plate:last-of-type::after{display:none}
@@ -305,3 +313,23 @@ footer a{color:var(--ash-d)}
 .node.major{background:#191510}
 .node.major .nm{font-size:14px}
 @media(max-width:620px){.ob p{font-size:14.2px}.ob h4{font-size:11px}}
+
+
+/* ── SITE NETWORK — the compressed knowledge ecosystem, restored to the main
+   page. Its job is to show a whole field at a glance, in one screen, without
+   asking the reader to travel. That is why it belongs here and not on a tab. ── */
+.eco{border-top:1px solid var(--umber-pale)}
+.depth .eco{border-color:#3A342B}
+.ecorow{display:grid;grid-template-columns:118px minmax(0,1fr);gap:3px 14px;align-items:baseline;
+  padding:10px 2px;border-bottom:1px solid var(--umber-pale);text-decoration:none;color:inherit}
+.depth .ecorow{border-color:#3A342B}
+.ecorow:hover{background:rgba(168,146,92,.08)}
+.ecorow .layer{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--umber)}
+.ecorow .name{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--t1)}
+.depth .ecorow .name{color:var(--t1-d)}
+.ecorow .what{grid-column:2;font-size:14px;color:var(--t2);line-height:1.45}
+.depth .ecorow .what{color:var(--t2-d)}
+.ecorow .host{grid-column:2;font-family:var(--mono);font-size:9px;color:var(--umber);letter-spacing:.04em}
+.ecorow.here .layer::before{content:"● ";color:var(--crimson-lt)}
+.ecofoot{margin-top:14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--umber);text-align:center}
