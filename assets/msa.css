@@ -333,3 +333,32 @@ footer a{color:var(--ash-d)}
 .ecorow.here .layer::before{content:"● ";color:var(--crimson-lt)}
 .ecofoot{margin-top:14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--umber);text-align:center}
+
+/* ── SURFACE VARIANTS (2026-08-06) — the descent belongs to the MAIN page only.
+   Subpages are single plates on paper: cream ground, no membrane, no depth.
+   These components were tuned for soot; on vellum they need their own values or
+   they render dark-on-dark. Scoping the dark values under .depth/.membrane and
+   giving the surface real defaults is the fix — not a filter. ── */
+.surface .observ{background:var(--vellum-hi);border-color:var(--umber-pale);border-left-color:var(--gold)}
+.surface .observ .fig{color:var(--umber-dim)}
+.surface .observ .figl{color:var(--t2)}
+.surface .observ p{color:var(--t2)}
+.surface .observ p b{color:var(--t1)}
+.surface .ob{border-bottom-color:var(--umber-pale)}
+.surface .ob h4{color:var(--t1)}
+.surface .ob p{color:var(--t2)}
+.surface .ob .mark{color:var(--crimson)}
+.surface .symb .half{background:var(--vellum-hi);border-color:var(--umber-pale);color:var(--t2)}
+.surface .symb .half b{color:var(--t1)}
+.surface .symb .half .k{color:var(--umber-dim)}
+.surface .checks a{color:var(--verdigris);border-bottom-color:var(--umber-pale)}
+.surface .aperture{background:var(--vellum-hi);border-color:var(--ultramarine);color:var(--ultramarine)}
+.surface .orbit{background:var(--vellum-hi)}
+.surface .orbit .in{border-color:var(--umber-pale)}
+.surface .restnote{color:var(--t3)}
+.surface .plate-state,.surface .plate-sub{color:var(--t2)}
+/* a subpage's onward links, in the interpretive tier */
+.onward{margin-top:26px;padding-top:14px;border-top:1px solid var(--umber-pale);
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.onward a{color:var(--verdigris);text-decoration:none;margin-right:20px;border-bottom:1px solid var(--umber-pale)}
+.onward a:hover{color:var(--crimson);border-color:var(--crimson)}

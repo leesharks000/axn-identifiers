@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How an AXN works — fingerprint, seal, witness, verification</title>
+<meta name="description" content="One object passing through states: the file is fingerprinted in your browser, sealed on an added margin, witnessed in a public registry, and verified by comparing two independent computations.">
+<link rel="canonical" href="https://axnidentifiers.org/how/">
+<link rel="stylesheet" href="/assets/msa.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
+</head><body>
+<div class="zone surface">
+<div class="rail">
+  <img class="seal" src="/assets/brand/mark-dark-master.png" alt="">
+  <a class="wm" href="/">A X N</a>
+  <nav class="stations">
+    <a href="https://www.alexanarch.org/mint/stamp/">Stamp</a>
+    <a href="/how/">How</a><a href="/limits/">Limits</a><a href="/why/">Why</a>
+  </nav>
+  <div class="calib">HOW IT WORKS · THE OPERATION, THE ANATOMY, THE VERIFICATION</div>
+</div>
+<div class="inner">
+<section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate II</span>
+      <span class="plate-title">One object passing through states</span><span class="plate-state">the operation</span></div>
+    <div class="plate-sub">the operation, end to end</div>
+    <p class="overview"><b>You give it a file; it gives back an identity.</b> <mark class="hl">Nothing is uploaded to compute it.</mark></p>
+    <div class="operation">
+      <div class="opstage"><span class="rn">i</span><div><h3>Taken up</h3>
+        <p>Fingerprinted <b>in your browser</b>. Nothing altered, nothing transmitted.</p></div></div>
+      <div class="opstage"><span class="rn">ii</span><div><h3>Inscribed</h3>
+        <p>Six glyphs struck onto an <b>added margin</b>. Your bytes are never overprinted.</p></div></div>
+      <div class="opstage"><span class="rn">iii</span><div><h3>Witnessed</h3>
+        <p>A position in a <b>public, exportable registry</b> — checkable by <b>a stranger who does not trust us</b>.</p></div></div>
+    </div>
+  </section>
+
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate III</span>
+      <span class="plate-title">The membrane crossed both ways</span><span class="plate-state">anatomy</span></div>
+    <div class="plate-sub">the file speaks to the registry · the registry returns a verifiable address</div>
+    <p class="overview"><b>Six glyphs encode six bytes of the SHA-256.</b> <mark class="hl">The symbols are memorable; the kernel stays exact.</mark></p>
+    <div style="text-align:center;padding:6px 0">
+      <div class="aperture">hex position · 05AB</div>
+      <div style="margin:14px 0"><span class="orbit"><span class="in">
+        <span class="g" style="--c:#5E8FBF"><span class="e">🔃</span><span class="tick"></span><span class="cl">str</span></span>
+        <span class="g" style="--c:#E7B75F"><span class="e">✊</span><span class="tick"></span><span class="cl">ges</span></span>
+        <span class="g" style="--c:#7FAF6B"><span class="e">🌹</span><span class="tick"></span><span class="cl">org</span></span>
+        <span class="g" style="--c:#5E8FBF"><span class="e">⏫</span><span class="tick"></span><span class="cl">str</span></span>
+        <span class="g" style="--c:#736F66"><span class="e">∞</span><span class="tick"></span><span class="cl">ter</span></span>
+        <span class="g" style="--c:#EDE6D6"><span class="e">✖️</span><span class="tick"></span><span class="cl">mat</span></span>
+      </span></span></div>
+      <p style="max-width:58ch;margin:0 auto;font-family:var(--mono);font-size:11px;color:#C9C2B4">
+        kernel deb473d8ff92c55f… · six bytes · 48 bits, visually hashed</p>
+      <p style="max-width:58ch;margin:9px auto 0;font-style:italic;color:#B9B2A4;font-size:15px">
+        the colour beneath each glyph names its byte-family · Direction → Touch → Growth → Direction → Closure → Proof</p>
+      <div class="checks" style="justify-content:center">
+        <a href="https://github.com/leesharks000/alexanarch/blob/main/scripts/axn_lib.py"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 5 7M8 9.5v1h-7v-7h1"/></svg>the derivation, in full</a>
+        <a href="https://www.alexanarch.org/data/axn-central-registry.json"><svg viewBox="0 0 12 12" aria-hidden="true"><ellipse cx="6" cy="2.6" rx="4.2" ry="1.6"/><path d="M1.8 2.6v6.8c0 .9 1.9 1.6 4.2 1.6s4.2-.7 4.2-1.6V2.6M1.8 6c0 .9 1.9 1.6 4.2 1.6S10.2 6.9 10.2 6"/></svg>every registered position</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate IV</span>
+      <span class="plate-title">Verification is the halves meeting</span><span class="plate-state">σύμβολον</span></div>
+    <div class="plate-sub">the token proven by the fit of its fracture · tap the pair</div>
+    <p class="overview"><b>Both sides must produce the same kernel.</b> Your file is hashed independently and compared with the registry's record. <mark class="hl">A match proves the bytes are the same.</mark></p>
+    <div class="symb" onclick="this.classList.toggle('met')">
+      <div class="half l"><div class="k">Your file · Seed B</div>sha256(<b>candidate bytes</b>)<br>= deb473d8ff92c55f…</div>
+      <div class="edge"></div>
+      <div class="half r"><div class="k">The registry · Seed A</div>AXN₀ kernel<br>= <b>deb473d8ff92c55f…</b></div>
+      <div class="restnote">at rest this is a comparison, not a claim — tap to see the halves meet</div>
+    </div>
+    <div class="verdict"><b>MATCH</b> — the seam closes; the bytes are the same</div>
+  </section>
+
+  <div class="onward"><a href="/limits/">What it does not claim →</a><a href="/why/">Why this exists →</a><a href="https://www.alexanarch.org/mint/stamp/">Stamp a file →</a></div>
+
+  <div class="mk">∮ = 1</div>
+  <footer>AXN schema v2 · derivation identical to scripts/axn_lib.py · Material Symbol Aesthetic v1.0<br>
+    <a href="/">back to the instrument</a> ·
+    <a href="https://www.alexanarch.org/axn/constitution/">Constitution</a> ·
+    <a href="https://www.alexanarch.org/data/axn-central-registry.json">Registry (raw)</a></footer>
+</div>
+</div>
+</body></html>
