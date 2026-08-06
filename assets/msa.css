@@ -280,3 +280,28 @@ footer a{color:var(--ash-d)}
   color:var(--t2-d);margin-top:7px}
 .fcard .ft{display:block;font-family:var(--serif);font-size:17px;color:var(--t1-d);margin-top:13px}
 .fcard:hover .ft{color:var(--verdigris-lt)}
+
+/* ── PLATE FIGURE — the slot Material Symbol illustrations drop into.
+   One per plate. The illustration is the plate's argument in form; the caption
+   is its interpretive tier and must carry the meaning if the image never loads.
+   Works on either ground. Never a bare image: an uncaptioned plate is a
+   decoration, and this aesthetic has no decorations. ── */
+.plate-fig{margin:22px 0 6px;border:1px solid var(--umber-pale);background:var(--vellum-hi);padding:14px}
+.depth .plate-fig,.membrane .plate-fig{border-color:#3A342B;background:#171410}
+.plate-fig img,.plate-fig svg{display:block;width:100%;height:auto}
+.plate-fig figcaption{margin-top:11px;padding-top:9px;border-top:1px solid var(--umber-pale);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--t2)}
+.depth .plate-fig figcaption,.membrane .plate-fig figcaption{border-color:#3A342B;color:var(--t2-d)}
+.plate-fig figcaption b{color:var(--t1);text-transform:none;font-size:13.5px;letter-spacing:0;
+  display:block;margin-bottom:5px;font-family:var(--serif);font-weight:700}
+.depth .plate-fig figcaption b,.membrane .plate-fig figcaption b{color:var(--t1-d)}
+
+/* the symbolon at rest reads as a comparison, before any interaction */
+.restnote{margin-top:9px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t3-d)}
+.verdict b{color:var(--verdigris-lt);letter-spacing:.2em}
+
+/* the field is a topology: not every node carries equal weight */
+.node.major{background:#191510}
+.node.major .nm{font-size:14px}
+@media(max-width:620px){.ob p{font-size:14.2px}.ob h4{font-size:11px}}
