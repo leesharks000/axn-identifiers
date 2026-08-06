@@ -51,6 +51,13 @@
   /* semantic accents — one active colour per region, never distributed evenly */
   --crimson:#9B1B1B; --crimson-lt:#C23B22;
   --gold:#B8964A; --verdigris:#2E6B4F; --verdigris-lt:#3FA893; --ultramarine:#33507A;
+  /* HUMAN READING COVENANT — three tiers. Fade operates on DEPTH, never on
+     IMPORTANCE. Tier 1 is always fully present; tier 2 is quieter but
+     comfortably readable; only tier 3 is genuinely ghosted. No necessary text
+     rests in the ghost tier, and no guarantee ever looks redacted. */
+  --t1:#1A1714; --t1-d:#F2EDE0;      /* operative: headings, actions, guarantees, results */
+  --t2:#4A443B; --t2-d:#BDB5A6;      /* interpretive: captions, subtitles, technical notes */
+  --t3:#736B5E; --t3-d:#8A8274;      /* residual: atmospheric marks, erased alternatives */
   --serif:'Pagella',Palatino,'Book Antiqua',serif; --mono:'PlexM',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -65,7 +72,8 @@ svg.defs{position:absolute;width:0;height:0}
 /* ── ZONES OF THE DESCENT ── */
 .zone{position:relative}
 .zone.surface{background:var(--vellum)}
-.zone.membrane{background:linear-gradient(180deg,var(--vellum) 0%,#8E856F 42%,#2A251E 76%,var(--soot) 100%);color:var(--bone)}
+.zone.membrane{color:var(--bone);padding-top:96px;
+  background:linear-gradient(180deg,var(--vellum) 0%,#9A917B 7%,#4A4238 13%,#221E19 19%,var(--soot) 26%,var(--soot) 100%)}
 .zone.depth{background:var(--soot);color:var(--bone)}
 .inner{max-width:1000px;margin:0 auto;padding:0 20px}
 @media(min-width:820px){.inner{padding:0 44px}}
@@ -94,12 +102,16 @@ svg.defs{position:absolute;width:0;height:0}
 .depth .plate-no{color:var(--crimson-lt)}
 .plate-title{font-family:var(--serif);font-weight:700;font-size:20px}
 .plate-state{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ash)}
-.plate-sub{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);
+.plate-sub{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);
   margin:7px 0 22px;padding-bottom:9px;border-bottom:1px solid var(--umber-pale)}
-.depth .plate-sub,.depth .plate-state{color:var(--ash-d);border-color:#2E2921}
+.depth .plate-sub,.depth .plate-state{color:var(--t2-d);border-color:#3A342B}
 p{max-width:64ch;margin-bottom:12px;color:var(--slate)}
-.depth p{color:#B9B2A4}
-p b{color:var(--ink);font-weight:700}.depth p b{color:var(--bone)}
+.depth p{color:var(--t2-d)}
+p b{color:var(--ink);font-weight:700}.depth p b{color:var(--t1-d)}
+/* the folio is a bone card INSIDE the depth zone: without this its bold text
+   inherited bone-on-bone and every guarantee rendered as a blank gap. A
+   guarantee must never look redacted. */
+.folio p b,.folio b{color:var(--crimson);font-weight:700}
 
 /* ── SURFACE: the genesis plate ── */
 .genesis{display:grid;gap:26px;padding:34px 0 10px}
@@ -149,16 +161,16 @@ figure.ev .idl b{color:var(--ink)}
 /* ── MEMBRANE: one continuous operation ── */
 .operation{display:grid;gap:0;margin-top:8px}
 .opstage{display:grid;grid-template-columns:30px 1fr;gap:16px;padding:16px 0;align-items:start}
-.opstage .rn{font-family:var(--serif);font-size:24px;line-height:1;color:var(--umber)}
-.opstage h3{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:5px}
+.opstage .rn{font-family:var(--serif);font-size:26px;line-height:1;color:var(--gold);font-weight:700}
+.opstage h3{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:5px;color:var(--t1-d)}
 .opstage p{margin:0;font-size:16px;max-width:56ch}
 
 /* ── SYMBOLON: two cut halves of one plate ── */
 .symb{display:flex;align-items:stretch;cursor:pointer;user-select:none;max-width:700px}
-.symb .half{flex:1;background:#171410;border:1px solid #383126;padding:15px;font-family:var(--mono);font-size:11px;
-  color:#B9B2A4;transition:transform .34s cubic-bezier(.3,.9,.25,1),border-color .2s}
+.symb .half{flex:1;background:#171410;border:1px solid #4A4238;padding:15px;font-family:var(--mono);font-size:11.5px;
+  color:var(--t2-d);transition:transform .34s cubic-bezier(.3,.9,.25,1),border-color .2s}
 .symb .half.l{text-align:right;border-right:0}.symb .half.r{border-left:0}
-.symb .half .k{font-size:8.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ash-d);margin-bottom:6px}
+.symb .half .k{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:600}
 .symb .half b{color:var(--bone)}
 .symb .edge{width:11px;background:repeating-linear-gradient(180deg,var(--crimson-lt) 0 2px,transparent 2px 8px);transition:width .3s}
 .symb.met .edge{width:1px;background:var(--verdigris-lt)}
@@ -184,22 +196,36 @@ figure.ev .idl b{color:var(--ink)}
 .ob{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:15px 0;border-bottom:1px solid #2E2921;align-items:start}
 .ob .mark{font-family:var(--serif);font-size:23px;line-height:1.1;color:var(--crimson-lt)}
 .ob h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--bone);margin-bottom:4px}
-.ob p{margin:0;font-size:15.5px;max-width:56ch}
+.ob p{margin:0;font-size:15px;max-width:56ch;color:var(--t2-d)}
 
 /* ── CONSTELLATION: fleet as topology, not table ── */
 .constel{display:grid;gap:1px;background:#2E2921;border:1px solid #2E2921;margin-top:6px}
 @media(min-width:760px){.constel{grid-template-columns:1fr 1fr}}
 .node{background:var(--soot);padding:14px 16px;text-decoration:none;display:block}
 .node:hover{background:#1B1814}
-.node .fn{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ash-d)}
+.node .fn{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
 .node .nm{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--bone);margin:3px 0 3px}
-.node .op{font-size:14px;color:#B9B2A4;line-height:1.5}
-.node .ur{font-family:var(--mono);font-size:8.5px;color:var(--umber-dim);margin-top:5px;letter-spacing:.04em}
+.node .op{font-size:14.5px;color:var(--t2-d);line-height:1.5}
+.node .ur{font-family:var(--mono);font-size:9px;color:var(--umber);margin-top:6px;letter-spacing:.04em}
 .node.kernel{grid-column:1/-1;background:#191510}
 .node.kernel .nm{color:var(--gold)}
 
+/* OVERVIEW — every plate opens with a plain-language sentence at full contrast,
+   so a first-time reader is never asked to earn access to the meaning. */
+.overview{font-size:18px;color:var(--t1);max-width:58ch;margin-bottom:16px;line-height:1.5}
+.depth .overview,.membrane .overview{color:var(--t1-d)}
+.overview b{font-weight:700}
+mark.hl{background:rgba(155,27,27,.10);color:var(--crimson);padding:1px 5px;font-weight:600}
+.depth mark.hl,.membrane mark.hl{background:rgba(194,59,34,.17);color:#E39A86}
+mark.gd{background:rgba(184,150,74,.16);color:#7A6220;padding:1px 5px;font-weight:600}
+.depth mark.gd,.membrane mark.gd{background:rgba(184,150,74,.20);color:var(--gold)}
+/* REST — a clean surface with no secondary register, so the dense plates read
+   as rich rather than exhausting. */
+.rest{text-align:center;padding:38px 0 4px;border-top:1px solid #3A342B}
+.rest p{max-width:none;margin:0 auto;font-size:19px;color:var(--t1-d);line-height:1.75}
+.rest p b{color:var(--gold)}
 .mk{text-align:center;font-family:var(--mono);font-size:15px;color:var(--gold);letter-spacing:.2em;padding:34px 0 8px}
-footer{text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.09em;color:var(--ash-d);padding-bottom:30px;line-height:2}
+footer{text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;color:var(--t2-d);padding-bottom:30px;line-height:2}
 footer a{color:var(--ash-d)}
 </style>
 </head>
@@ -231,8 +257,8 @@ footer a{color:var(--ash-d)}
     <div>
       <h1>Your work, with a receipt that outlives the platform.
         <span class="q">An identifier computed from the file itself — a fingerprint, plus six symbols a hand can copy and an eye can love.</span></h1>
-      <p class="dek">Anyone can verify it, anywhere, forever, <b>without asking us</b>. If an account is
-        deleted or a site goes dark, the identifier still proves your file is your file.</p>
+      <p class="dek">Anyone can verify it, anywhere, forever, <mark class="hl">without asking us</mark>. If an
+        account is deleted or a site goes dark, the identifier still proves your file is your file.</p>
       <div class="acts">
         <a class="act prime" href="https://www.alexanarch.org/mint/stamp/">Place a file in the instrument</a>
         <a class="act" href="https://www.alexanarch.org/mint/stamp/">Verify anything</a>
@@ -310,14 +336,15 @@ footer a{color:var(--ash-d)}
   <section class="plate">
     <div class="plate-head"><span class="plate-no">Plate II</span>
       <span class="plate-title">One object passing through states</span><span class="plate-state">the operation</span></div>
-    <div class="plate-sub">not three steps — one continuous act · nothing leaves your device for the computation</div>
+    <div class="plate-sub">the operation, end to end</div>
+    <p class="overview"><b>You give it a file; it gives back an identity.</b> The fingerprint is computed on your own device, struck onto an added margin, and recorded in a registry anyone can read. <mark class="hl">Nothing is uploaded to compute it.</mark></p>
     <div class="operation">
       <div class="opstage"><span class="rn">i</span><div><h3>The file is taken up</h3>
-        <p>Its fingerprint is computed <b>in your browser</b> — the exact bytes, nothing altered, nothing transmitted.</p></div></div>
+        <p><b>Computed in your browser.</b> The exact bytes make the fingerprint — <b>nothing altered, nothing transmitted</b>.</p></div></div>
       <div class="opstage"><span class="rn">ii</span><div><h3>An identity is inscribed</h3>
-        <p>Six glyphs are struck onto an <b>added margin</b>. The original bytes are never overprinted; they keep their own separate identity.</p></div></div>
+        <p><b>Struck onto an added margin.</b> Six glyphs are placed beside your work — the original bytes are <b>never overprinted</b> and keep their own separate identity.</p></div></div>
       <div class="opstage"><span class="rn">iii</span><div><h3>The witness is public</h3>
-        <p>The identifier takes a position in a <b>public, exportable registry</b>, and a verification page anyone can check — including a stranger who does not trust us.</p></div></div>
+        <p><b>Recorded in public.</b> The identifier takes a position in a <b>public, exportable registry</b> with a verification page anyone can check — <b>including a stranger who does not trust us</b>.</p></div></div>
     </div>
   </section>
 
@@ -325,6 +352,7 @@ footer a{color:var(--ash-d)}
     <div class="plate-head"><span class="plate-no">Plate III</span>
       <span class="plate-title">The membrane crossed both ways</span><span class="plate-state">anatomy</span></div>
     <div class="plate-sub">the file speaks to the registry · the registry returns a verifiable address</div>
+    <p class="overview"><b>Six glyphs encode six bytes of the SHA-256.</b> The colour beneath each names its byte-family. The symbols are the memorable part; <mark class="hl">the cryptographic kernel stays exact</mark>.</p>
     <div style="text-align:center;padding:6px 0">
       <div class="aperture">hex position · 05AB</div>
       <div style="margin:14px 0"><span class="orbit"><span class="in">
@@ -342,14 +370,21 @@ footer a{color:var(--ash-d)}
     </div>
   </section>
 
+  <div class="rest">
+    <p><b>The symbols help a human remember.</b><br>
+       <b>The hash lets a machine verify.</b><br>
+       They identify the same file.</p>
+  </div>
+
   <section class="plate">
     <div class="plate-head"><span class="plate-no">Plate IV</span>
       <span class="plate-title">Verification is the halves meeting</span><span class="plate-state">σύμβολον</span></div>
     <div class="plate-sub">the token proven by the fit of its fracture · tap the pair</div>
+    <p class="overview"><b>Both sides must produce the same kernel.</b> Your file is hashed independently and compared with the registry's record. <mark class="hl">A match proves the bytes are the same.</mark></p>
     <div class="symb" onclick="this.classList.toggle('met')">
-      <div class="half l"><div class="k">Seed B · your file</div>sha256(<b>candidate bytes</b>)<br>= deb473d8ff92c55f…</div>
+      <div class="half l"><div class="k">Your file · Seed B</div>sha256(<b>candidate bytes</b>)<br>= deb473d8ff92c55f…</div>
       <div class="edge"></div>
-      <div class="half r"><div class="k">Seed A · the registry</div>AXN₀ kernel<br>= <b>deb473d8ff92c55f…</b></div>
+      <div class="half r"><div class="k">The registry · Seed A</div>AXN₀ kernel<br>= <b>deb473d8ff92c55f…</b></div>
     </div>
     <div class="verdict">the seam closes — the fracture fits</div>
   </section>
@@ -362,7 +397,8 @@ footer a{color:var(--ash-d)}
   <section class="plate">
     <div class="plate-head"><span class="plate-no">Plate V</span>
       <span class="plate-title">The covenant</span><span class="plate-state">published · dated</span></div>
-    <div class="plate-sub">free, permanently — the promise and its limits stated in one breath</div>
+    <div class="plate-sub">free, permanently — the promise and its limits in one breath</div>
+    <p class="overview"><b>Identifiers and verification are free and always will be.</b> This is published, dated, and binding on us.</p>
     <div class="folio">
       <span class="date">2026-08-03</span>
       <p>Computing identifiers, stamping files, looking them up and verifying them is <b>free, permanently</b>.
@@ -380,20 +416,22 @@ footer a{color:var(--ash-d)}
     <div class="plate-head"><span class="plate-no">Plate VI</span>
       <span class="plate-title">What an AXN does not claim</span><span class="plate-state">obeli</span></div>
     <div class="plate-sub">three incisions · each a false equivalence cut</div>
+    <p class="overview"><b>An AXN proves one narrow thing completely</b> — and these three things it does not prove.</p>
     <div class="obfield">
       <div class="ob"><span class="mark">†</span><div><h4>Identity ≠ authorship</h4>
-        <p>It proves a file, not who made it. Authorship statements are recorded as declarations and marked as such.</p></div></div>
+        <p><b>Proves:</b> that these exact bytes are these exact bytes. <b>Does not prove:</b> who made them. Authorship is recorded as a declaration and marked as such.</p></div></div>
       <div class="ob"><span class="mark">†</span><div><h4>Witnessing ≠ notarization</h4>
-        <p>Timestamps prove when a file was witnessed, not when it was created. Nothing here is legal advice.</p></div></div>
+        <p><b>Proves:</b> when a file was witnessed here. <b>Does not prove:</b> when it was created. Nothing here is legal advice.</p></div></div>
       <div class="ob"><span class="mark">†</span><div><h4>Registration ≠ perpetual hosting</h4>
-        <p>A registry entry is a record, not a promise of storage without end. Storage terms are always explicit.</p></div></div>
+        <p><b>Proves:</b> that a position was allocated and recorded. <b>Does not promise:</b> storage without end. Storage terms are always explicit.</p></div></div>
     </div>
   </section>
 
   <section class="plate">
     <div class="plate-head"><span class="plate-no">Plate VII</span>
       <span class="plate-title">The instrument in its field</span><span class="plate-state">topology</span></div>
-    <div class="plate-sub">distinct functions held in relation · the archive is the authority, this is the door</div>
+    <div class="plate-sub">distinct functions held in relation</div>
+    <p class="overview"><b>The archive is the authority; this is the door.</b> Each surface below does one job, and none of them can revoke an identifier — because no one grants it in the first place.</p>
     <nav class="constel">
       <a class="node kernel" href="/"><span class="fn">Kernel · you are here</span>
         <span class="nm">AXN Identifiers</span>
