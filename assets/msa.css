@@ -362,3 +362,80 @@ footer a{color:var(--ash-d)}
   font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
 .onward a{color:var(--verdigris);text-decoration:none;margin-right:20px;border-bottom:1px solid var(--umber-pale)}
 .onward a:hover{color:var(--crimson);border-color:var(--crimson)}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE CONTINUOUS DESCENT (2026-08-06) — supersedes the three discrete zones.
+
+   The problem: a plate with a FIXED colour sitting on a MOVING ground must
+   produce a visible edge wherever the two diverge. Compressing the gradient to
+   avoid that made the fade abrupt; lengthening it put text on mid-tones.
+
+   The resolution inverts the relationship. THE PLATES STAY LIT PAPER; THE
+   GROUND DESCENDS AROUND THEM. The gradient now runs the full page in one
+   uninterrupted movement — no zone boundaries, nothing to cross — and every
+   plate is a near-opaque warm sheet floating on it. Because the plate carries
+   its own light, text is ink everywhere and never has to change tier mid-scroll.
+   The fade can therefore be as gradual as it likes: it never passes under a word.
+
+   Doctrinally this is the aesthetic's own rule rather than a workaround —
+   light is intelligibility, and the work illuminates the institution.
+   ═══════════════════════════════════════════════════════════════════════════ */
+body{
+  background:linear-gradient(180deg,
+    var(--vellum) 0%, #EAE3D0 14%, #D8CEB6 30%, #A99C81 48%,
+    #6E6352 62%, #40392F 76%, #262119 88%, var(--soot) 100%) no-repeat;
+  background-size:100% 100%;
+  background-attachment:local;
+}
+.zone,.zone.surface,.zone.membrane,.zone.depth{background:none;padding-top:0}
+.zone::before{background:rgba(120,104,70,.34)}   /* one thread, one value, all the way down */
+
+/* PLATES — lit sheets, not painted rectangles. The border is a soft rgba
+   hairline and the shadow does the separating, so nothing reads as a ruled box
+   cut into the ground. */
+.plate,.depth .plate,.membrane .plate{
+  background:rgba(250,246,236,.955);
+  border:1px solid rgba(120,104,70,.26);
+  box-shadow:0 3px 22px rgba(24,20,15,.16), 0 1px 3px rgba(24,20,15,.10);
+}
+/* one text tier inside every plate, on every part of the descent */
+.plate,.plate p,.depth .plate p,.membrane .plate p{color:var(--t2)}
+.plate p b,.depth .plate p b,.membrane .plate p b,
+.plate .overview,.depth .plate .overview,.membrane .plate .overview{color:var(--t1)}
+.plate .plate-title,.depth .plate .plate-title,.membrane .plate .plate-title{color:var(--t1)}
+.plate .plate-sub,.plate .plate-state,
+.depth .plate .plate-sub,.depth .plate .plate-state,
+.membrane .plate .plate-sub,.membrane .plate .plate-state{color:var(--t2);border-color:var(--umber-pale)}
+.plate .plate-no,.depth .plate .plate-no{color:var(--crimson)}
+.plate .opstage h3,.depth .plate .opstage h3,.membrane .plate .opstage h3{color:var(--t1)}
+.plate .ob{border-bottom-color:var(--umber-pale)}
+.plate .ob h4{color:var(--t1)}
+.plate .ob p{color:var(--t2)}
+.plate .ecorow{border-bottom-color:var(--umber-pale)}
+.plate .ecorow .name{color:var(--t1)}
+.plate .ecorow .what{color:var(--t2)}
+.plate .checks a{color:var(--verdigris);border-bottom-color:var(--umber-pale)}
+.plate mark.hl{background:rgba(51,80,122,.13);color:#24466F}
+.plate mark.gd{background:rgba(184,150,74,.16);color:#7A6220}
+.plate .observ{background:rgba(245,241,228,.9);border-color:var(--umber-pale);border-left-color:var(--gold)}
+.plate .observ .fig{color:var(--umber-dim)}
+.plate .observ .figl,.plate .observ p{color:var(--t2)}
+.plate .symb .half{background:var(--vellum-hi);border-color:var(--umber-pale);color:var(--t2)}
+.plate .symb .half b{color:var(--t1)}
+.plate .symb .half .k{color:var(--umber-dim)}
+.plate .aperture{background:var(--vellum-hi);border-color:var(--ultramarine);color:var(--ultramarine)}
+.plate .orbit{background:var(--vellum-hi)}
+.plate .orbit .in{border-color:var(--umber-pale)}
+.plate .folio{background:rgba(255,253,247,.96);border-top-color:var(--gold)}
+.plate .restnote{color:var(--t3)}
+
+/* things OUTSIDE plates ride the ground and must read against its dark foot */
+.mk{color:var(--gold)}
+footer{color:#8E877A}
+footer a{color:#A79E8D}
+.sepmark{color:rgba(168,146,92,.55)}
+
+/* subpages do not descend: they are one plate on paper, held flat. An explicit
+   class rather than :has(), because page structure should not depend on a
+   selector feature — if it failed the page would render dark-on-dark. */
+body.flat{background:var(--vellum)}
