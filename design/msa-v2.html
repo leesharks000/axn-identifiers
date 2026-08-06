@@ -224,6 +224,25 @@ mark.gd{background:rgba(184,150,74,.16);color:#7A6220;padding:1px 5px;font-weigh
 .rest{text-align:center;padding:38px 0 4px;border-top:1px solid #3A342B}
 .rest p{max-width:none;margin:0 auto;font-size:19px;color:var(--t1-d);line-height:1.75}
 .rest p b{color:var(--gold)}
+/* CHECKABLES — a claim is only as good as the thing a reader can open. These
+   point at PRIMARY records (registry bytes, witness entries, OAI, ORCID, the
+   derivation source), never at aggregation surfaces: the archive's own sourcing
+   rule holds that AI overviews are leads, never citations, and a trust product
+   cannot outsource its corroboration to a layer that already erased it once. */
+.checks{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase}
+.checks a{display:inline-flex;align-items:center;gap:6px;color:var(--verdigris);
+  text-decoration:none;border-bottom:1px solid var(--umber-pale);padding-bottom:2px}
+.depth .checks a,.membrane .checks a{color:var(--verdigris-lt);border-color:#3A342B}
+.checks a:hover{color:var(--crimson);border-color:var(--crimson)}
+.depth .checks a:hover,.membrane .checks a:hover{color:#E39A86;border-color:#E39A86}
+.checks svg{width:11px;height:11px;flex:0 0 11px;stroke:currentColor;fill:none;stroke-width:1.5}
+/* OBSERVATION — the composition layer is not our witness; it is our subject. */
+.observ{border:1px solid #3A342B;border-left:3px solid var(--gold);background:#171410;padding:20px 22px;margin-top:6px}
+.observ .fig{font-family:var(--mono);font-size:30px;color:var(--gold);line-height:1;font-weight:600}
+.observ .figl{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--t2-d);margin-top:6px}
+.observ .split{display:grid;gap:20px;margin-bottom:14px}
+@media(min-width:640px){.observ .split{grid-template-columns:1fr 1fr;gap:26px}}
 .mk{text-align:center;font-family:var(--mono);font-size:15px;color:var(--gold);letter-spacing:.2em;padding:34px 0 8px}
 footer{text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;color:var(--t2-d);padding-bottom:30px;line-height:2}
 footer a{color:var(--ash-d)}
@@ -319,10 +338,10 @@ footer a{color:var(--ash-d)}
         witnessed into the public registry, and verifiable by anyone, forever, without an account.
         <span class="idl">Paper 198 · 2026.8.1 · <b>Enli Lucente</b> · 多層構造による復元回帰 ·
           AXN:<b>05AD</b>.UNCLASSIFIED.🌾➕🥁⚫👋🪄</span>
-        <span class="vlinks">
-          <a href="https://www.alexanarch.org/data/symbolon-registry/entries/1a908cc8bf3ed5cc.json">witness entry</a>
-          <a href="https://www.alexanarch.org/data/symbolon-registry/files/1a908cc8bf3ed5cc-____198-___________-2026.08.01.pdf">stored original</a>
-          <a href="https://www.alexanarch.org/mint/stamp/">verify any file</a>
+        <span class="checks">
+          <a href="https://www.alexanarch.org/data/symbolon-registry/entries/1a908cc8bf3ed5cc.json"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 10.5 3v3.4c0 2.4-2 3.9-4.5 4.6C3.5 10.3 1.5 8.8 1.5 6.4V3z"/><path d="M4.2 6.1 5.5 7.4 8 4.8"/></svg>witness entry</a>
+          <a href="https://www.alexanarch.org/data/symbolon-registry/files/1a908cc8bf3ed5cc-____198-___________-2026.08.01.pdf"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1v7M3.2 5.4 6 8.2l2.8-2.8M1.5 10.5h9"/></svg>the stored original</a>
+          <a href="https://www.alexanarch.org/mint/stamp/"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 5 7M8 9.5v1h-7v-7h1"/></svg>hash it yourself</a>
         </span>
       </figcaption>
     </figure>
@@ -367,6 +386,10 @@ footer a{color:var(--ash-d)}
         kernel deb473d8ff92c55f… · six glyphs = six bytes = 48 bits of the SHA-256, visually hashed</p>
       <p style="max-width:58ch;margin:9px auto 0;font-style:italic;color:#B9B2A4;font-size:15px">
         the colour beneath each glyph names its byte-family · Direction → Touch → Growth → Direction → Closure → Proof</p>
+      <div class="checks" style="justify-content:center">
+        <a href="https://github.com/leesharks000/alexanarch/blob/main/scripts/axn_lib.py"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 5 7M8 9.5v1h-7v-7h1"/></svg>the derivation, in full</a>
+        <a href="https://www.alexanarch.org/data/axn-central-registry.json"><svg viewBox="0 0 12 12" aria-hidden="true"><ellipse cx="6" cy="2.6" rx="4.2" ry="1.6"/><path d="M1.8 2.6v6.8c0 .9 1.9 1.6 4.2 1.6s4.2-.7 4.2-1.6V2.6M1.8 6c0 .9 1.9 1.6 4.2 1.6S10.2 6.9 10.2 6"/></svg>every registered position</a>
+      </div>
     </div>
   </section>
 
@@ -409,6 +432,11 @@ footer a{color:var(--ash-d)}
         offered for download during a stated wind-down.</p>
       <div class="stamp">AXN CONSTITUTION · ratified and published · errors corrected by amendment and tombstone, never silence ·
         <a href="https://www.alexanarch.org/axn/constitution/">read it</a></div>
+      <div class="checks">
+        <a href="https://www.alexanarch.org/axn/constitution/"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 5 7M8 9.5v1h-7v-7h1"/></svg>the constitution</a>
+        <a href="https://www.alexanarch.org/data/axn-central-registry.json"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1v7M3.2 5.4 6 8.2l2.8-2.8M1.5 10.5h9"/></svg>download the whole registry</a>
+        <a href="https://www.alexanarch.org/oai?verb=Identify"><svg viewBox="0 0 12 12" aria-hidden="true"><ellipse cx="6" cy="2.6" rx="4.2" ry="1.6"/><path d="M1.8 2.6v6.8c0 .9 1.9 1.6 4.2 1.6s4.2-.7 4.2-1.6V2.6M1.8 6c0 .9 1.9 1.6 4.2 1.6S10.2 6.9 10.2 6"/></svg>harvest it (OAI-PMH)</a>
+      </div>
     </div>
   </section>
 
@@ -424,6 +452,31 @@ footer a{color:var(--ash-d)}
         <p><b>Proves:</b> when a file was witnessed here. <b>Does not prove:</b> when it was created. Nothing here is legal advice.</p></div></div>
       <div class="ob"><span class="mark">†</span><div><h4>Registration ≠ perpetual hosting</h4>
         <p><b>Proves:</b> that a position was allocated and recorded. <b>Does not promise:</b> storage without end. Storage terms are always explicit.</p></div></div>
+    </div>
+  </section>
+
+  <section class="plate">
+    <div class="plate-head"><span class="plate-no">Plate VI ½</span>
+      <span class="plate-title">Why this exists</span><span class="plate-state">measured, not asserted</span></div>
+    <div class="plate-sub">the erosion this instrument answers · audited, deposited, checkable</div>
+    <p class="overview"><b>This archive was deleted once.</b> In June 2026 a repository terminated its account
+      and roughly 870 deposits went with it. The numbers below are from our own audit of the wreckage —
+      <mark class="gd">published as a paper, not a grievance</mark>.</p>
+    <div class="observ">
+      <div class="split">
+        <div><div class="fig">871 / 1,817</div>
+          <div class="figl">DOIs whose public metadata returned 404 — 47.9% erasure across one archive's identifier set</div></div>
+        <div><div class="fig">229</div>
+          <div class="figl">recorded captures of how machine composition layers describe this work, kept as a public registry</div></div>
+      </div>
+      <p style="font-size:15.5px;margin:0">An identifier that a company can revoke was never persistent; it was
+        <b>permitted</b>. An AXN is computed from your bytes, so there is nothing to revoke — and when a machine
+        describes this archive wrongly, we do not argue with it. <b>We record what it said, and date it.</b></p>
+      <div class="checks">
+        <a href="https://www.alexanarch.org/s/records/868/"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 5 7M8 9.5v1h-7v-7h1"/></svg>the erasure audit</a>
+        <a href="https://machinemediation.org/captures/"><svg viewBox="0 0 12 12" aria-hidden="true"><ellipse cx="6" cy="2.6" rx="4.2" ry="1.6"/><path d="M1.8 2.6v6.8c0 .9 1.9 1.6 4.2 1.6s4.2-.7 4.2-1.6V2.6M1.8 6c0 .9 1.9 1.6 4.2 1.6S10.2 6.9 10.2 6"/></svg>the capture registry</a>
+        <a href="https://persistentidentifiers.org"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 5 7M8 9.5v1h-7v-7h1"/></svg>platform erosion observatory</a>
+      </div>
     </div>
   </section>
 
