@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stamp a file — AXN Identifiers</title>
+<meta name="description" content="Compute a content-derived identifier from your file's canonical bytes, in your browser. Nothing is uploaded to compute it. Works against any AXN node, and works with none.">
+<link rel="canonical" href="https://axnidentifiers.org/stamp/">
+<link rel="stylesheet" href="/assets/msa.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
+<style>
+.drop{border:1.5px dashed var(--pbd,rgba(120,104,70,.42));background:rgba(255,253,247,.5);
+  padding:30px 20px;text-align:center;cursor:crosshair;font-family:var(--mono);font-size:12px;
+  color:var(--t2);letter-spacing:.06em}
+.drop.hot{border-color:var(--crimson);color:var(--crimson)}
+.drop b{display:block;font-family:var(--serif);font-size:17px;color:var(--t1);margin-bottom:6px;letter-spacing:0}
+.kbox{margin-top:18px;display:none}
+.kbox.on{display:block}
+.krow{display:grid;grid-template-columns:112px 1fr;gap:6px 14px;padding:9px 0;
+  border-bottom:1px solid var(--prule,rgba(120,104,70,.22));align-items:baseline}
+.krow .k{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3)}
+.krow .v{font-family:var(--mono);font-size:12px;color:var(--t1);word-break:break-all}
+.nodeline{margin-top:14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t3)}
+.nodeline b{color:var(--verdigris)}
+.nodeline i{color:var(--crimson);font-style:normal}
+</style>
+</head><body class="flat">
+<div class="zone surface">
+<div class="rail">
+  <img class="seal" src="/assets/brand/mark-dark-master.png" alt="">
+  <a class="wm" href="/">A X N</a>
+  <nav class="stations">
+    <a href="/">Instrument</a><a href="/how/">How</a><a href="/limits/">Limits</a>
+    <a href="/why/">Why</a><a href="/stamp/" class="here">Stamp</a>
+  </nav>
+  <div class="calib">STAMP · COMPUTED IN THIS BROWSER · NOTHING IS UPLOADED TO COMPUTE IT</div>
+</div>
+<div class="inner">
+
+  <section class="plate d1">
+    <div class="plate-head"><span class="plate-no">Instrument</span>
+      <span class="plate-title">Place a file in the instrument</span><span class="plate-state">client-side</span></div>
+    <div class="plate-sub">the identity kernel is computed from your canonical bytes, here</div>
+    <p class="overview"><b>Your file does not leave this device to be identified.</b>
+      The kernel is the SHA-256 of its canonical bytes — no normalization, no re-encoding —
+      and it is <mark class="hl">true or false independently of every registry, including ours</mark>.</p>
+
+    <div class="drop" id="drop"><b>Drop a file here, or tap to choose</b>
+      any file · images · PDF · text · audio · archives
+      <input type="file" id="file" style="display:none"></div>
+
+    <div class="kbox" id="kbox">
+      <div class="krow"><span class="k">Identity kernel</span><span class="v" id="kern"></span></div>
+      <div class="krow"><span class="k">Six glyphs</span><span class="v" id="glyph" style="font-size:22px"></span></div>
+      <div class="krow"><span class="k">Byte families</span><span class="v" id="clus" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase"></span></div>
+      <div class="krow"><span class="k">Canonical bytes</span><span class="v" id="size"></span></div>
+      <div class="krow"><span class="k">Record address</span><span class="v" id="addr">not yet requested — an address is not a verification</span></div>
+      <div class="checks" style="margin-top:16px">
+        <a id="dlseed" href="#" download>download the Seed A sidecar</a>
+        <a href="#" id="doreg">request a record address</a>
+      </div>
+      <div class="nodeline" id="nodeline"></div>
+    </div>
+  </section>
+
+  <section class="plate d1">
+    <div class="plate-head"><span class="plate-no">Verify</span>
+      <span class="plate-title">Check any file against the registry</span><span class="plate-state">any node</span></div>
+    <div class="plate-sub">two independent computations of one hash · a match proves the bytes are the same</div>
+    <p class="overview"><b>Verification needs no trust in us.</b> Your file is hashed here; the registry
+      is fetched from whichever node answers first; the comparison happens in this page.</p>
+    <div class="drop" id="vdrop" style="padding:20px"><b>Drop a file to verify</b>
+      or an original you believe is registered<input type="file" id="vfile" style="display:none"></div>
+    <div class="kbox" id="vout"></div>
+  </section>
+
+  <section class="plate d1">
+    <div class="plate-head"><span class="plate-no">Nodes</span>
+      <span class="plate-title">Where this instrument looks</span><span class="plate-state">rhizome</span></div>
+    <div class="plate-sub">the stamper is node-agnostic · adding a node is adding a line</div>
+    <p class="overview"><b>The kernel is computed here; only the address comes from a node.</b>
+      Each declared node is tried in turn, and the one that answered is named beside your result.
+      <mark class="hl">When none answers, the kernel and sidecar are still produced</mark> — an
+      unreachable registry costs you an address, not an identity.</p>
+    <div id="nodelist"></div>
+    <div class="onward"><a href="/how/">How the identifier is made →</a><a href="/limits/">What it does not claim →</a></div>
+  </section>
+
+  <div class="mk">∮ = 1</div>
+  <footer>AXN schema v2 · derivation identical to scripts/axn_lib.py · computed with WebCrypto in your browser<br>
+    <a href="/">back to the instrument</a> · <a href="/constitution/">the constitution</a></footer>
+</div>
+</div>
+
+<script src="/assets/axn-node.js"></script>
+<script>
+(function(){
+  var FILE=null, SEED=null;
+  var $=function(i){return document.getElementById(i)};
+
+  // node list, rendered from the manifest so the page cannot misdescribe itself
+  $('nodelist').innerHTML = AXN_NODES.map(function(n){
+    return '<div class="krow"><span class="k">'+n.node+'</span><span class="v" style="font-size:11px">'+
+           n.role+'</span></div>';
+  }).join('') + '<div class="krow"><span class="k">peers</span><span class="v" style="font-size:11px">'+
+    (AXN_NODES.length-1 ? (AXN_NODES.length-1)+' listed' :
+     'none yet — independent custody required: separate operator, registrar, host and billing')+'</span></div>';
+
+  function wire(dropId, fileId, cb){
+    var d=$(dropId), f=$(fileId);
+    d.onclick=function(){f.click()};
+    d.ondragover=function(e){e.preventDefault();d.classList.add('hot')};
+    d.ondragleave=function(){d.classList.remove('hot')};
+    d.ondrop=function(e){e.preventDefault();d.classList.remove('hot');if(e.dataTransfer.files[0])cb(e.dataTransfer.files[0])};
+    f.onchange=function(){if(f.files[0])cb(f.files[0])};
+  }
+
+  wire('drop','file', async function(file){
+    FILE=file;
+    $('drop').innerHTML='<b>'+file.name+'</b>computing the identity kernel…';
+    var buf=new Uint8Array(await file.arrayBuffer());
+    var h=await axnKernel(buf), g=axnGlyphs(h), cl=axnClusters(h);
+    $('kern').textContent=h;
+    $('glyph').textContent=g;
+    $('clus').textContent=cl.join(' · ');
+    $('size').textContent=buf.length.toLocaleString()+' bytes · unaltered';
+    $('kbox').classList.add('on');
+    $('drop').innerHTML='<b>'+file.name+'</b>identified — drop another to replace';
+    SEED={ axn_spec:"AXN-SYMBOLON-SPEC v0.2", reconstruction_class:"content-addressed",
+      axn0:{glyphs:g, sha256:h, role:"identity kernel of the sealed core"},
+      manifest:[{part:1, filename:file.name, sha256:h, bytes:buf.length}],
+      created:new Date().toISOString(),
+      generator:"https://axnidentifiers.org/stamp/ (client-side; WebCrypto)",
+      family:"UNCLASSIFIED",
+      note:"The kernel is authority-independent. A record address may be requested from any AXN node." };
+    var b=new Blob([JSON.stringify(SEED,null,1)],{type:'application/json'});
+    var a=$('dlseed'); a.href=URL.createObjectURL(b);
+    a.download=file.name.replace(/\.[^.]+$/,'')+'.axn.json';
+    $('nodeline').innerHTML='KERNEL COMPUTED LOCALLY · <b>no node was contacted</b>';
+  });
+
+  $('doreg').onclick=async function(e){
+    e.preventDefault();
+    if(!SEED) return;
+    $('nodeline').innerHTML='REQUESTING A RECORD ADDRESS…';
+    var r=await axnRegister(SEED);
+    if(r.node){
+      var axn=r.result.axn||'';
+      $('addr').textContent=axn||r.result.status||'addressed';
+      $('nodeline').innerHTML='ADDRESSED BY <b>'+r.node+'</b> · the kernel was already true before this';
+    } else {
+      $('addr').textContent='no node answered — the kernel stands, keep the sidecar';
+      $('nodeline').innerHTML='<i>NO NODE ANSWERED</i> · '+r.error+
+        ' · the identity is intact; only the address is missing';
+    }
+  };
+
+  wire('vdrop','vfile', async function(file){
+    var o=$('vout'); o.classList.add('on');
+    o.innerHTML='<div class="krow"><span class="k">status</span><span class="v">hashing locally…</span></div>';
+    var buf=new Uint8Array(await file.arrayBuffer());
+    var h=await axnKernel(buf);
+    var reg;
+    try { reg=await axnFetchFirst('registry'); }
+    catch(err){
+      o.innerHTML='<div class="krow"><span class="k">kernel</span><span class="v">'+h+'</span></div>'+
+        '<div class="krow"><span class="k">registry</span><span class="v">unreachable — '+err.message+
+        '</span></div><div class="nodeline"><i>LACUNA</i> · the kernel is computed and valid; ' +
+        'no node could be reached to look up its address</div>';
+      return;
+    }
+    var hit=reg.data.kernels && reg.data.kernels[h];
+    o.innerHTML =
+      '<div class="krow"><span class="k">kernel</span><span class="v">'+h+'</span></div>'+
+      '<div class="krow"><span class="k">glyphs</span><span class="v" style="font-size:20px">'+axnGlyphs(h)+'</span></div>'+
+      (hit
+        ? '<div class="krow"><span class="k">verified</span><span class="v" style="color:var(--verdigris)">'+
+          (hit.axn||'')+'</span></div><div class="krow"><span class="k">status</span><span class="v">'+
+          (hit.status||hit.source||'')+'</span></div>'
+        : '<div class="krow"><span class="k">result</span><span class="v">no node holds an address for these exact bytes</span></div>')+
+      '<div class="nodeline">ANSWERED BY <b>'+reg.node+'</b> · compared in this page, not on a server</div>';
+  });
+})();
+</script>
+</body></html>
