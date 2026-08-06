@@ -9,7 +9,7 @@ This repo carries only the axnidentifiers.org presentation surface and its desig
 
 - `index.html` — current live landing (migrated from alexanarch/axnidentifiers-site, 2026-08-06)
 - `design/specimen-v0.1.html` — design language R1 ("The Critical Edition, Sealed", TACHYON)
-- `design/specimen-v0.2.html` — R2, Kimi feedback integrated · **status: proposal, awaiting MANUS ratification**
+- `design/specimen-v0.2.html` — R2, Kimi feedback integrated · **ratified by MANUS 2026-08-06; shipped as landing v1.0** (legacy landing preserved at design/legacy-landing-2026-08.html)
 
 Deploys via Vercel (static). Domains: **axnidentifiers.org** (canonical) + axnidentifiers.com, axnidentifier.org, axnidentifier.com
 (all owned, Namecheap, privacy ON; non-canonical hosts 308-redirect to the canonical). The singular/plural
