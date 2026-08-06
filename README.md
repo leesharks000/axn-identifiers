@@ -9,7 +9,16 @@ This repo carries only the axnidentifiers.org presentation surface and its desig
 
 - `index.html` — current live landing (migrated from alexanarch/axnidentifiers-site, 2026-08-06)
 - `design/specimen-v0.1.html` — design language R1 ("The Critical Edition, Sealed", TACHYON)
-- `design/specimen-v0.2.html` — R2, Kimi feedback integrated · **ratified by MANUS 2026-08-06; shipped as landing v1.0** (legacy landing preserved at design/legacy-landing-2026-08.html)
+- `design/specimen-v0.1.html`, `design/specimen-v0.2.html` — "The Critical Edition, Sealed" (superseded)
+- `design/landing-v1.1-sealed-dark.html` — the sealed-dark landing (superseded 2026-08-06, preserved)
+- `design/msa-v2.html` — the MSA build, promoted to `index.html` 2026-08-06
+
+**Current design language: Material Symbol Aesthetic v1.0** — the archive's own
+canonical visual grammar (Visual Schema of Schemas; #215 UNTETHERED TAG; #504 MSMRM),
+not an invented one. The page is a descent: SURFACE (vellum) → MEMBRANE (the crossing)
+→ DEPTH (soot), after #215's distinction that index is not ocean and provenance
+persists below capture. The exact operator stays precise; only the relational field
+is hand-traced.
 
 Deploys via Vercel (static). Domains: **axnidentifiers.org** (canonical) + axnidentifiers.com, axnidentifier.org, axnidentifier.com
 (all owned, Namecheap, privacy ON; non-canonical hosts 308-redirect to the canonical). The singular/plural

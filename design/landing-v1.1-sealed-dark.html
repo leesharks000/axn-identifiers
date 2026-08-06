@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AXN Identifiers — your work, with a receipt that outlives the platform</title>
+<meta name="description" content="Free file identifiers you can verify anywhere. Stamp a file, get a registered ID with a memorable six-symbol check, verify it forever — even if this site disappears.">
+<meta name="axn-registry" content="https://www.alexanarch.org/data/axn-central-registry.json">
+<link rel="axn-stamper" title="AXN Stamp &amp; Verify" href="https://www.alexanarch.org/mint/stamp/">
+<link rel="canonical" href="https://axnidentifiers.org/">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png">
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png">
+<meta property="og:title" content="AXN Identifiers — your work, with a receipt that outlives the platform">
+<meta property="og:description" content="A file identifier computed from the file itself. Verify it anywhere, forever, without an account.">
+<meta property="og:image" content="https://axnidentifiers.org/assets/brand/og-card.png">
+<meta property="og:url" content="https://axnidentifiers.org/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+/* AXN design language v0.2 — "The Critical Edition, Sealed" — ratified surface v1.0
+   Laws (SIG·0): color is data · one family, three voices · one mechanical interaction ·
+   no social proof · stamps live on paper · no reader observed · amendment and tombstone, never silence */
+@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/IBMPlexMono-400.woff2')format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/IBMPlexMono-600.woff2')format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/IBMPlexMono-700.woff2')format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/IBMPlexSans-400.woff2')format('woff2');font-weight:100 700;font-display:swap}
+@font-face{font-family:'IBM Plex Serif';src:url('/assets/fonts/IBMPlexSerif-400.woff2')format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Serif';src:url('/assets/fonts/IBMPlexSerif-400i.woff2')format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'IBM Plex Serif';src:url('/assets/fonts/IBMPlexSerif-500.woff2')format('woff2');font-weight:500;font-display:swap}
+/* TeX Gyre Pagella — GUST's open Palatino, the face of scholarly typesetting.
+   Palatino Linotype itself is Monotype-licensed and cannot be self-hosted,
+   which SIG·0 VI forbids. Display and document voice; Plex Mono keeps every
+   identifier, hash, label and control, where fixed advance width is a feature. */
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-400.woff2')format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-700.woff2')format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Pagella';src:url('/assets/fonts/Pagella-400i.woff2')format('woff2');font-weight:400;font-style:italic;font-display:swap}
+:root{
+  --ink:#080705;--shadow:#14120E;--ground2:#0B0A08;--bone:#EDE6D6;--steel:#8A857A;--steel-sm:#9A958A;
+  --hair:#262218;--rubric:#C23B22;--seal:#C9A227;--tomb:#111111;
+  --c-celestial:#8E9DE6;--c-elemental:#E56B3C;--c-architectural:#C9A227;--c-instrumental:#9AA3AD;
+  --c-scriptural:#E4D3A1;--c-navigational:#3FA893;--c-temporal:#A88BC0;--c-organic:#7FAF6B;
+  --c-symbolic:#DD7FA8;--c-mathematical:#FFFFFF;--c-alchemical:#C98B5A;--c-gestural:#E7B75F;
+  --c-signal:#C23B22;--c-structural:#5E8FBF;--c-liminal:#79E0C3;--c-terminal:#736F66;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--serif:'Pagella',Palatino,serif;--ui:'IBM Plex Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:16px;line-height:1.55}
+::selection{background:var(--rubric);color:var(--bone)}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto}
+/* FOLIO APPARATUS — restored. The specimen sheet's strongest device (an 88px
+   margin carrying vertical sigla) was dropped in the production build, which is
+   why the page read as a stack of same-weight boxes. It returns as a true grid
+   on wide screens and as a rubric rail + siglum on narrow ones, so the
+   critical-edition register survives the phone. */
+section{border-top:1px solid var(--hair);padding:44px 24px 54px;position:relative}
+@media(min-width:900px){
+  section{display:grid;grid-template-columns:96px minmax(0,1fr);gap:0;padding:52px 48px 62px}
+  section>.sig{border-right:1px solid var(--hair);margin-right:30px;padding-right:14px;
+    writing-mode:vertical-rl;font-family:var(--mono);font-weight:500;font-size:11px;
+    letter-spacing:.18em;color:var(--steel-sm);text-transform:uppercase;align-self:start}
+  section>.sig b{color:var(--steel);font-weight:600}
+  section>.leaf{min-width:0}
+}
+@media(max-width:899px){
+  section>.sig{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--steel-sm);border-left:2px solid var(--cl,var(--steel));
+    padding-left:10px;margin-bottom:18px}
+  section>.sig b{color:var(--steel);font-weight:600}
+}
+/* A section's rail carries a CLUSTER READING — one of the sixteen byte-family
+   readings from the canonical table. The colour still names a byte-family, so
+   the law holds: colour is data, never decoration. Section accents that merely
+   looked pretty would have broken it. */
+.sig .rd{display:inline-block;margin-left:8px;color:var(--cl,var(--steel));font-weight:600}
+@media(min-width:900px){.sig .rd{margin:8px 0 0;display:block}}
+h2{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.2em;color:var(--steel);text-transform:uppercase;margin-bottom:22px;
+   padding-bottom:10px;border-bottom:1px solid var(--hair);position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:-1px;width:44px;height:2px;background:var(--cl,var(--rubric))}
+h2 i{color:var(--rubric);font-style:normal}
+/* surfaces read as objects ON the ground, not holes in it */
+.steps,.strata,.artifact,.band-stage{background:var(--ground2)}
+.step{background:var(--shadow)}
+.stratum:hover{background:var(--ground2)}
+p{max-width:62ch}
+code{font-family:var(--mono)}
+
+.mast{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 28px;border-bottom:1px solid var(--hair)}
+@media(min-width:761px){.mast{padding:20px 48px}}
+.mast .t{font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:.3em;display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--bone)}
+.mast .t .mark{width:26px;height:26px;display:block}
+@media(min-width:761px){.mast .t .mark{width:30px;height:30px}}
+.mast .t small{color:var(--steel);letter-spacing:.16em;font-weight:400;margin-left:12px}
+@media(max-width:700px){.mast .t small{display:none}}
+.mast nav{display:flex;gap:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.mast nav a{color:var(--steel);text-decoration:none}
+.mast nav a:hover{color:var(--rubric)}
+@media(max-width:560px){.mast nav a.opt{display:none}}
+
+/* hero */
+.hero{padding:52px 24px 48px;border-top:0;display:grid;gap:38px}
+@media(min-width:900px){.hero{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:56px;padding:76px 48px 68px}}
+.heromark{justify-self:start;text-align:left;order:-1}
+@media(min-width:900px){.heromark{order:0}}
+@media(min-width:900px){.heromark{justify-self:end}}
+.heromark img{width:150px;height:150px;display:block}
+@media(min-width:900px){.heromark img{width:290px;height:290px}}
+.heromark figcaption{margin-top:16px;max-width:290px}
+.heromark .ax{display:block;font-family:var(--mono);font-size:11px;color:var(--steel);word-break:break-all}
+.heromark .ax b{color:var(--bone);font-weight:600}
+.heromark .cp{display:block;margin-top:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel-sm)}
+.heromark .cp i{color:var(--c-navigational);font-style:normal}
+.cta.quiet{border-color:var(--hair);color:var(--steel)}
+.cta.quiet:hover{border-color:var(--rubric);color:var(--rubric);background:transparent}
+.cta.primary{font-weight:600;letter-spacing:.14em}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,7.4vw,74px);line-height:1.04;max-width:15ch;font-weight:700;letter-spacing:-.008em;text-wrap:balance}
+@media(max-width:760px){.hero h1 br.mb{display:none}.hero h1{max-width:none}}
+.hero h1 em{font-style:normal;color:var(--seal)}
+.hero .sub{margin-top:22px;font-family:var(--serif);font-size:19.5px;line-height:1.6;color:var(--steel);max-width:50ch}
+.hero .sub b{color:var(--bone);font-weight:500}
+.cta-row{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+.cta{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:14px 22px;border:1px solid var(--bone);background:transparent;color:var(--bone);cursor:pointer;text-decoration:none;transition:background .12s,border-color .12s,color .12s,transform .05s}
+.cta.primary{background:var(--bone);color:var(--ink)}
+.cta:hover{background:var(--bone);border-color:var(--bone);color:var(--ink)}
+.cta:active{transform:translateY(1px)}
+@media(max-width:480px){.cta-row{flex-direction:column}.cta{width:100%;text-align:center}}
+
+/* real holding */
+.artifact{display:grid;grid-template-columns:minmax(210px,330px) 1fr;border:1px solid var(--hair);max-width:860px}
+.artifact .scanwrap{background:#0e0d0b;display:flex;flex-direction:column}
+.artifact img{display:block;width:100%;height:auto;filter:contrast(1.04)}
+.artifact .mini-band{background:#fffdf7;border-top:1px solid #b9b19a;padding:6px 10px;font-family:var(--mono);font-size:8.5px;color:#5c574c;display:flex;gap:8px;align-items:center}
+.artifact .mini-band .e{font-size:12px}
+.artifact figcaption{padding:24px 26px;font-family:var(--serif);font-size:14.5px;color:var(--steel)}
+.artifact figcaption b{color:var(--bone);font-weight:500}
+.artifact figcaption .id{display:block;margin-top:13px;font-family:var(--mono);font-size:11px;color:var(--steel);word-break:break-all}
+.artifact figcaption .id b{color:var(--bone)}
+.artifact figcaption .credit{display:block;margin-top:12px;font-size:12.5px;color:var(--steel)}
+.artifact figcaption .credit b{color:var(--bone)}
+.artifact figcaption .vlinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+.artifact figcaption .vlinks a{color:var(--c-navigational);text-decoration:none;border-bottom:1px solid var(--hair)}
+.artifact figcaption .vlinks a:hover{color:var(--rubric);border-color:var(--rubric)}
+@media(max-width:640px){.artifact{grid-template-columns:1fr}}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);max-width:860px}
+@media(max-width:700px){.steps{grid-template-columns:1fr}}
+.step{background:var(--ink);padding:22px 22px 24px}
+.step .n{font-family:var(--mono);font-weight:200;font-size:2.6rem;color:#3a362c;line-height:1}
+.step h3{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin:10px 0 8px}
+.step p{font-size:14px;color:var(--steel)}
+.step p b{color:var(--bone);font-weight:500}
+
+/* specimen plate */
+.plate{position:relative;background:var(--shadow);border:1px solid var(--hair);border-left:0;padding:26px 30px 22px 36px;max-width:760px;margin-left:16px;filter:drop-shadow(-7px 4px 10px rgba(0,0,0,.55))}
+.plate::before{content:"";position:absolute;left:-15px;top:-1px;bottom:-1px;width:16px;background:var(--shadow);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);clip-path:polygon(100% 0,64% 3%,88% 7%,38% 11%,72% 15%,18% 20%,60% 24%,8% 30%,52% 34%,26% 39%,74% 44%,12% 50%,58% 55%,4% 61%,66% 66%,22% 71%,80% 76%,10% 82%,55% 87%,30% 92%,70% 96%,42% 100%,100% 100%)}
+.plate::after{content:"";position:absolute;left:-15px;top:0;bottom:0;width:16px;clip-path:inherit;box-shadow:inset 2px 0 4px rgba(0,0,0,.6)}
+.plate .cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--steel-sm);text-transform:uppercase;margin-bottom:14px}
+.plate .cap i{color:var(--c-navigational);font-style:normal;font-weight:600}
+.axn-lockup{font-family:var(--mono);font-size:clamp(14px,2.4vw,21px);letter-spacing:.02em;word-break:break-all}
+.axn-lockup .pre{color:var(--steel)}
+.axn-lockup .hex{color:var(--bone);font-weight:600}
+.axn-lockup .fam{color:var(--steel)}
+.glyph-row{display:inline-flex;gap:.14em;vertical-align:-0.12em}
+.g{display:inline-flex;flex-direction:column;align-items:center;gap:5px}
+.g .e{font-size:1.5em;line-height:1;filter:saturate(.92)}
+.g .tick{width:100%;height:3px}
+.plate .kernel{margin-top:16px;font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:.04em}
+.plate .kernel b{color:var(--bone);font-weight:500}
+.plate .reading{margin-top:9px;font-family:var(--serif);font-style:italic;font-size:13px;color:var(--steel)}
+.plate .reading b{color:var(--rubric);font-weight:400}
+
+/* verify interaction */
+.verify{display:flex;align-items:stretch;max-width:760px;cursor:pointer;user-select:none}
+.verify .half{flex:1;background:var(--shadow);border:1px solid var(--hair);padding:20px 20px;font-family:var(--mono);transition:transform .34s cubic-bezier(.3,.9,.25,1),border-color .2s}
+.verify .half.l{border-right:0;text-align:right}
+.verify .half.r{border-left:0}
+.verify .edge{width:14px;background:repeating-linear-gradient(180deg,var(--rubric) 0 2px,transparent 2px 9px);transition:width .3s cubic-bezier(.6,0,.9,.4),background .12s}
+.verify .half .k{font-size:9.5px;letter-spacing:.18em;color:var(--steel-sm);text-transform:uppercase;margin-bottom:9px}
+.verify .half .v{font-size:12px;word-break:break-all}
+.verify .half .v b{color:var(--bone)}
+.verify.met{animation:clunk .32s cubic-bezier(.2,.9,.3,1.2)}
+.verify.met .edge{width:1px;background:var(--c-navigational)}
+.verify.met .half{border-color:var(--c-navigational)}
+.verify.met .half.l{transform:translateX(7px)}
+.verify.met .half.r{transform:translateX(-7px)}
+@keyframes clunk{0%{transform:scale(1)}55%{transform:scale(1.016)}100%{transform:scale(1)}}
+.verdict{margin-top:13px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;display:none;color:var(--c-navigational)}
+.verdict::before{content:"σύμβολον · "}
+.verify.met+.verdict{display:block;animation:stamp .14s steps(2,end)}
+@keyframes stamp{0%{transform:scale(1.07)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.verify.met{animation:none}.verify .half,.verify .edge{transition:none}.verify.met+.verdict{animation:none}}
+
+/* free forever + constitution */
+.freeblock{border:1px solid var(--hair);border-top:3px solid var(--seal);background:var(--shadow);padding:24px 26px;max-width:760px}
+.freeblock p{font-family:var(--serif);font-size:16.5px}
+.freeblock p b{color:var(--bone);font-weight:500}
+.freeblock .dated{margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--seal)}
+
+/* not claim */
+.notclaim{border-left:4px solid var(--rubric);background:repeating-linear-gradient(-45deg,rgba(194,59,34,.05) 0 8px,transparent 8px 16px),var(--shadow);padding:20px 22px;max-width:760px}
+.notclaim p{font-size:14.5px;margin-bottom:9px;color:var(--steel)}
+.notclaim p b{color:var(--bone);font-weight:600}
+.notclaim p:last-child{margin-bottom:0}
+
+/* offer */
+.offer{border:1px solid var(--hair);border-top:4px solid var(--seal);background:var(--shadow);padding:26px 28px;max-width:760px}
+.offer .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--steel-sm);text-transform:uppercase;margin-bottom:12px}
+.offer h3{font-family:var(--serif);font-weight:500;font-size:21px;margin-bottom:6px}
+.offer .price{font-family:var(--mono);font-size:14px;color:var(--seal);letter-spacing:.06em;margin-bottom:14px}
+.offer p{font-family:var(--serif);font-size:15.5px;color:var(--steel);margin-bottom:10px}
+.offer p b{color:var(--bone);font-weight:500}
+.offer .terms{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--steel-sm);margin-top:14px}
+
+/* disappear */
+.disappear{max-width:56ch}
+.disappear p{font-family:var(--serif);font-size:17.5px;font-weight:500;line-height:1.6}
+.disappear p em{color:var(--rubric);font-style:normal}
+.disappear .fine{margin-top:14px;font-size:14px;color:var(--steel);font-weight:400}
+
+/* tombstone clause */
+.tombstone{background:var(--tomb);border:1px solid var(--hair);padding:18px 20px 16px;max-width:760px;position:relative;margin-top:22px}
+.tombstone::before{content:"†";position:absolute;right:15px;top:8px;font-family:var(--serif);font-size:20px;color:var(--steel)}
+.tombstone p{font-family:var(--serif);font-size:14.5px;color:var(--bone)}
+
+/* strata */
+.strata{border:1px solid var(--hair);max-width:760px}
+.stratum{display:grid;grid-template-columns:128px 1fr;gap:4px 16px;align-items:baseline;padding:10px 16px;border-bottom:1px solid var(--hair);text-decoration:none}
+.stratum:last-child{border-bottom:0}
+.stratum .layer{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--steel-sm);text-transform:uppercase}
+.stratum .name{font-family:var(--mono);font-size:12.5px;font-weight:600}
+.stratum .what{grid-column:2;font-family:var(--serif);font-size:12px;color:var(--steel)}
+.stratum:hover{background:var(--shadow)}
+.stratum.here .layer::before{content:"● ";color:var(--rubric)}
+
+.makers{padding:42px 0 24px;text-align:center;border-top:1px solid var(--hair)}
+.makers .mk{font-family:var(--mono);font-size:15px;color:var(--seal);letter-spacing:.2em}
+footer{padding:16px 28px 34px;font-family:var(--mono);font-size:10.5px;color:var(--steel);letter-spacing:.07em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media(min-width:761px){footer{padding:16px 48px 34px}}
+footer a{color:var(--steel)}footer a:hover{color:var(--rubric)}
+@media(max-width:640px){footer{flex-direction:column;gap:5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="mast">
+  <a class="t" href="/"><img class="mark" src="/assets/brand/mark-bone-96.png" width="48" height="48" alt="AXN mark"><span>A&nbsp;X&nbsp;N</span><small>IDENTIFIERS</small></a>
+  <nav>
+    <a href="https://www.alexanarch.org/mint/stamp/">Stamp</a>
+    <a class="opt" href="https://www.alexanarch.org/mint/stamp/">Verify</a>
+    <a class="opt" href="https://www.alexanarch.org/data/axn-central-registry.json">Registry</a>
+    <a href="https://www.alexanarch.org/axn/constitution/">Constitution</a>
+  </nav>
+</div>
+
+<section class="hero">
+  <div class="heroleaf">
+    <h1>Your work, with&nbsp;a <br class="mb">receipt that <em>outlives</em> <br class="mb">the platform.</h1>
+    <p class="sub">An AXN is a file identifier computed <b>from the file itself</b> — a fingerprint plus a
+    memorable six-symbol check. Anyone can verify it, anywhere, forever, without asking us. If an account
+    gets deleted or a site goes dark, the identifier still proves your file is your file.</p>
+    <div class="cta-row">
+      <a class="cta primary" href="https://www.alexanarch.org/mint/stamp/">Stamp a file — free</a>
+      <a class="cta" href="https://www.alexanarch.org/mint/stamp/">Verify anything</a>
+      <a class="cta quiet" href="https://www.alexanarch.org/axn/constitution/">Read the guarantees</a>
+    </div>
+  </div>
+  <figure class="heromark">
+    <img src="/assets/brand/mark-bone-256.png" width="256" height="256" alt="The AXN mark — a hexagonal crystal with a light burst at its centre">
+    <figcaption>
+      <span class="ax">AXN:<b>05AE</b>.OPERATIVE.🖊️🔃🎬🏙️⚖️🕑</span>
+      <span class="cp">the mark carries its own identifier · <i>witnessed-verified</i></span>
+    </figcaption>
+  </figure>
+</section>
+
+<section style="--cl:var(--c-scriptural)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;I</b>&nbsp;&nbsp;Plate I · the evidence<span class="rd">Text</span></div>
+  <div class="leaf">
+  <h2><i>Plate I</i> · a real registered identifier</h2>
+  <figure class="artifact">
+    <div class="scanwrap">
+      <img alt="Paper 198 — handwritten, dated 2026.8.1, with seal. Page 1 of the stamped PDF." src="/assets/plates/plate-i-paper198.jpg" width="1200" height="900" loading="eager">
+      <div class="mini-band"><span class="e">🌾➕🥁⚫👋🪄</span><span>AXN kernel · sha256:1a908cc8… · alexanarch.org</span></div>
+    </div>
+    <figcaption>
+      <b>A handwritten paper, stamped and verified from a phone in Japan.</b>
+      Composed by hand, photographed, stamped on an added margin — the hand is never
+      overprinted — witnessed into the public registry, and verifiable by anyone,
+      forever, without an account.
+      <span class="id">AXN:<b>05AD</b>.UNCLASSIFIED.🌾➕🥁⚫👋🪄 · <i>witnessed-verified</i></span>
+      <span class="credit">Paper 198 · 多層構造による復元回帰 · 2026.8.1 — by <b>Enli Lucente</b>,
+      Strutturista della Psiche
+      <a href="https://orcid.org/0009-0006-2822-8359" style="font-family:var(--mono);font-size:10px;color:var(--steel-sm);text-decoration:none">ORCID 0009-0006-2822-8359</a>.
+      Credited by name at the author's wish; displayed from the public witness registry.</span>
+      <span class="vlinks">
+        <a href="https://www.alexanarch.org/data/symbolon-registry/entries/1a908cc8bf3ed5cc.json">witness entry</a>
+        <a href="https://www.alexanarch.org/data/symbolon-registry/files/1a908cc8bf3ed5cc-____198-___________-2026.08.01.pdf">stored original (PDF)</a>
+        <a href="https://www.alexanarch.org/mint/stamp/">verify any file</a>
+      </span>
+    </figcaption>
+  </figure>
+</div>
+</section>
+
+<section style="--cl:var(--c-instrumental)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;II</b>&nbsp;&nbsp;How it works<span class="rd">Method</span></div>
+  <div class="leaf">
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Upload a file</h3><p>Its fingerprint is computed <b>in your browser</b> — the file's exact bytes, nothing altered, and nothing leaves your device for the computation.</p></div>
+    <div class="step"><div class="n">2</div><h3>It comes back stamped</h3><p>A small band on an <b>added margin</b> carries the identifier; the original bytes stay untouched and separately identified.</p></div>
+    <div class="step"><div class="n">3</div><h3>It's registered</h3><p>The identifier gets a position in a <b>public, exportable registry</b> — and a verification page anyone can check.</p></div>
+  </div>
+</div>
+</section>
+
+<section style="--cl:var(--c-mathematical)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;III</b>&nbsp;&nbsp;The identifier, read closely<span class="rd">Proof</span></div>
+  <div class="leaf">
+  <h2>The identifier, read closely</h2>
+  <figure class="plate">
+    <div class="cap">Registered identifier · <i>witnessed-verified</i> · 2026-08-02</div>
+    <div class="axn-lockup">
+      <span class="pre">AXN:</span><span class="hex">05AB</span><span class="fam">.UNCLASSIFIED.</span>
+      <span class="glyph-row">
+        <span class="g"><span class="e">🔃</span><span class="tick" style="background:var(--c-structural)"></span></span>
+        <span class="g"><span class="e">✊</span><span class="tick" style="background:var(--c-gestural)"></span></span>
+        <span class="g"><span class="e">🌹</span><span class="tick" style="background:var(--c-organic)"></span></span>
+        <span class="g"><span class="e">⏫</span><span class="tick" style="background:var(--c-structural)"></span></span>
+        <span class="g"><span class="e">∞</span><span class="tick" style="background:var(--c-terminal)"></span></span>
+        <span class="g"><span class="e">✖️</span><span class="tick" style="background:var(--c-mathematical)"></span></span>
+      </span>
+    </div>
+    <div class="kernel">kernel <b>deb473d8ff92c55f</b>… · 6 glyphs = 6 bytes = 48 bits of the SHA-256, visually hashed · full hash in the sidecar</div>
+    <div class="reading">the color beneath each glyph names its byte-family · reading: Direction <b>→</b> Touch <b>→</b> Growth <b>→</b> Direction <b>→</b> Closure <b>→</b> Proof</div>
+  </figure>
+</div>
+</section>
+
+<section style="--cl:var(--c-liminal)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;IV</b>&nbsp;&nbsp;Verification<span class="rd">Threshold</span></div>
+  <div class="leaf">
+  <h2>Verification is the halves meeting <span style="color:var(--steel);text-transform:none;letter-spacing:0">— tap the pair</span></h2>
+  <div class="verify" onclick="this.classList.toggle('met')">
+    <div class="half l"><div class="k">Seed B · your file</div><div class="v">sha256(<b>candidate bytes</b>)<br>= deb473d8ff92c55f…</div></div>
+    <div class="edge"></div>
+    <div class="half r"><div class="k">Seed A · the registry</div><div class="v">AXN₀ kernel<br>= <b>deb473d8ff92c55f…</b></div></div>
+  </div>
+  <div class="verdict">VERIFIED — the fracture fits</div>
+</div>
+</section>
+
+<section style="--cl:var(--c-architectural)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;V</b>&nbsp;&nbsp;Free, forever<span class="rd">Foundation</span></div>
+  <div class="leaf">
+  <h2>Free, forever</h2>
+  <div class="freeblock">
+    <p>Computing identifiers, stamping files, looking them up, and verifying them is <b>free,
+    permanently</b>. The registry is public and downloadable. Registry positions are never sold.
+    Paid services buy human help <i>around</i> identifiers — never the identifier itself.</p>
+    <div class="dated">THIS PROMISE IS PUBLISHED AND DATED · <a href="https://www.alexanarch.org/axn/constitution/" style="color:var(--seal)">THE CONSTITUTION</a></div>
+  </div>
+</div>
+</section>
+
+<section style="--cl:var(--c-signal)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;VI</b>&nbsp;&nbsp;What it does not claim<span class="rd">Alarm</span></div>
+  <div class="leaf">
+  <h2><i>What an AXN does not claim</i></h2>
+  <div class="notclaim">
+    <p><b>Identity ≠ authorship.</b> It proves a file, not who made it; authorship statements are recorded as declarations and marked as such.</p>
+    <p><b>Witnessing ≠ notarization.</b> Timestamps prove when a file was witnessed, not created; nothing here is legal advice.</p>
+    <p><b>A registry entry ≠ perpetual hosting.</b> Storage terms are always explicit.</p>
+  </div>
+</div>
+</section>
+
+<section style="--cl:var(--c-gestural)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;VII</b>&nbsp;&nbsp;Sealed &amp; Witnessed<span class="rd">Touch</span></div>
+  <div class="leaf">
+  <h2>Sealed &amp; Witnessed — founding offer</h2>
+  <div class="offer">
+    <div class="k">Done by hand, by the person who built this</div>
+    <h3>Sealed &amp; Witnessed</h3>
+    <div class="price">$125 · pay after delivery · five founding slots</div>
+    <p>You send one PDF. Within a stated turnaround you receive it back <b>stamped and registered</b>,
+    with the original sealed and stored, a plain-English provenance receipt describing exactly what
+    was witnessed and when, and a public verification link.</p>
+    <p><b>To start:</b> reach Lee Sharks via <a href="https://www.alexanarch.org/" style="color:var(--bone)">Alexanarch</a>.
+    Payment by CashApp <span style="font-family:var(--mono)">$PraxisAcademic</span>, only after you have your package.</p>
+    <div class="terms">FOUNDING PILOT RATE, NOT A DISCOUNT · TERMS STATED IN THE RECEIPT ITSELF</div>
+  </div>
+</div>
+</section>
+
+<section style="--cl:var(--c-terminal)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;VIII</b>&nbsp;&nbsp;If we disappear<span class="rd">Closure</span></div>
+  <div class="leaf">
+  <h2>If we disappear</h2>
+  <div class="disappear">
+    <p>Identifiers stay valid, because they're computed from your file — <em>not granted by us.</em></p>
+    <p class="fine">The registry lives in public version control with full history, and if this service
+    ever ends, the whole archive is offered for download during a stated wind-down.
+    <a href="https://www.alexanarch.org/axn/constitution/">The constitution</a> spells it out.</p>
+  </div>
+  <div class="tombstone">
+    <p>Errors are corrected by amendment and tombstone — never by silent deletion. A retired
+    position keeps resolving; a withdrawn work is marked, not erased. The registry's history
+    is itself part of the registry.</p>
+  </div>
+</div>
+</section>
+
+<section style="--cl:var(--c-structural)">
+  <div class="sig"><b>SIG&nbsp;·&nbsp;IX</b>&nbsp;&nbsp;The network<span class="rd">Direction</span></div>
+  <div class="leaf">
+  <h2>The fleet — tech nodes of one knowledge ecosystem</h2>
+  <nav class="strata">
+    <a class="stratum here" href="/"><span class="layer">Kernel</span><span class="name">AXN Identifiers</span><span class="what">content-derived identity · this site</span></a>
+    <a class="stratum" href="https://www.holographickernel.org"><span class="layer">Kernel theory</span><span class="name">Holographic Kernel</span><span class="what">the general definition of reconstructive compression</span></a>
+    <a class="stratum" href="https://spxi.dev"><span class="layer">Treatment</span><span class="name">SPXI</span><span class="what">tokenizer-survivable metadata through hostile composition layers</span></a>
+    <a class="stratum" href="https://metadatapacket.dev"><span class="layer">Packet</span><span class="name">Metadata Packet</span><span class="what">the MPAI catalog — machine-portable scholarly packets</span></a>
+    <a class="stratum" href="https://www.alexanarch.org"><span class="layer">Memory</span><span class="name">Alexanarch</span><span class="what">the sovereign archive · OAI-PMH · ResourceSync · full history in public git</span></a>
+    <a class="stratum" href="https://persistentidentifiers.org"><span class="layer">Observation</span><span class="name">Platform Erosion Observatory</span><span class="what">measuring platform severance empirically</span></a>
+    <a class="stratum" href="https://machinemediation.org"><span class="layer">Journal</span><span class="name">MMRS</span><span class="what">journal-of-record for machine-mediated reception studies</span></a>
+  </nav>
+</div>
+</section>
+
+<div class="makers"><div class="mk">∮ = 1</div></div>
+<footer>
+  <span>AXN Identifiers · axnidentifiers.org · verification &amp; registry hosted by <a href="https://www.alexanarch.org/">Alexanarch</a></span>
+  <span><a href="https://www.alexanarch.org/axn/constitution/">Constitution</a> · <a href="https://www.alexanarch.org/data/axn-central-registry.json">Registry (raw)</a> · schema v2 · derivation = <span style="color:var(--bone)">scripts/axn_lib.py</span></span>
+</footer>
+
+</div>
+</body>
+</html>
