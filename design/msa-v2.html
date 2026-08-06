@@ -44,7 +44,7 @@
 @font-face{font-family:'PlexM';src:url('/assets/fonts/IBMPlexMono-600.woff2')format('woff2');font-weight:600;font-display:swap}
 
 :root{
-  --vellum:#F4EFE2; --vellum-hi:#FAF6EC; --bone:#EDE6D6;
+  --vellum:#EDE7D5; --vellum-hi:#F5F1E4; --bone:#EDE6D6;
   --soot:#14120F; --graphite:#1E1B17; --deep:#0C0A08;
   --ink:#241F1A; --slate:#3B352E; --ash:#6E6A62; --ash-d:#8E887C;
   --umber:#A8925C; --umber-pale:#D9CDA8; --umber-dim:#5A4E33;
@@ -90,24 +90,48 @@ svg.defs{position:absolute;width:0;height:0}
 .rail .seal{width:30px;height:30px;display:block}
 .rail .wm{font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:.3em;color:var(--ink);text-decoration:none}
 .rail .stations{margin-left:auto;display:flex;gap:0;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+@media(max-width:700px){
+  .rail{gap:8px}
+  .rail .stations{margin-left:0;width:100%;flex-wrap:wrap}
+  .rail .stations a:first-child{padding-left:0}   /* flush to the same left margin as the wordmark */
+  .rail .calib{margin-top:4px}
+}
 .rail .stations a{color:var(--ash);text-decoration:none;padding:4px 11px;border-left:1px solid var(--umber-pale)}
 .rail .stations a:first-child{border-left:0}
 .rail .stations a:hover{color:var(--crimson)}
 .rail .calib{width:100%;font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;color:var(--ash-d);margin-top:2px}
 
 /* ── PLATE: bounded evidentiary object ── */
-.plate{padding:44px 0 48px}
+.plate{padding:52px 0 20px}
+/* SEPARATOR — the plate closes with a hairline pair and a hexagonal mark: the
+   Crimson Hexagon's own figure, used as a colophon rule. Space does the
+   containing; the mark says a plate has ended. */
+.plate::after{content:"";display:block;height:1px;margin:46px auto 0;max-width:520px;
+  background:linear-gradient(90deg,transparent,var(--umber-pale) 22%,var(--umber-pale) 78%,transparent)}
+.depth .plate::after,.membrane .plate::after{background:linear-gradient(90deg,transparent,#3A342B 22%,#3A342B 78%,transparent)}
+.sepmark{display:block;text-align:center;margin:-9px auto 0;font-family:var(--mono);font-size:12px;
+  color:var(--umber);background:var(--vellum);width:34px;line-height:18px;position:relative}
+.membrane .sepmark{background:var(--soot);color:var(--umber-dim)}
+.depth .sepmark{background:var(--soot);color:var(--umber-dim)}
+.plate:last-of-type::after{display:none}
 .plate-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .plate-no{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--crimson)}
 .depth .plate-no{color:var(--crimson-lt)}
-.plate-title{font-family:var(--serif);font-weight:700;font-size:20px}
+.plate-title{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--t1)}
+.depth .plate-title,.membrane .plate-title{color:var(--t1-d)}
 .plate-state{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ash)}
 .plate-sub{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);
   margin:7px 0 22px;padding-bottom:9px;border-bottom:1px solid var(--umber-pale)}
 .depth .plate-sub,.depth .plate-state{color:var(--t2-d);border-color:#3A342B}
 p{max-width:64ch;margin-bottom:12px;color:var(--slate)}
-.depth p{color:var(--t2-d)}
-p b{color:var(--ink);font-weight:700}.depth p b{color:var(--t1-d)}
+.depth p,.membrane p{color:var(--t2-d)}
+p b{color:var(--ink);font-weight:700}
+/* The membrane had no rule of its own, so its prose fell back to charcoal and
+   its BOLD fell back to near-black — on a dark ground, which made the operative
+   phrases the least readable words on the page. Same defect class as the
+   covenant's bone-on-bone: a zone inherited a colour meant for another ground. */
+.depth p b,.membrane p b{color:var(--t1-d)}
+.membrane .opstage h3,.depth .opstage h3{color:var(--t1-d)}
 /* the folio is a bone card INSIDE the depth zone: without this its bold text
    inherited bone-on-bone and every guarantee rendered as a blank gap. A
    guarantee must never look redacted. */
@@ -116,7 +140,7 @@ p b{color:var(--ink);font-weight:700}.depth p b{color:var(--t1-d)}
 /* ── SURFACE: the genesis plate ── */
 .genesis{display:grid;gap:26px;padding:34px 0 10px}
 @media(min-width:900px){.genesis{grid-template-columns:minmax(0,1fr) minmax(320px,430px);gap:44px;align-items:center;padding:52px 0 18px}}
-h1{font-family:var(--serif);font-weight:700;color:var(--crimson);font-size:clamp(31px,6.2vw,58px);
+h1{font-family:var(--serif);font-weight:700;color:var(--t1);font-size:clamp(31px,6.2vw,58px);
   line-height:1.07;letter-spacing:-.008em;text-wrap:balance;max-width:14ch}
 h1 .q{display:block;font-weight:400;font-size:.44em;color:var(--ink);margin-top:12px;letter-spacing:0;max-width:26ch}
 .dek{margin-top:18px;max-width:46ch;font-size:17.5px}
@@ -215,8 +239,12 @@ figure.ev .idl b{color:var(--ink)}
 .overview{font-size:18px;color:var(--t1);max-width:58ch;margin-bottom:16px;line-height:1.5}
 .depth .overview,.membrane .overview{color:var(--t1-d)}
 .overview b{font-weight:700}
-mark.hl{background:rgba(155,27,27,.10);color:var(--crimson);padding:1px 5px;font-weight:600}
-.depth mark.hl,.membrane mark.hl{background:rgba(194,59,34,.17);color:#E39A86}
+/* Highlight is ultramarine — the overview register, and a deliberate step away
+   from crimson-on-cream, which reads as a generic machine-authored palette
+   rather than as this archive. Crimson is kept for incision: obeli, plate
+   numbers, the registration thread, the fracture. */
+mark.hl{background:rgba(51,80,122,.13);color:#24466F;padding:1px 5px;font-weight:600}
+.depth mark.hl,.membrane mark.hl{background:rgba(96,142,201,.20);color:#A9C6E8}
 mark.gd{background:rgba(184,150,74,.16);color:#7A6220;padding:1px 5px;font-weight:600}
 .depth mark.gd,.membrane mark.gd{background:rgba(184,150,74,.20);color:var(--gold)}
 /* REST — a clean surface with no secondary register, so the dense plates read
@@ -346,6 +374,7 @@ footer a{color:var(--ash-d)}
       </figcaption>
     </figure>
   </section>
+  <div class="sepmark">⬡</div>
 </div>
 </div>
 
@@ -366,6 +395,7 @@ footer a{color:var(--ash-d)}
         <p><b>Recorded in public.</b> The identifier takes a position in a <b>public, exportable registry</b> with a verification page anyone can check — <b>including a stranger who does not trust us</b>.</p></div></div>
     </div>
   </section>
+  <div class="sepmark">⬡</div>
 
   <section class="plate">
     <div class="plate-head"><span class="plate-no">Plate III</span>
@@ -392,6 +422,7 @@ footer a{color:var(--ash-d)}
       </div>
     </div>
   </section>
+  <div class="sepmark">⬡</div>
 
   <div class="rest">
     <p><b>The symbols help a human remember.</b><br>
@@ -411,6 +442,7 @@ footer a{color:var(--ash-d)}
     </div>
     <div class="verdict">the seam closes — the fracture fits</div>
   </section>
+  <div class="sepmark">⬡</div>
 </div>
 </div>
 
@@ -439,6 +471,7 @@ footer a{color:var(--ash-d)}
       </div>
     </div>
   </section>
+  <div class="sepmark">⬡</div>
 
   <section class="plate">
     <div class="plate-head"><span class="plate-no">Plate VI</span>
@@ -454,6 +487,7 @@ footer a{color:var(--ash-d)}
         <p><b>Proves:</b> that a position was allocated and recorded. <b>Does not promise:</b> storage without end. Storage terms are always explicit.</p></div></div>
     </div>
   </section>
+  <div class="sepmark">⬡</div>
 
   <section class="plate">
     <div class="plate-head"><span class="plate-no">Plate VI ½</span>
@@ -479,6 +513,7 @@ footer a{color:var(--ash-d)}
       </div>
     </div>
   </section>
+  <div class="sepmark">⬡</div>
 
   <section class="plate">
     <div class="plate-head"><span class="plate-no">Plate VII</span>
