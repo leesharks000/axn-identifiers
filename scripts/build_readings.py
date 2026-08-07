@@ -17,41 +17,66 @@ Usage:  python3 scripts/build_readings.py
 import json, sys, urllib.request, datetime, pathlib, html
 
 REG = "https://www.alexanarch.org/data/registry.json"
+CAPREG = "https://www.alexanarch.org/data/EA-WG-CAPTURES-01.json"
 OUT = pathlib.Path(__file__).resolve().parents[1] / "readings/index.html"
 
 # ── THE SELECTION (editorial; the only hand-typed part) ─────────────────────
 SECTIONS = [
-    ("The specification", "what an AXN is, and what it commits to", [
+    ("What an AXN is", "the specification, and the architecture it assumes", [
         (1432, "The identifier splits into two halves — a kernel inscribed in the artifact, "
-               "verification data in the sidecar — because a hash cannot contain itself."),
+               "verification data in the sidecar — because a hash cannot contain itself. Their "
+               "meeting is the proof."),
         (1435, "The plan for making the identifier distributed: normative invariants, an "
-               "authority model, a dated failure record, and a five-stage work plan."),
-        (1087, "How to mark what is missing. A lacuna is a disclosed absence, not an error — "
-               "the vocabulary that lets a resolver return an honest partial answer."),
+               "authority model separating what a hash proves from what a signature proves, a "
+               "dated failure record, and a five-stage work plan."),
+        (909,  "The data-rhizome: architectural principles for a system with no root and no "
+               "single point at which it can be cut."),
+        (1038, "The same identifier read as a poem. Six glyphs are a display hash and also a "
+               "line — the archive's argument that a technical form can carry a literary one."),
     ]),
-    ("The evidence", "why a content-derived identifier is worth the trouble", [
-        (1045, "The Platform Erosion Observatory: measuring what happens to persistent "
-               "identifiers when the institution maintaining them stops."),
-        (1081, "Programmed bibliographic suppression, measured at registry scale — "
-               "1,309,351 removal events, 92.14% carrying no citation record."),
-        (1424, "The index of 871 research objects severed in a single afternoon. This "
-               "archive's own erasure, catalogued."),
-        (1095, "AXN as anti-suppression infrastructure, placed against historical "
-               "precedent for the destruction of collections."),
+    ("Why it exists", "measured, not asserted", [
+        (868,  "DOIs are not persistent identifiers: 871 cases of public metadata erasure, "
+               "counted after this archive's own DOIs were severed. The founding measurement."),
+        (1045, "The Platform Erosion Observatory — the standing instrument for measuring what "
+               "happens to persistent identifiers when the institution maintaining them stops."),
+        (1081, "Programmed bibliographic suppression at registry scale: 1,309,351 removal "
+               "events, 92.14% of them carrying no citation record at all."),
+        (1417, "A conformance fixture for deletion semantics — what a repository ought to do "
+               "when it removes a record, written as something a machine can test."),
     ]),
-    ("The instrument observed", "what machines do with the work, recorded rather than argued", [
-        (1423, "The Capture Registry: reception, erasure and supply in the machine "
-               "composition layer — the method behind 230 dated captures."),
-        (518,  "An immanent phenomenology of the AI Mode share link: how attribution "
-               "becomes infrastructure, and summaries become future training data."),
-        (1413, "An availability and hygiene audit of the archive itself, conducted on the "
-               "archive by the archive, with the failures published."),
+    ("The argument", "precedent, theory, and the marks custody leaves", [
+        (1095, "AXN as anti-suppression infrastructure: historical precedents for the "
+               "destruction of collections, and what a content-derived identifier answers in them."),
+        (1,    "Zenodotus' book-burning — deposit #1, and the archive's founding frame: "
+               "exclusion at repository scale is old, and it has always been loud."),
+        (1068, "The obelus and the tombstone: the two marks of custody, and what each one "
+               "admits about the record it sits beside."),
+        (910,  "Operative metadata — a theoretical framing for metadata that does something "
+               "rather than merely describing something."),
     ]),
-    ("Adjacent systems", "the frameworks an AXN sits inside", [
-        (639,  "Source compression and the holographic kernel: why a fragment can "
-               "regenerate a whole."),
-        (1386, "Provenance erasure — the canonical definition surface for what happens "
-               "when a name survives and its relation does not."),
+    ("The instrument in the world", "what it touches, and what watches back", [
+        (1409, "Machine-eligible handwritten artifacts: how a hand-composed page enters a "
+               "machine-readable archive without being flattened into one."),
+        (1423, "The Capture Registry — reception, erasure and supply in the machine "
+               "composition layer, and the method behind every dated capture below."),
+        (518,  "An immanent phenomenology of the AI Mode share link: how attribution becomes "
+               "infrastructure and summaries become future training data."),
+    ]),
+]
+
+# ── CAPTURES: dated observations, cited by their canonical anchor ────────────
+CAPTURE_SETS = [
+    ("The archive, described by machines", "how composition layers render this corpus", [
+        "alexanarch-socrates-orthonym-20260731",
+        "alexanarch-zenodotus-obelus-20260731",
+        "alexanarch-sappho-phrasikleia-20260731",
+        "alexanarch-strike-deposit7-20260731",
+        "alexanarch-classifier-collapse-governance-20260731",
+    ]),
+    ("The identifier and its argument", "AXN, suppression, and erasure as machines report them", [
+        "immanent-phenomenology-lee-sharks-aimode-20260806",
+        "criticisms-of-cern-lee-sharks-aimode-20260805",
+        "spxi-protocol-successor-discipline-adoption-20260726",
     ]),
 ]
 
@@ -64,9 +89,17 @@ def main():
     print("fetching the registry…")
     with urllib.request.urlopen(REG, timeout=90) as r:
         reg = json.load(r)
+    with urllib.request.urlopen(CAPREG, timeout=60) as r:
+        capreg = json.load(r)
+    caps = {e["slug"]: e for e in capreg["entries"] if e.get("slug")}
     by_n = {d["deposit_number"]: d for d in reg["deposits"] if d.get("deposit_number")}
 
     missing = [n for _, _, items in SECTIONS for n, _ in items if n not in by_n]
+    miss_c = [c for _, _, slugs in CAPTURE_SETS for c in slugs if c not in caps]
+    if miss_c:
+        print(f"FAIL: listed captures absent from the capture registry: {miss_c}", file=sys.stderr)
+        print("A slug that no longer resolves is a citation that lands nowhere.", file=sys.stderr)
+        return 1
     if missing:
         print(f"FAIL: listed deposits absent from the registry: {missing}", file=sys.stderr)
         print("A bibliography that cites what is not there is worse than none.", file=sys.stderr)
@@ -92,6 +125,24 @@ def main():
                 f'<span class="name">{e(d.get("title","")[:96])}</span>'
                 f'<span class="what">{e(note)}</span>'
                 f'<span class="host">{e(axn)}</span></a>')
+        body.append('    </nav>\n  </section>\n')
+
+    for title, sub, slugs in CAPTURE_SETS:
+        body.append(f'  <section class="plate d1">\n'
+                    f'    <div class="plate-head"><span class="plate-no">Captures</span>\n'
+                    f'      <span class="plate-title">{e(title)}</span>'
+                    f'<span class="plate-state">{len(slugs)} dated</span></div>\n'
+                    f'    <div class="plate-sub">{e(sub)}</div>\n'
+                    f'    <nav class="eco">')
+        for sl in slugs:
+            c = caps[sl]
+            cite = c.get("cite") or f"https://www.alexanarch.org/captures/#{sl}"
+            body.append(
+                f'      <a class="ecorow" href="{cite}">'
+                f'<span class="layer">{e(c.get("date",""))}</span>'
+                f'<span class="name">{e((c.get("q") or sl)[:88])}</span>'
+                f'<span class="what">{e((c.get("mt") or "")[:150])}</span>'
+                f'<span class="host">{e(sl)}</span></a>')
         body.append('    </nav>\n  </section>\n')
 
     page = f'''<!DOCTYPE html>
