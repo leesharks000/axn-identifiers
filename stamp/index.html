@@ -36,11 +36,23 @@ button:hover{background:#086354}button:disabled{background:#aaa;cursor:default}
 .footer{margin-top:36px;padding-top:12px;border-top:1px solid var(--border);font-size:.75em;color:var(--dim)}
 .err{color:var(--accent2);font-size:.85em;display:none;margin:8px 0}
 </style>
+<link rel="stylesheet" href="/assets/msa.css">
 </head>
-<body><div class="wrap">
-<nav class="nav"><a href="/">AXN Identifiers</a> <a href="/how/">How</a>
-<a href="/limits/">Limits</a>
-<a href="/why/">Why</a> <a href="https://www.alexanarch.org">The archive</a></nav>
+<body><div class="zone surface" style="background:none">
+<div class="rail">
+  <img class="seal" src="/assets/brand/mark-dark-master.png" alt="">
+  <a class="wm" href="/">A X N</a>
+  <nav class="stations">
+    <a href="/">Instrument</a>
+    <a href="/how/">How</a>
+    <a href="/limits/">Limits</a>
+    <a href="/why/">Why</a>
+    <a href="/stamp/" class="here">Stamp</a>
+  </nav>
+  <div class="calib">STAMP · COMPUTED IN THIS BROWSER · NOTHING IS UPLOADED TO COMPUTE IT</div>
+</div>
+</div>
+<div class="wrap">
 
 <h1>Symbolon Stamp</h1>
 <p>Upload a file and receive back the <strong>symbolon pair</strong>: your file stamped with its AXN identity kernel on an <em>added margin</em> — the original is never overprinted — and the <strong>Seed A sidecar</strong> (<span style="font-family:var(--mono)">.axn.json</span>) that makes the stamp verifiable. Everything runs in your browser via WebCrypto; <strong>nothing leaves your device</strong>.</p>
