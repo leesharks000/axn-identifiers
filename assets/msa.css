@@ -588,3 +588,29 @@ figure.ev .bandnote b{color:var(--pt2)}
   .plate-title{width:100%;order:2}
   .plate-no{order:1}
 }
+
+/* ── THE NUMERALS, per Enli Lucente's reading (2026-08-07) ──
+   "What do you think about making that gold text a little bolder? Or perhaps
+   adding a very subtle outline? I think it might make those details easier to
+   notice without changing the feel of the design."
+
+   She was describing a measured failure, not a preference: on subpage cream the
+   numerals were falling back to base gold at 2.48:1, below AA for any text. Two
+   corrections, both hers. The tier value raises them to 5.6:1, and a thin darker
+   halo sharpens the stroke edges — an outline that defines the letterform
+   without lightening or altering the gold itself, which is the "without changing
+   the feel" she asked for. */
+.opstage .rn{
+  color:var(--pgold,#7A5A18);
+  font-weight:700;
+  letter-spacing:.02em;
+  text-shadow:0 0 1.5px rgba(74,54,16,.42), 0 0 .5px rgba(74,54,16,.55);
+}
+.plate.d3 .opstage .rn,.plate.d4 .opstage .rn{
+  text-shadow:0 0 2px rgba(20,16,10,.6), 0 0 .5px rgba(20,16,10,.7);
+}
+/* the same reading applies wherever gold carries meaning at small size */
+.ecorow .layer,.ecofoot{font-weight:600}
+/* the byte-family reading line was in the muted tier and italic at once —
+   two reductions stacked on the one line that explains the colours */
+.orbit .reading{color:var(--pt2,var(--t2));font-size:14px}
