@@ -577,3 +577,14 @@ figure.ev .bandnote b{color:var(--pt2)}
 .specnote{font-size:14px;line-height:1.55;color:var(--pt2,var(--t2));
   border-left:2px solid var(--gold);padding-left:14px;margin:16px 0 4px}
 .specnote b{color:var(--pt1,var(--t1))}
+
+/* The state label sits right of the title on a wide row — but margin-left:auto
+   inside a wrapping flex container shoves it fully right the moment it wraps,
+   producing a label floating alone above a left-aligned subtitle. When it wraps,
+   it should align with everything else. */
+@media(max-width:700px){
+  .plate-head{gap:6px 12px}
+  .plate-state{margin-left:0;width:100%;order:3}
+  .plate-title{width:100%;order:2}
+  .plate-no{order:1}
+}
