@@ -36,6 +36,7 @@ free, permanent, and needs no permission.
 - Limits: https://axnidentifiers.org/limits/
 - Why it exists: https://axnidentifiers.org/why/
 - Stamp and verify (client-side): https://axnidentifiers.org/stamp/
+- Readings: https://axnidentifiers.org/readings/
 - Constitution: https://axnidentifiers.org/constitution/
 - Node declaration: https://axnidentifiers.org/.well-known/axn-node.json
 
