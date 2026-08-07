@@ -11,7 +11,7 @@
 <link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png">
 <meta name="axn-registry" content="https://www.alexanarch.org/data/axn-central-registry.json">
-<link rel="axn-stamper" title="AXN Stamp &amp; Verify" href="https://www.alexanarch.org/mint/stamp/">
+<link rel="axn-stamper" title="AXN Stamp &amp; Verify" href="https://axnidentifiers.org/stamp/">
 <meta property="og:title" content="AXN Identifiers — distributed, content-derived identifiers that outlive platform erasure">
 <meta property="og:description" content="A content-derived identifier: the identity kernel is the SHA-256 of a file's canonical bytes. Derived from the work rather than assigned to it.">
 <meta property="og:image" content="https://axnidentifiers.org/assets/brand/og-card.png">
@@ -58,8 +58,8 @@
         <mark class="hl">derived from the work rather than assigned to it</mark>, so anyone can
         verify it anywhere, without asking us.</p>
       <div class="acts">
-        <a class="act prime" href="https://www.alexanarch.org/mint/stamp/">Place a file in the instrument</a>
-        <a class="act" href="https://www.alexanarch.org/mint/stamp/">Verify anything</a>
+        <a class="act prime" href="/stamp/">Place a file in the instrument</a>
+        <a class="act" href="/stamp/">Verify anything</a>
         <a class="act quiet" href="https://www.alexanarch.org/axn/constitution/">Guarantees</a>
       </div>
     </div>
@@ -122,7 +122,7 @@
         <span class="checks">
           <a href="https://www.alexanarch.org/data/symbolon-registry/entries/1a908cc8bf3ed5cc.json"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 10.5 3v3.4c0 2.4-2 3.9-4.5 4.6C3.5 10.3 1.5 8.8 1.5 6.4V3z"/><path d="M4.2 6.1 5.5 7.4 8 4.8"/></svg>witness entry</a>
           <a href="https://www.alexanarch.org/data/symbolon-registry/files/1a908cc8bf3ed5cc-____198-___________-2026.08.01.pdf"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1v7M3.2 5.4 6 8.2l2.8-2.8M1.5 10.5h9"/></svg>the stored original</a>
-          <a href="https://www.alexanarch.org/mint/stamp/"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 5 7M8 9.5v1h-7v-7h1"/></svg>hash it yourself</a>
+          <a href="/stamp/"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6M10.5 1.5 5 7M8 9.5v1h-7v-7h1"/></svg>hash it yourself</a>
         </span>
       </figcaption>
     </figure>
@@ -141,47 +141,46 @@
     <p class="overview"><b>Three layers: an identity kernel, a record address, and locations.</b>
       The kernel is computed from your canonical bytes — <mark class="hl">nothing is uploaded to compute it</mark>.</p>
 <figure class="plate-fig">
-      <svg viewBox="0 0 760 260" role="img"
-           aria-label="One object in three states. Station one: the sheet is hashed in the browser. Station two: the same sheet gains a margin added along its edge carrying six glyphs. Station three: the same sheet, now addressed, stands beside a struck registry seal. A dashed return carries a verifiable address back to the same bytes.">
-        <g class="traced" fill="none" stroke="#6E6A62" stroke-width="1.1" stroke-linecap="round">
-          <path d="M40 54 L166 48 L172 186 L46 193 Z" stroke="#3B352E" stroke-width="1.35"/>
-          <path d="M58 78 L148 74 M58 98 L142 94 M58 118 L152 114 M58 138 L126 134" stroke="#A8925C" stroke-width=".8"/>
-          <path d="M184 120 C214 120, 218 106, 244 114 C262 120, 254 128, 272 122"/>
-          <path d="M296 54 L408 48 L414 186 L302 193 Z" stroke="#3B352E" stroke-width="1.35"/>
-          <path d="M314 78 L392 74 M314 98 L386 94 M314 118 L396 114 M314 138 L370 134" stroke="#A8925C" stroke-width=".8"/>
-          <path d="M414 48 L444 47 L450 185 L414 186 Z" stroke="#9B1B1B" stroke-width="1.5"/>
-          <path d="M462 120 C492 120, 498 106, 524 114 C542 120, 534 128, 552 122"/>
-          <path d="M576 56 L688 50 L694 188 L582 195 Z" stroke="#3B352E" stroke-width="1.35"/>
-          <path d="M594 80 L672 76 M594 100 L666 96 M594 120 L676 116 M594 140 L650 136" stroke="#A8925C" stroke-width=".8"/>
-          <path d="M694 50 L724 49 L730 187 L694 188 Z" stroke="#9B1B1B" stroke-width="1.5"/>
-          <circle cx="640" cy="222" r="17" stroke="#9B1B1B" stroke-width="1.25"/>
-          <circle cx="640" cy="222" r="12" stroke="#9B1B1B" stroke-width=".6"/>
-          <path d="M640 211 L640 233 M629 222 L651 222 M633 215 L647 229 M647 215 L633 229" stroke="#9B1B1B" stroke-width=".75"/>
-          <path d="M624 226 C520 250, 250 250, 108 214 C86 208, 72 202, 58 194"
-                stroke="#33507A" stroke-width="1" stroke-dasharray="7 5"/>
+      <svg viewBox="0 0 400 560" role="img"
+           aria-label="One object in three stacked states. First, the sheet is hashed in the browser. Second, the same sheet gains a margin added along its edge carrying six glyphs. Third, the same sheet, now addressed, stands beside a struck registry seal. A dashed return carries a verifiable address back to the same bytes.">
+        <g class="traced" fill="none" stroke="#6E6A62" stroke-width="1.4" stroke-linecap="round">
+          <path d="M26 44 L150 40 L154 152 L30 157 Z" stroke="#3B352E" stroke-width="1.7"/>
+          <path d="M42 66 L134 63 M42 84 L128 81 M42 102 L138 99 M42 120 L116 117" stroke="#A8925C" stroke-width="1"/>
+          <path d="M90 162 C90 176, 78 182, 90 196"/>
+          <path d="M26 216 L150 212 L154 324 L30 329 Z" stroke="#3B352E" stroke-width="1.7"/>
+          <path d="M42 238 L134 235 M42 256 L128 253 M42 274 L138 271 M42 292 L116 289" stroke="#A8925C" stroke-width="1"/>
+          <path d="M154 212 L182 211 L186 323 L154 324 Z" stroke="#9B1B1B" stroke-width="1.9"/>
+          <path d="M90 334 C90 348, 78 354, 90 368"/>
+          <path d="M26 388 L150 384 L154 496 L30 501 Z" stroke="#3B352E" stroke-width="1.7"/>
+          <path d="M42 410 L134 407 M42 428 L128 425 M42 446 L138 443 M42 464 L116 461" stroke="#A8925C" stroke-width="1"/>
+          <path d="M154 384 L182 383 L186 495 L154 496 Z" stroke="#9B1B1B" stroke-width="1.9"/>
+          <circle cx="330" cy="440" r="26" stroke="#9B1B1B" stroke-width="1.7"/>
+          <circle cx="330" cy="440" r="19" stroke="#9B1B1B" stroke-width=".9"/>
+          <path d="M330 423 L330 457 M313 440 L347 440 M319 429 L341 451 M341 429 L319 451" stroke="#9B1B1B" stroke-width="1.1"/>
+          <path d="M304 440 C250 440, 220 430, 190 440" stroke="#9B1B1B" stroke-width="1.5"/>
+          <path d="M330 466 C330 520, 120 540, 44 512" stroke="#33507A" stroke-width="1.5" stroke-dasharray="9 7"/>
         </g>
-        <g font-family="'PlexM',monospace" font-weight="600" letter-spacing="1.4" font-size="10">
-          <text x="40" y="32" fill="#33507A">i · TAKEN UP</text>
-          <text x="296" y="32" fill="#8A6410">ii · INSCRIBED</text>
-          <text x="576" y="32" fill="#9B1B1B">iii · WITNESSED</text>
+        <g font-family="'PlexM',monospace" font-weight="600" letter-spacing="1.4" font-size="14">
+          <text x="196" y="60" fill="#33507A">i · TAKEN UP</text>
+          <text x="212" y="232" fill="#8A6410">ii · INSCRIBED</text>
+          <text x="212" y="404" fill="#9B1B1B">iii · WITNESSED</text>
         </g>
-        <g font-family="'PlexM',monospace" font-size="8.5" letter-spacing=".8" fill="#6E6A62">
-          <text x="40" y="212">hashed in your browser</text>
-          <text x="40" y="226">nothing leaves the device</text>
-          <text x="296" y="212">a margin is added — never</text>
-          <text x="296" y="226">overprinted on the hand</text>
-          <text x="576" y="214">a position anyone can check</text>
+        <g font-family="'PlexM',monospace" font-size="11.5" fill="#5C5548">
+          <text x="196" y="84">hashed in your</text><text x="196" y="102">browser — nothing</text>
+          <text x="196" y="120">leaves the device</text>
+          <text x="212" y="256">a margin is added,</text><text x="212" y="274">never overprinted</text>
+          <text x="212" y="292">on the hand</text>
+          <text x="212" y="428">a position anyone</text><text x="212" y="446">can check</text>
+          <text x="212" y="472" fill="#9B1B1B" font-weight="600">AXN:05AD</text>
         </g>
-        <g font-size="11" text-anchor="middle">
-          <text x="429" y="80">🌾</text><text x="429" y="102">➕</text><text x="429" y="124">🥁</text>
-          <text x="429" y="146">⚫</text><text x="429" y="168">👋</text>
-          <text x="709" y="80">🌾</text><text x="709" y="102">➕</text><text x="709" y="124">🥁</text>
-          <text x="709" y="146">⚫</text><text x="709" y="168">👋</text>
+        <g font-size="14" text-anchor="middle">
+          <text x="168" y="240">🌾</text><text x="168" y="266">➕</text><text x="168" y="292">🥁</text>
+          <text x="168" y="318">⚫</text>
+          <text x="168" y="412">🌾</text><text x="168" y="438">➕</text><text x="168" y="464">🥁</text>
+          <text x="168" y="490">⚫</text>
         </g>
-        <g font-family="'PlexM',monospace" font-size="8" letter-spacing=".6">
-          <text x="604" y="176" fill="#9B1B1B">AXN:05AD</text>
-          <text x="380" y="254" fill="#33507A" text-anchor="middle" letter-spacing="1">A VERIFIABLE ADDRESS RETURNS TO THE SAME BYTES</text>
-        </g>
+        <text x="200" y="546" font-family="'PlexM',monospace" font-size="11" fill="#33507A"
+              text-anchor="middle" letter-spacing="1">A VERIFIABLE ADDRESS RETURNS TO THESE BYTES</text>
       </svg>
       <figcaption><b>One object, three states — the sheet never changes.</b>
         Only what accompanies it grows: a kernel, then a seal on an added margin, then an address.</figcaption>

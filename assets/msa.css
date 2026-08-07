@@ -545,3 +545,35 @@ figure.ev .bandnote b{color:var(--pt2)}
 .plate[class*="d"] .plate-fig{background:none;border-color:var(--prule)}
 .plate[class*="d"] .plate-fig figcaption{color:var(--pt3);border-color:var(--prule)}
 .plate[class*="d"] .plate-fig figcaption b{color:var(--pt1)}
+
+/* The symbolon is a PAIR — exactly two flex children. The rest-note had been a
+   third, so flex squeezed it into a narrow column beside the halves and it
+   overflowed. It belongs below the pair, which is also where it reads. */
+.symb{max-width:700px}
+.symb > .restnote{display:none}
+.plate .restnote{display:block;margin-top:9px}
+.symb .half{min-width:0;overflow-wrap:anywhere}
+@media(max-width:620px){
+  .symb{flex-direction:column}
+  .symb .half.l{text-align:left;border-right:1px solid var(--prule);border-bottom:0}
+  .symb .half.r{border-left:1px solid var(--prule)}
+  .symb .edge{width:100%;height:14px}
+  /* stacked, the fracture is horizontal — the seam still runs between them */
+  .symb.met .half.l{transform:translateY(-5px)}
+  .symb.met .half.r{transform:translateY(5px)}
+}
+
+/* NUMBERED STEPS — adopted from the alexanarch stamper, whose sequence was
+   plainly clearer than a wall of plates. Same structure, MSA dress: serif
+   heading, mono numeral, crimson rule. The instrument should read as a
+   procedure, because that is what it is. */
+.step{display:flex;align-items:baseline;gap:12px;margin:26px 0 12px;
+  padding-bottom:7px;border-bottom:1px solid var(--prule,rgba(120,104,70,.24))}
+.step .stepno{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--crimson);
+  letter-spacing:.1em;flex:0 0 auto}
+.step .steph{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--pt1,var(--t1))}
+.step .steph em{font-style:normal;font-family:var(--mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--pt3,var(--t3))}
+.specnote{font-size:14px;line-height:1.55;color:var(--pt2,var(--t2));
+  border-left:2px solid var(--gold);padding-left:14px;margin:16px 0 4px}
+.specnote b{color:var(--pt1,var(--t1))}

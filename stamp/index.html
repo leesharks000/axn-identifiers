@@ -43,23 +43,32 @@
 
   <section class="plate d1">
     <div class="plate-head"><span class="plate-no">Instrument</span>
-      <span class="plate-title">Place a file in the instrument</span><span class="plate-state">client-side</span></div>
-    <div class="plate-sub">the identity kernel is computed from your canonical bytes, here</div>
-    <p class="overview"><b>Your file does not leave this device to be identified.</b>
-      The kernel is the SHA-256 of its canonical bytes — no normalization, no re-encoding —
-      and it is <mark class="hl">true or false independently of every registry, including ours</mark>.</p>
+      <span class="plate-title">Symbolon stamp</span><span class="plate-state">client-side</span></div>
+    <div class="plate-sub">the identity kernel is computed from your canonical bytes, in this browser</div>
+    <p class="overview">Place a file in the instrument and receive back the <b>symbolon pair</b>: your file
+      stamped with its identity kernel on an <b>added margin</b> — the original is never overprinted —
+      and the <b>Seed A sidecar</b> that makes the stamp verifiable.
+      <mark class="hl">Nothing is uploaded to compute it.</mark></p>
+    <p class="specnote">Implements <b>AXN-SYMBOLON-SPEC v0.3</b> (chiastic inscription): the identifier
+      splits into two halves — the kernel inscribed in the artifact, the verification data in the sidecar —
+      because a hash cannot contain itself. What is <b>held</b> is unaddressed; what <b>travels</b> carries
+      its address. Their meeting proves the work.</p>
 
+    <div class="step"><span class="stepno">1</span><span class="steph">Your file</span></div>
     <div class="drop" id="drop"><b>Drop a file here, or tap to choose</b>
       any file · images · PDF · text · audio · archives
       <input type="file" id="file" style="display:none"></div>
 
     <div class="kbox" id="kbox">
-      <div class="krow"><span class="k">Identity kernel</span><span class="v" id="kern"></span></div>
+      <div class="step"><span class="stepno">2</span><span class="steph">The identity kernel</span></div>
+      <div class="krow"><span class="k">Kernel</span><span class="v" id="kern"></span></div>
       <div class="krow"><span class="k">Six glyphs</span><span class="v" id="glyph" style="font-size:22px"></span></div>
       <div class="krow"><span class="k">Byte families</span><span class="v" id="clus" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase"></span></div>
       <div class="krow"><span class="k">Canonical bytes</span><span class="v" id="size"></span></div>
-      <div class="krow"><span class="k">Record address</span><span class="v" id="addr">not yet requested — an address is not a verification</span></div>
-      <div class="checks" style="margin-top:16px">
+
+      <div class="step"><span class="stepno">3</span><span class="steph">A record address <em>(optional)</em></span></div>
+      <div class="krow"><span class="k">Address</span><span class="v" id="addr">not yet requested — an address is not a verification</span></div>
+      <div class="checks" style="margin-top:14px">
         <a id="dlseed" href="#" download>download the Seed A sidecar</a>
         <a href="#" id="doreg">request a record address</a>
       </div>
