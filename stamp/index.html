@@ -1,198 +1,410 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en">
+<head>
+<link rel="canonical" href="https://www.alexanarch.org/mint/stamp/">
+<meta charset="utf-8">
+<link rel="alternate" type="application/xml" title="OAI-PMH repository — Alexanarch" href="https://www.alexanarch.org/oai">
+<link rel="axn-stamper" title="AXN Stamp &amp; Verify" href="https://www.alexanarch.org/mint/stamp/">
+<meta name="axn-registry" content="https://www.alexanarch.org/data/axn-central-registry.json">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/axn-mark-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/axn-mark-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/axn-mark-180.png">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Stamp a file — AXN Identifiers</title>
-<meta name="description" content="Compute a content-derived identifier from your file's canonical bytes, in your browser. Nothing is uploaded to compute it. Works against any AXN node, and works with none.">
-<link rel="canonical" href="https://axnidentifiers.org/stamp/">
-<link rel="stylesheet" href="/assets/msa.css">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
-<link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
+<title>Symbolon Stamp — AXN inscription | Alexanarch</title>
+<meta name="description" content="Upload a file, receive it back AXN-stamped on an added margin plus its Seed A sidecar — the symbolon pair. Implements AXN-SYMBOLON-SPEC v0.2 (deposit #1432). Everything runs in your browser; nothing leaves your device.">
+<!-- Implements AXN:05A9.OPERATIVE.🐚🌪️🕖🫵⏩○ · AXN-SYMBOLON-SPEC v0.2 · alexanarch #1432 -->
 <style>
-.drop{border:1.5px dashed var(--pbd,rgba(120,104,70,.42));background:rgba(255,253,247,.5);
-  padding:30px 20px;text-align:center;cursor:crosshair;font-family:var(--mono);font-size:12px;
-  color:var(--t2);letter-spacing:.06em}
-.drop.hot{border-color:var(--crimson);color:var(--crimson)}
-.drop b{display:block;font-family:var(--serif);font-size:17px;color:var(--t1);margin-bottom:6px;letter-spacing:0}
-.kbox{margin-top:18px;display:none}
-.kbox.on{display:block}
-.krow{display:grid;grid-template-columns:112px 1fr;gap:6px 14px;padding:9px 0;
-  border-bottom:1px solid var(--prule,rgba(120,104,70,.22));align-items:baseline}
-.krow .k{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3)}
-.krow .v{font-family:var(--mono);font-size:12px;color:var(--t1);word-break:break-all}
-.nodeline{margin-top:14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--t3)}
-.nodeline b{color:var(--verdigris)}
-.nodeline i{color:var(--crimson);font-style:normal}
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+:root{--bg:#fafafa;--fg:#1a1a1a;--accent:#1a3a5c;--accent2:#c23b22;--dim:#777;--teal:#0a7c6a;--border:#e0e0e0;--surface:#fff;--sans:"IBM Plex Sans",sans-serif;--mono:"IBM Plex Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:var(--bg);color:var(--fg);line-height:1.7;font-size:15px}
+.wrap{max-width:720px;margin:0 auto;padding:50px 24px}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent2)}
+h1{font-size:1.5em;font-weight:600;color:var(--accent);margin-bottom:6px}
+h2{font-size:1em;font-weight:500;color:var(--accent);margin:22px 0 8px;border-bottom:1px solid var(--border);padding-bottom:3px}
+p{margin-bottom:10px;color:#333}
+.nav{display:flex;gap:14px;margin-bottom:22px;font-size:.85em}.nav a{color:var(--dim);font-weight:500}
+button{background:var(--teal);color:#fff;border:none;border-radius:5px;padding:9px 18px;font-size:.9em;font-family:var(--sans);cursor:pointer;font-weight:500}
+button:hover{background:#086354}button:disabled{background:#aaa;cursor:default}
+.drop{border:2px dashed var(--border);border-radius:8px;padding:26px;text-align:center;color:var(--dim);font-size:.9em;margin:10px 0;background:var(--surface);cursor:pointer}
+.drop.hot{border-color:var(--teal);color:var(--teal)}
+.out{background:var(--surface);border-left:4px solid var(--teal);border-radius:6px;padding:16px;margin:12px 0;font-family:var(--mono);word-break:break-all;display:none}
+.out .glyph{font-size:1.6em;letter-spacing:.15em;margin:6px 0}
+.out .k{color:var(--dim);font-size:.72em;text-transform:uppercase;letter-spacing:.05em;margin-top:10px}
+.out .v{font-size:.83em;color:#333}
+.dl{display:inline-block;margin:8px 10px 0 0;background:var(--accent);color:#fff;border-radius:5px;padding:9px 16px;font-size:.88em;font-family:var(--sans)}
+.dl:hover{background:#12294a;color:#fff}
+.note{font-size:.82em;color:var(--dim);margin:14px 0;border-top:1px dashed var(--border);padding-top:12px}
+.footer{margin-top:36px;padding-top:12px;border-top:1px solid var(--border);font-size:.75em;color:var(--dim)}
+.err{color:var(--accent2);font-size:.85em;display:none;margin:8px 0}
 </style>
-<link rel="cite-as" href="https://www.alexanarch.org/axn/constitution/">
-<link rel="describedby" href="https://axnidentifiers.org/.well-known/axn-node.json" type="application/json">
-<link rel="describedby" href="https://axnidentifiers.org/llms.txt" type="text/plain">
-<link rel="item" href="https://www.alexanarch.org/data/axn-central-registry.json" type="application/json">
-</head><body class="flat">
-<div class="zone surface">
-<div class="rail">
-  <img class="seal" src="/assets/brand/mark-dark-master.png" alt="">
-  <a class="wm" href="/">A X N</a>
-  <nav class="stations">
-    <a href="/">Instrument</a><a href="/how/">How</a><a href="/limits/">Limits</a>
-    <a href="/why/">Why</a><a href="/stamp/" class="here">Stamp</a>
-  </nav>
-  <div class="calib">STAMP · COMPUTED IN THIS BROWSER · NOTHING IS UPLOADED TO COMPUTE IT</div>
-</div>
-<div class="inner">
+</head>
+<body><div class="wrap">
+<nav class="nav"><a href="/">AXN Identifiers</a> <a href="/how/">How</a>
+<a href="/limits/">Limits</a>
+<a href="/why/">Why</a> <a href="https://www.alexanarch.org">The archive</a></nav>
 
-  <section class="plate d1">
-    <div class="plate-head"><span class="plate-no">Instrument</span>
-      <span class="plate-title">Symbolon stamp</span><span class="plate-state">client-side</span></div>
-    <div class="plate-sub">the identity kernel is computed from your canonical bytes, in this browser</div>
-    <p class="overview">Place a file in the instrument and receive back the <b>symbolon pair</b>: your file
-      stamped with its identity kernel on an <b>added margin</b> — the original is never overprinted —
-      and the <b>Seed A sidecar</b> that makes the stamp verifiable.
-      <mark class="hl">Nothing is uploaded to compute it.</mark></p>
-    <p class="specnote">Implements <b>AXN-SYMBOLON-SPEC v0.3</b> (chiastic inscription): the identifier
-      splits into two halves — the kernel inscribed in the artifact, the verification data in the sidecar —
-      because a hash cannot contain itself. What is <b>held</b> is unaddressed; what <b>travels</b> carries
-      its address. Their meeting proves the work.</p>
+<h1>Symbolon Stamp</h1>
+<p>Upload a file and receive back the <strong>symbolon pair</strong>: your file stamped with its AXN identity kernel on an <em>added margin</em> — the original is never overprinted — and the <strong>Seed A sidecar</strong> (<span style="font-family:var(--mono)">.axn.json</span>) that makes the stamp verifiable. Everything runs in your browser via WebCrypto; <strong>nothing leaves your device</strong>.</p>
+<p style="font-size:.85em;color:var(--dim)">Implements <a href="https://www.alexanarch.org/s/records/1432/">AXN-SYMBOLON-SPEC v0.2</a> (AXN:05A9.OPERATIVE.🐚🌪️🕖🫵⏩○): the identifier splits into two halves — the kernel inscribed in the artifact, the verification data in the sidecar — because a hash cannot contain itself. Their meeting proves the work.</p>
 
-    <div class="step"><span class="stepno">1</span><span class="steph">Your file</span></div>
-    <div class="drop" id="drop"><b>Drop a file here, or tap to choose</b>
-      any file · images · PDF · text · audio · archives
-      <input type="file" id="file" style="display:none"></div>
+<h2>1 · Your file</h2>
+<div class="drop" id="drop">Drop a file here, or click to choose<br><span style="font-size:.8em">images (PNG/JPEG) · PDF · text/markdown</span><input type="file" id="file" style="display:none" accept=".png,.jpg,.jpeg,.pdf,.txt,.md,image/png,image/jpeg,application/pdf,text/plain,text/markdown"></div>
+<div class="err" id="err"></div>
 
-    <div class="kbox" id="kbox">
-      <div class="step"><span class="stepno">2</span><span class="steph">The identity kernel</span></div>
-      <div class="krow"><span class="k">Kernel</span><span class="v" id="kern"></span></div>
-      <div class="krow"><span class="k">Six glyphs</span><span class="v" id="glyph" style="font-size:22px"></span></div>
-      <div class="krow"><span class="k">Byte families</span><span class="v" id="clus" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase"></span></div>
-      <div class="krow"><span class="k">Canonical bytes</span><span class="v" id="size"></span></div>
+<h2>2 · Semantic family (for registration)</h2>
+<select id="fam" style="font-family:var(--mono);font-size:.85em;border:1px solid var(--border);border-radius:5px;padding:8px;background:var(--surface);width:100%">
+<option>UNCLASSIFIED</option><option>ARCHIVAL</option><option>EMPIRICAL</option><option>GENERATIVE</option><option>GOVERNANCE</option><option>OPERATIVE</option><option>PHILOLOGICAL</option><option>STRUCTURAL</option>
+</select>
+<p style="font-size:.8em;color:var(--dim);margin-top:4px">The family joins the hex position and kernel to compose the full AXN at registration. The stamp itself carries the kernel — true independently of any registry.</p>
 
-      <div class="step"><span class="stepno">3</span><span class="steph">A record address <em>(optional)</em></span></div>
-      <div class="krow"><span class="k">Address</span><span class="v" id="addr">not yet requested — an address is not a verification</span></div>
-      <div class="checks" style="margin-top:14px">
-        <a id="dlseed" href="#" download>download the Seed A sidecar</a>
-        <a href="#" id="doreg">request a record address</a>
-      </div>
-      <div class="nodeline" id="nodeline"></div>
-    </div>
-  </section>
+<h2>3 · Storage (optional)</h2>
+<label style="text-transform:none;font-size:.85em;color:#333;display:flex;gap:8px;align-items:flex-start"><input type="checkbox" id="storeit" style="margin-top:4px"> <span>Also <strong>store the sealed core</strong> with the archive (files ≤ 3 MB), so this AXN can retrieve the file itself. Storing enables full verification — your bytes are hash-checked at ingest and the record upgrades to <em>witnessed-verified</em>. Leave unchecked and only the identity crosses the wire; larger works flow through the <a href="https://www.alexanarch.org/deposit/">deposit transport</a>.</span></label>
 
-  <section class="plate d1">
-    <div class="plate-head"><span class="plate-no">Verify</span>
-      <span class="plate-title">Check any file against the registry</span><span class="plate-state">any node</span></div>
-    <div class="plate-sub">two independent computations of one hash · a match proves the bytes are the same</div>
-    <p class="overview"><b>Verification needs no trust in us.</b> Your file is hashed here; the registry
-      is fetched from whichever node answers first; the comparison happens in this page.</p>
-    <div class="drop" id="vdrop" style="padding:20px"><b>Drop a file to verify</b>
-      or an original you believe is registered<input type="file" id="vfile" style="display:none"></div>
-    <div class="kbox" id="vout"></div>
-  </section>
+<h2>4 · Stamp</h2>
+<button id="go" disabled>Stamp it</button>
 
-  <section class="plate d1">
-    <div class="plate-head"><span class="plate-no">Nodes</span>
-      <span class="plate-title">Where this instrument looks</span><span class="plate-state">rhizome</span></div>
-    <div class="plate-sub">the stamper is node-agnostic · adding a node is adding a line</div>
-    <p class="overview"><b>The kernel is computed here; only the address comes from a node.</b>
-      Each declared node is tried in turn, and the one that answered is named beside your result.
-      <mark class="hl">When none answers, the kernel and sidecar are still produced</mark> — an
-      unreachable registry costs you an address, not an identity.</p>
-    <div id="nodelist"></div>
-    <div class="onward"><a href="/how/">How the identifier is made →</a><a href="/limits/">What it does not claim →</a></div>
-  </section>
-
-  <div class="mk">∮ = 1</div>
-  <footer>AXN schema v2 · derivation identical to scripts/axn_lib.py · computed with WebCrypto in your browser<br>
-    <a href="/">back to the instrument</a> · <a href="/constitution/">the constitution</a></footer>
-</div>
+<div class="out" id="out">
+  <div class="k">AXN₀ — identity kernel of your original (the sealed core)</div>
+  <div class="glyph" id="g0"></div>
+  <div class="v" id="h0"></div>
+  <div class="k">AXN₁ — kernel of the stamped file as it will circulate</div>
+  <div class="glyph" id="g1"></div>
+  <div class="v" id="h1"></div>
+  <div class="k">Downloads — keep both together; they are two halves of one identity</div>
+  <div><a class="dl" id="dlStamped" download>stamped file</a><a class="dl" id="dlSeed" download>Seed A sidecar (.axn.json)</a></div>
+  <div class="k">Registry</div>
+  <div style="margin-top:6px"><span id="regout" style="font-size:.85em;color:#333">registering…</span> <button id="reg" style="display:none">Retry registration</button></div>
 </div>
 
-<script src="/assets/axn-node.js"></script>
+<div class="note">
+<strong>What the stamp is.</strong> A footer strip appended <em>below</em> your content — added canvas for images, an added-margin line for PDFs, a comment block for text. It carries the six-glyph kernel and the SHA-256 prefix of your <em>original</em> bytes. <strong>What the sidecar is.</strong> The identity half: both kernels in full, the exact stamp geometry (so verification knows precisely where the stamp ends and your work begins), and the manifest. <strong>What to do with them.</strong> Circulate the stamped file freely; keep the sidecar with it, or send it to the archive. The stamp says what the work is; the sidecar proves it. Keeping your original file safe as well is ideal — it is the sealed core itself.
+<br><br><strong>Registration.</strong> The <em>Register with the archive</em> button witnesses your symbolon in the public record: the sidecar's internal consistency is checked (glyphs recomputed from hashes), a hex position is allocated from the sovereign AXN sequence, and the full identifier — <span style="font-family:var(--mono)">AXN:HEX.FAMILY.glyphs</span> — is composed and committed to the registry, publicly visible within about two minutes. Only Seed A crosses the wire; your file never does. Registration is automatic on stamping — one kernel, one position, deduplicated against the whole registry — and adds an address, not authority: the kernel in your stamp is true or false independently of any registry, including this one. Full deposit (body, record page, DOI-class treatment) remains available through the <a href="https://www.alexanarch.org/deposit/">deposit transport</a>.
+</div>
+
+<h2 style="margin-top:34px">Verify</h2>
+<p style="font-size:.9em">Drop any file — an original or a stamped copy — and it is looked up in the <a href="https://www.alexanarch.org/data/axn-central-registry.json">central AXN registry</a> by its kernel.</p>
+<div class="drop" id="vdrop" style="padding:16px">Drop a file to verify<input type="file" id="vfile" style="display:none"></div>
+<p style="font-size:.85em;color:var(--dim);margin:14px 0 6px">or look up an identifier</p>
+<div style="display:flex;gap:8px;align-items:stretch">
+<input type="text" id="axnq" placeholder="paste an AXN, hex position, or sha256 kernel" style="flex:1;font-family:var(--mono);font-size:.85em;border:1px solid var(--border);border-radius:8px;padding:11px 13px;background:var(--surface)">
+<button id="axnlook" style="border-radius:8px;padding:0 18px">Look up</button>
+</div>
+<div style="font-size:.74em;color:var(--dim);margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+<span>examples:</span>
+<code class="exchip" style="cursor:pointer;background:#f2f2f2;border:1px solid var(--border);border-radius:5px;padding:3px 7px">05AD</code>
+<code class="exchip" style="cursor:pointer;background:#f2f2f2;border:1px solid var(--border);border-radius:5px;padding:3px 7px">AXN:05AD.UNCLASSIFIED.🌾➕🥁⚫👋🪄</code>
+<code class="exchip" style="cursor:pointer;background:#f2f2f2;border:1px solid var(--border);border-radius:5px;padding:3px 7px">sha256:1a908cc8…</code>
+</div>
+<div class="out" id="vout"></div>
 <script>
+/* This instrument runs on axnidentifiers.org while the REGISTRY it addresses
+   lives on alexanarch.org. Nothing about the identifier changes: the kernel is
+   the SHA-256 of your canonical bytes, computed here in this browser, and it is
+   true or false independently of every registry including that one. Only the
+   ADDRESS comes from a node. Both endpoints answer cross-origin — the archive's
+   endpoint was built to be stamped against from elsewhere. */
+/* Registry entries carry paths relative to the archive ('/s/records/1/').
+   On this origin those would 404, so every link out of a registry result is
+   resolved against the node that answered — the address belongs to the archive,
+   not to whichever surface happened to look it up. */
+const AXN_ORIGIN = 'https://www.alexanarch.org';
+function axnAbs(u){ return (u && u.charAt(0) === '/') ? AXN_ORIGIN + u : (u || ''); }
+const AXN_REGISTRY = 'https://www.alexanarch.org/data/axn-central-registry.json';
+const AXN_REGISTER = 'https://www.alexanarch.org/api/register-symbolon';
+
 (function(){
-  var FILE=null, SEED=null;
-  var $=function(i){return document.getElementById(i)};
-
-  // node list, rendered from the manifest so the page cannot misdescribe itself
-  $('nodelist').innerHTML = AXN_NODES.map(function(n){
-    return '<div class="krow"><span class="k">'+n.node+'</span><span class="v" style="font-size:11px">'+
-           n.role+'</span></div>';
-  }).join('') + '<div class="krow"><span class="k">peers</span><span class="v" style="font-size:11px">'+
-    (AXN_NODES.length-1 ? (AXN_NODES.length-1)+' listed' :
-     'none yet — independent custody required: separate operator, registrar, host and billing')+'</span></div>';
-
-  function wire(dropId, fileId, cb){
-    var d=$(dropId), f=$(fileId);
-    d.onclick=function(){f.click()};
-    d.ondragover=function(e){e.preventDefault();d.classList.add('hot')};
-    d.ondragleave=function(){d.classList.remove('hot')};
-    d.ondrop=function(e){e.preventDefault();d.classList.remove('hot');if(e.dataTransfer.files[0])cb(e.dataTransfer.files[0])};
-    f.onchange=function(){if(f.files[0])cb(f.files[0])};
+const vd=document.getElementById('vdrop'),vf=document.getElementById('vfile'),vo=document.getElementById('vout');
+vd.onclick=()=>vf.click();
+vd.ondragover=e=>{e.preventDefault();vd.classList.add('hot');};
+vd.ondragleave=()=>vd.classList.remove('hot');
+async function check(f){
+  vo.style.display='block';vo.innerHTML='hashing…';
+  const buf=await f.arrayBuffer();
+  const d=await crypto.subtle.digest('SHA-256',buf);
+  const h=Array.from(new Uint8Array(d)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  const reg=await fetch(AXN_REGISTRY).then(r=>r.json()).catch(()=>null);
+  const hit=reg&&reg.kernels&&reg.kernels[h];
+  if(hit){vo.innerHTML='<div class="verdict" style="color:var(--teal)">VERIFIED — known kernel ('+hit.role+')</div><div class="v"><strong>'+(hit.axn||'')+'</strong> · '+hit.source+' · '+(hit.status||'')+'</div>'+(hit.record?'<div class="v"><a href="'+axnAbs(hit.record)+'">record</a></div>':'')+(hit.entry?'<div class="v"><a href="'+axnAbs(hit.entry)+'">witness entry</a></div>':'')+(hit.retrieval?'<div class="v"><a href="'+axnAbs(hit.retrieval)+'">stored file</a></div>':'')+'<div class="v" style="color:var(--dim)">sha256: '+h+'</div>';}
+  else{vo.innerHTML='<div class="verdict" style="color:var(--accent2)">UNKNOWN KERNEL</div><div class="v">This exact byte sequence holds no position in the registry. It may be unregistered, a different version, or altered.</div><div class="v" style="color:var(--dim)">sha256: '+h+'</div>';}
+}
+vd.ondrop=e=>{e.preventDefault();vd.classList.remove('hot');if(e.dataTransfer.files[0])check(e.dataTransfer.files[0]);};
+vf.onchange=()=>{if(vf.files[0])check(vf.files[0]);};
+const aq=document.getElementById('axnq'),al=document.getElementById('axnlook');
+al.onclick=async()=>{
+  let q=(aq.value||'').trim();if(!q){return;}
+  // tolerate percent-encoded emoji pastes (iOS copy sometimes URL-encodes glyphs)
+  if(q.indexOf('%')>-1){try{const dec=decodeURIComponent(q);if(dec&&dec.length)q=dec;}catch(e){}}
+  aq.value=q;
+  vo.style.display='block';vo.innerHTML='looking up…';
+  const reg=await fetch(AXN_REGISTRY).then(r=>r.json()).catch(()=>null);
+  if(!reg){vo.innerHTML='<div class="v">registry unreachable</div>';return;}
+  let hit=null, by='';
+  const shaMatch=q.match(/[0-9a-f]{64}/i)||q.match(/sha256:\s*([0-9a-f]{6,64})/i);
+  if(shaMatch){const s=(shaMatch[1]||shaMatch[0]).toLowerCase();
+    for(const k in reg.kernels){if(k.startsWith(s)){hit=reg.kernels[k];by='kernel';break;}}}
+  if(!hit){ // by full AXN or hex position (labels are 4-char; pad short pastes; follow aliases — WAVE-HEXPOS-01)
+    const hexM=q.match(/AXN:([0-9A-F]{2,4})\./i)||q.match(/^([0-9A-F]{2,4})$/i);
+    if(hexM){let hx=hexM[1].toUpperCase().padStart(4,'0');
+      let e=reg.positions&&reg.positions[hx];
+      if(e&&e.alias_of){hx=e.alias_of;e=reg.positions[hx];by='position (via superseded label)';}
+      else if(e){by='position';}
+      if(e)hit=e;}
+    if(!hit){for(const hx in (reg.positions||{})){if((reg.positions[hx].axn||'')===q){hit=reg.positions[hx];by='axn';break;}}}
+    if(hit&&hit.status==='CONTESTED'){vo.innerHTML='<div class="verdict" style="color:var(--accent2)">CONTESTED POSITION</div><div class="v">This position is claimed by multiple records, pending a resolution ruling: '+((hit.claimants||[]).map(c=>'#'+c.deposit_number).join(', '))+'</div>';return;}
   }
-
-  wire('drop','file', async function(file){
-    FILE=file;
-    $('drop').innerHTML='<b>'+file.name+'</b>computing the identity kernel…';
-    var buf=new Uint8Array(await file.arrayBuffer());
-    var h=await axnKernel(buf), g=axnGlyphs(h), cl=axnClusters(h);
-    $('kern').textContent=h;
-    $('glyph').textContent=g;
-    $('clus').textContent=cl.join(' · ');
-    $('size').textContent=buf.length.toLocaleString()+' bytes · unaltered';
-    $('kbox').classList.add('on');
-    $('drop').innerHTML='<b>'+file.name+'</b>identified — drop another to replace';
-    SEED={ axn_spec:"AXN-SYMBOLON-SPEC v0.2", reconstruction_class:"content-addressed",
-      axn0:{glyphs:g, sha256:h, role:"identity kernel of the sealed core"},
-      manifest:[{part:1, filename:file.name, sha256:h, bytes:buf.length}],
-      created:new Date().toISOString(),
-      generator:"https://axnidentifiers.org/stamp/ (client-side; WebCrypto)",
-      family:"UNCLASSIFIED",
-      note:"The kernel is authority-independent. A record address may be requested from any AXN node." };
-    var b=new Blob([JSON.stringify(SEED,null,1)],{type:'application/json'});
-    var a=$('dlseed'); a.href=URL.createObjectURL(b);
-    a.download=file.name.replace(/\.[^.]+$/,'')+'.axn.json';
-    $('nodeline').innerHTML='KERNEL COMPUTED LOCALLY · <b>no node was contacted</b>';
-  });
-
-  $('doreg').onclick=async function(e){
-    e.preventDefault();
-    if(!SEED) return;
-    $('nodeline').innerHTML='REQUESTING A RECORD ADDRESS…';
-    var r=await axnRegister(SEED);
-    if(r.node){
-      var axn=r.result.axn||'';
-      $('addr').textContent=axn||r.result.status||'addressed';
-      $('nodeline').innerHTML='ADDRESSED BY <b>'+r.node+'</b> · the kernel was already true before this';
-    } else {
-      $('addr').textContent='no node answered — the kernel stands, keep the sidecar';
-      $('nodeline').innerHTML='<i>NO NODE ANSWERED</i> · '+r.error+
-        ' · the identity is intact; only the address is missing';
-    }
-  };
-
-  wire('vdrop','vfile', async function(file){
-    var o=$('vout'); o.classList.add('on');
-    o.innerHTML='<div class="krow"><span class="k">status</span><span class="v">hashing locally…</span></div>';
-    var buf=new Uint8Array(await file.arrayBuffer());
-    var h=await axnKernel(buf);
-    var reg;
-    try { reg=await axnFetchFirst('registry'); }
-    catch(err){
-      o.innerHTML='<div class="krow"><span class="k">kernel</span><span class="v">'+h+'</span></div>'+
-        '<div class="krow"><span class="k">registry</span><span class="v">unreachable — '+err.message+
-        '</span></div><div class="nodeline"><i>LACUNA</i> · the kernel is computed and valid; ' +
-        'no node could be reached to look up its address</div>';
-      return;
-    }
-    var hit=reg.data.kernels && reg.data.kernels[h];
-    o.innerHTML =
-      '<div class="krow"><span class="k">kernel</span><span class="v">'+h+'</span></div>'+
-      '<div class="krow"><span class="k">glyphs</span><span class="v" style="font-size:20px">'+axnGlyphs(h)+'</span></div>'+
-      (hit
-        ? '<div class="krow"><span class="k">verified</span><span class="v" style="color:var(--verdigris)">'+
-          (hit.axn||'')+'</span></div><div class="krow"><span class="k">status</span><span class="v">'+
-          (hit.status||hit.source||'')+'</span></div>'
-        : '<div class="krow"><span class="k">result</span><span class="v">no node holds an address for these exact bytes</span></div>')+
-      '<div class="nodeline">ANSWERED BY <b>'+reg.node+'</b> · compared in this page, not on a server</div>';
-  });
+  if(hit){
+    const row=(k,v)=>v?('<div style="display:flex;gap:10px;padding:5px 0;border-top:1px solid #eee"><div style="flex:0 0 118px;color:var(--dim);font-size:.72em;text-transform:uppercase;letter-spacing:.04em">'+k+'</div><div style="flex:1;font-family:var(--mono);font-size:.8em;word-break:break-all">'+v+'</div></div>'):'';
+    const verified=(hit.status||'').indexOf('verified')>-1;
+    let h='<div class="verdict" style="color:var(--teal)">✓ FOUND'+(verified?' · VERIFIED':'')+'</div>';
+    h+='<div style="font-family:var(--mono);font-size:1.05em;margin:6px 0 12px;word-break:break-all">'+(hit.axn||'')+'</div>';
+    // actions
+    let acts='';
+    if(hit.retrieval)acts+='<a class="dl" href="'+axnAbs(hit.retrieval)+'" style="margin:0 8px 0 0">↓ retrieve file</a>';
+    if(hit.record)acts+='<a class="dl" href="'+axnAbs(hit.record)+'" style="background:var(--accent);margin:0 8px 0 0">record page</a>';
+    if(hit.entry)acts+='<a class="dl" href="'+axnAbs(hit.entry)+'" style="background:#555;margin:0 8px 8px 0">witness entry</a>';
+    if(acts)h+='<div style="margin-bottom:12px">'+acts+'</div>';
+    // metadata table
+    h+=row('matched by',by);
+    h+=row('source',hit.source);
+    h+=row('status',hit.status);
+    h+=row('family',hit.family);
+    h+=row('class',hit.reconstruction_class);
+    if(hit.filename)h+=row('filename',hit.filename);
+    h+=row('deposit #',hit.deposit_number!=null?('#'+hit.deposit_number):'');
+    h+=row('registered',hit.registered);
+    h+=row('verified at',hit.verified_at);
+    h+=row('AXN₀ kernel',(hit.axn0_glyphs?hit.axn0_glyphs+'  ':'')+(hit.axn0_sha256||''));
+    h+=row('AXN₁ stamped',(hit.axn1_glyphs?hit.axn1_glyphs+'  ':'')+(hit.axn1_sha256||''));
+    vo.innerHTML=h;
+  }
+  else{vo.innerHTML='<div class="verdict" style="color:var(--accent2)">NOT FOUND</div><div class="v">No position or kernel in the central registry matches that identifier. It may be unregistered, a different version, or altered.</div>';}
+};
+aq.onkeydown=e=>{if(e.key==='Enter')al.click();};
+document.querySelectorAll('.exchip').forEach(c=>{c.onclick=()=>{let v=c.textContent;if(v.indexOf('1a908cc8')>-1)v='sha256:1a908cc8bf3ed5cc6adaf64181f8811e9e060840182c732df4b4629c9bdff357';aq.value=v;al.click();};});
 })();
+</script>
+<div class="footer">AXN schema v2 · glyph table and derivation identical to <span style="font-family:var(--mono)">scripts/axn_lib.py</span> · AXN-SYMBOLON-SPEC v0.2 · Alexanarch</div>
+</div>
+
+<script src="/stamp/pdf-lib.min.js"></script>
+<script>
+const AXN_GLYPHS=["🌑","🌒","🌓","🌔","🌕","🌖","🌗","🌘","⭐","🌟","💫","☀️","🌙","🪐","🌍","🌊","🔥","💧","🌪️","⚡","❄️","🌋","🏔️","🌿","🍃","🌱","🌾","🪨","💎","🧊","🌈","☁️","🏛️","🏗️","🧱","🪜","🚪","🪟","🏠","🏰","⛩️","🕌","🗼","🌉","⚓","🛡️","🔔","🏺","🔧","🔩","⚙️","🔗","🪝","🧲","⚖️","🔬","🔭","🧪","🧫","🧬","💡","🔮","🪄","🗝️","📜","📖","📝","✏️","🖊️","📋","📌","📎","🔖","📚","🗂️","📦","🏷️","🪧","📐","📏","🧭","🗺️","🏴","🚩","⛳","🎯","🔍","👁️","🔎","🪞","🗡️","🛤️","⛵","🚀","🛸","🌀","⌛","⏰","🕐","🕑","🕒","🕓","🕔","🕕","🕖","🕗","🕘","🕙","🕚","🕛","⌛","🔄","🌸","🌺","🌻","🌹","🍀","🌲","🌳","🍁","🍂","🍄","🐚","🪸","🦋","🐝","🕊️","🦅","♠️","❤️","♦️","♣️","🎭","🎪","🎨","🎵","🎶","🎹","🎻","🎺","🥁","🎲","🃏","🀄","➕","➖","✖️","➗","♾️","∮","⊕","⊗","△","▽","◇","○","●","□","■","▲","🜁","🝊","☿","♃","♄","♅","♆","☉","☽","♈","♉","♊","♋","♌","♍","♎","👁‍🗨","🤲","👐","🙏","✊","🤝","👆","👇","👈","👉","🫵","🖐️","✋","🫶","🤙","👋","🚨","🔴","🟠","🟡","🟢","🔵","🟣","⚪","⚫","🟤","💜","💙","💚","💛","🧡","❤️","🔺","🔻","◀️","▶️","🔼","🔽","⏩","⏪","⏫","⏬","↗️","↘️","↙️","↖️","🔃","🔀","🌅","🌄","🌃","🌆","🌇","🏙️","🌌","🎆","🎇","✨","🌠","💥","🔆","🔅","⭕","❌","🏁","🎬","🔚","🔙","🔛","🔝","🔜","⏹️","⏏️","🔒","🔓","🔐","🗿","🪦","♻️","∞"];
+async function sha256(buf){const d=await crypto.subtle.digest("SHA-256",buf);return Array.from(new Uint8Array(d)).map(b=>b.toString(16).padStart(2,"0")).join("");}
+function glyphs(h){const bs=[];for(let i=0;i<12;i+=2)bs.push(parseInt(h.slice(i,i+2),16));return bs.map(b=>AXN_GLYPHS[b]).join("");}
+
+function fallbackCopy(txt,ok){
+  try{ if(txt.indexOf('%')>-1) txt=decodeURIComponent(txt); }catch(e){}
+  try{const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,txt.length);document.execCommand('copy');document.body.removeChild(ta);ok&&ok();}
+  catch(e){/* last resort: the box has user-select:all so a long-press selects it */}
+}
+let FILE=null;
+const drop=document.getElementById('drop'),fin=document.getElementById('file'),go=document.getElementById('go'),err=document.getElementById('err');
+drop.onclick=()=>fin.click();
+drop.ondragover=e=>{e.preventDefault();drop.classList.add('hot');};
+drop.ondragleave=()=>drop.classList.remove('hot');
+drop.ondrop=e=>{e.preventDefault();drop.classList.remove('hot');if(e.dataTransfer.files[0])pick(e.dataTransfer.files[0]);};
+fin.onchange=()=>{if(fin.files[0])pick(fin.files[0]);};
+function pick(f){FILE=f;drop.innerHTML=`<strong>${f.name}</strong><br><span style="font-size:.8em">${(f.size/1024).toFixed(1)} KB — ready</span>`;go.disabled=false;err.style.display='none';}
+
+function kind(f){
+  const n=f.name.toLowerCase(), t=(f.type||'');
+  if(t.includes('png')||n.endsWith('.png'))return 'png';
+  if(t.includes('jpeg')||t.includes('jpg')||n.endsWith('.jpg')||n.endsWith('.jpeg'))return 'jpeg';
+  if(t.includes('pdf')||n.endsWith('.pdf'))return 'pdf';
+  return 'text';
+}
+
+async function stampImage(buf,axn0g,axn0h,mime,addr){
+  const blob=new Blob([buf],{type:mime});
+  const img=await createImageBitmap(blob);
+  const STRIP=Math.max(44,Math.round(img.height*0.045));
+  const c=document.createElement('canvas');c.width=img.width;c.height=img.height+STRIP;
+  const x=c.getContext('2d');
+  x.fillStyle='#ffffff';x.fillRect(0,0,c.width,c.height);
+  x.drawImage(img,0,0);
+  x.fillStyle='#1a1a1a';
+  const fs=Math.max(13,Math.round(STRIP*0.34));
+  x.font=fs+'px "IBM Plex Mono",monospace';
+  x.textBaseline='middle';
+  // CHIASTIC INSCRIPTION (v0.3): when an address has been assigned it leads the
+  // band, because a finder needs the address; the kernel follows, because a
+  // verifier needs that. Inscribing the address is not circular — an address is
+  // assigned at the registry, not derived from these bytes.
+  const line=addr
+    ? `${addr} · kernel sha256:${axn0h.slice(0,16)}… · ${new Date().toISOString().slice(0,10)} · alexanarch.org`
+    : `AXN kernel ${axn0g} · sha256:${axn0h.slice(0,16)}… · ${new Date().toISOString().slice(0,10)} · alexanarch.org`;
+  x.fillText(line,Math.round(STRIP*0.3),img.height+STRIP/2);
+  const out=await new Promise(r=>c.toBlob(b=>r(b),'image/png'));
+  return {bytes:new Uint8Array(await out.arrayBuffer()),
+          geometry:{format:'image/png',method:'appended_footer_strip',strip_px:STRIP,original_px:{w:img.width,h:img.height},
+                    strip_stamp:'crop to original_px then compare pixels; byte-identical strip NOT possible for raster (re-encode); AXN₀ verification requires Seed B = the original file',
+                    strip_reversible:false},
+          ext:'.stamped.png'};
+}
+
+async function stampPdf(buf,axn0g,axn0h,addr){
+  const {PDFDocument,rgb,StandardFonts}=PDFLib;
+  const doc=await PDFDocument.load(buf,{ignoreEncryption:true});
+  const font=await doc.embedFont(StandardFonts.Courier);
+  const line=addr
+    ? `${addr.replace(/[^\x20-\x7E]/g,'')} kernel sha256:${axn0h.slice(0,16)}... ${new Date().toISOString().slice(0,10)} alexanarch.org`
+    : `AXN kernel [${axn0h.slice(0,12)}] sha256:${axn0h.slice(0,16)}... ${new Date().toISOString().slice(0,10)} alexanarch.org`;
+  // Draw an opaque white band + stamp INSIDE the existing page area at the bottom of the LAST page.
+  // Drawing within the original media box means no viewer box-clipping can hide it — robust across
+  // iOS Preview, Chrome, Acrobat. (Added-margin approach was clipped by per-page CropBoxes in merged
+  // photo PDFs — found by depositor E, papers 198.)
+  const pg=doc.getPages()[doc.getPageCount()-1];
+  const pw=pg.getWidth(), BAND=22;
+  pg.drawRectangle({x:0,y:0,width:pw,height:BAND,color:rgb(1,1,1)});
+  pg.drawLine({start:{x:0,y:BAND},end:{x:pw,y:BAND},thickness:0.5,color:rgb(.8,.8,.8)});
+  pg.drawText(line,{x:12,y:7,size:7.5,font,color:rgb(.1,.1,.1)});
+  doc.setSubject(`AXN kernel ${axn0g} sha256:${axn0h}`);
+  doc.setKeywords([`AXN0:${axn0g}`,`sha256:${axn0h}`]);
+  const out=await doc.save();
+  return {bytes:out,
+          geometry:{format:'application/pdf',method:'last_page_bottom_band_inside_mediabox',band_pt:BAND,
+                    note:'opaque band drawn inside the existing last-page media box (viewer-clip-proof); glyph kernel also in XMP/Subject/Keywords metadata',
+                    strip_stamp:'pdf rewrite is not byte-reversible; AXN0 verification requires Seed B = the original file',
+                    strip_reversible:false},
+          ext:'.stamped.pdf'};
+}
+
+function stampText(buf,axn0g,axn0h,addr){
+  const dec=new TextDecoder().decode(buf);
+  const stamp=`\n\n<!-- AXN-STAMP-BEGIN\n${addr?`AXN: ${addr}\n`:''}AXN-KERNEL: ${axn0g}\nSHA256: ${axn0h}\nDATE: ${new Date().toISOString().slice(0,10)}\nSPEC: AXN-SYMBOLON-SPEC v0.3 (chiastic inscription)\nAXN-STAMP-END -->\n`;
+  const bytes=new TextEncoder().encode(dec+stamp);
+  return {bytes,
+          geometry:{format:'text',method:'suffix_comment_block',delimiters:['<!-- AXN-STAMP-BEGIN','AXN-STAMP-END -->'],
+                    stamp_bytes:new TextEncoder().encode(stamp).length,
+                    strip_stamp:'remove exactly stamp_bytes from the end (or delimiter block); byte-reversible',
+                    strip_reversible:true},
+          ext:'.stamped'+(FILE.name.match(/\.[^.]+$/)?.[0]||'.txt')};
+}
+
+go.onclick=async()=>{
+  try{
+    go.disabled=true;go.textContent='Stamping…';
+    const buf=new Uint8Array(await FILE.arrayBuffer());
+    const h0=await sha256(buf), g0=glyphs(h0), k=kind(FILE);
+    let res;
+    if(k==='png')res=await stampImage(buf,g0,h0,'image/png');
+    else if(k==='jpeg')res=await stampImage(buf,g0,h0,'image/jpeg');
+    else if(k==='pdf')res=await stampPdf(buf,g0,h0);
+    else res=stampText(buf,g0,h0);
+    const h1=await sha256(res.bytes), g1=glyphs(h1);
+    const base=FILE.name.replace(/\.[^.]+$/,'');
+    const seedA={
+      axn_spec:"AXN-SYMBOLON-SPEC v0.2",
+      spec_record:"https://www.alexanarch.org/s/records/1432/",
+      spec_axn:"AXN:05A9.OPERATIVE.🐚🌪️🕖🫵⏩○",
+      reconstruction_class:"content-addressed",
+      stamp_generation:1,   // 1 = kernel-only band; 2 = addressed band (chiastic, v0.3)
+      axn0:{glyphs:g0,sha256:h0,role:"identity kernel of the sealed core (the original, pre-stamp bytes)"},
+      axn1:{glyphs:g1,sha256:h1,role:"kernel of the stamped file as it circulates (tamper witness; not a name)"},
+      manifest:[{part:1,filename:FILE.name,sha256:h0,bytes:buf.length}],
+      stamp_geometry:res.geometry,
+      created:new Date().toISOString(),
+      generator:"https://www.alexanarch.org/mint/stamp/ (client-side; WebCrypto)",
+      family:document.getElementById("fam").value,
+      registration:"kernel is authority-independent; registry witnessing via https://www.alexanarch.org/deposit/ or by sending this sidecar to the archive"
+    };
+    const sBlob=new Blob([JSON.stringify(seedA,null,1)],{type:'application/json'});
+    const fBlob=new Blob([res.bytes],{type:k==='pdf'?'application/pdf':(k==='text'?'text/plain':'image/png')});
+    const dS=document.getElementById('dlStamped'), dJ=document.getElementById('dlSeed');
+    dS.href=URL.createObjectURL(fBlob); dS.download=base+res.ext;
+    dJ.href=URL.createObjectURL(sBlob); dJ.download=base+'.axn.json';
+    document.getElementById('g0').textContent=g0;
+    document.getElementById('h0').textContent='sha256: '+h0;
+    document.getElementById('g1').textContent=g1;
+    document.getElementById('h1').textContent='sha256: '+h1;
+    document.getElementById('out').style.display='block';
+    const rb=document.getElementById('reg'), ro=document.getElementById('regout');
+    const doReg=async()=>{
+      rb.style.display='none'; ro.textContent='witnessing…';
+      try{
+        // Step 1 — always witness the identity (small, reliable).
+        const r=await fetch(AXN_REGISTER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(seedA)});
+        const j=await r.json();
+        if(r.ok){
+          const axnStr=j.axn||'';
+          ro.innerHTML='✓ '+j.status+' — <a href="'+axnAbs(j.record)+'">registry record</a>'+(j.retrieval?' · <a href="'+axnAbs(j.retrieval)+'">stored file</a>':'')
+            +(axnStr?'<div style="margin-top:10px"><div style="font-size:.72em;color:var(--dim);text-transform:uppercase;letter-spacing:.05em">your AXN — tap to copy</div><div id="axnbox" style="margin-top:5px;padding:10px 12px;background:#f0f7f5;border:1px solid var(--teal);border-radius:6px;font-family:var(--mono);font-size:.9em;word-break:break-all;cursor:pointer;-webkit-user-select:all;user-select:all">'+axnStr+'</div><div id="axncopied" style="font-size:.78em;color:var(--teal);margin-top:4px;display:none">copied ✓</div></div>':'');
+          // Step 2 — optional storage, only if requested and safely small; failure never undoes the witnessing above.
+          if(document.getElementById('storeit').checked && !j.retrieval){
+            const SAFE=2600000; // ~2.6MB raw → ~3.5MB b64, comfortably under the platform body limit
+            if(buf.length>SAFE){ ro.innerHTML+=' <span style="color:var(--accent2)">· file too large to store here ('+(buf.length/1048576).toFixed(1)+' MB); identity is witnessed — use the <a href="https://www.alexanarch.org/deposit/">deposit transport</a> to store the file.</span>'; }
+            else{
+              ro.innerHTML+=' · storing…';
+              try{
+                let b='';const CH=32768;for(let i=0;i<buf.length;i+=CH)b+=String.fromCharCode.apply(null,buf.subarray(i,i+CH));
+                const sp={...seedA, store:{filename:FILE.name, content_b64:btoa(b)}};
+                const sr=await fetch(AXN_REGISTER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(sp)});
+                const sj=await sr.json();
+                if(sr.ok && sj.retrieval){ ro.innerHTML=ro.innerHTML.replace(' · storing…',' · <a href="'+axnAbs(sj.retrieval)+'">stored file</a> (verified)'); }
+                else{ ro.innerHTML=ro.innerHTML.replace(' · storing…',' <span style="color:var(--accent2)">· identity witnessed; file storage did not complete — use the <a href="https://www.alexanarch.org/deposit/">deposit transport</a> to store it.</span>'); }
+              }catch(e){ ro.innerHTML=ro.innerHTML.replace(' · storing…',' <span style="color:var(--accent2)">· identity witnessed; file too large for this route — use the <a href="https://www.alexanarch.org/deposit/">deposit transport</a>.</span>'); }
+            }
+          }
+          // ── PASS 3 · CHIASTIC RE-STAMP (v0.3, optional and idempotent) ──
+          // What is HELD is unaddressed; what TRAVELS is addressed. The sealed core
+          // stays as it is — the archive never re-stamps stored bytes. This produces
+          // the ADDRESSED CIRCULATING COPY from the same original bytes, and refreshes
+          // AXN1 through the endpoint's existing re-stamp path.
+          if(axnStr){
+            const rs=document.createElement('button');
+            rs.textContent='Re-stamp with the address';
+            rs.style.cssText='margin-top:10px;background:var(--accent)';
+            rs.onclick=async()=>{
+              rs.disabled=true; rs.textContent='re-stamping…';
+              try{
+                let r2;
+                if(k==='png')r2=await stampImage(buf,g0,h0,'image/png',axnStr);
+                else if(k==='jpeg')r2=await stampImage(buf,g0,h0,'image/jpeg',axnStr);
+                else if(k==='pdf')r2=await stampPdf(buf,g0,h0,axnStr);
+                else r2=stampText(buf,g0,h0,axnStr);
+                const h2=await sha256(r2.bytes), g2=glyphs(h2);
+                const b2=new Blob([r2.bytes],{type:k==='pdf'?'application/pdf':(k==='text'?'text/plain':'image/png')});
+                dS.href=URL.createObjectURL(b2); dS.download=base+'.addressed'+r2.ext.replace('.stamped','');
+                dS.textContent='addressed stamped file';
+                // Seed A follows the artifact: generation 2, AXN1 refreshed, AXN0 untouched
+                seedA.stamp_generation=2;
+                seedA.inscribed_address=axnStr;
+                seedA.axn1={glyphs:g2,sha256:h2,role:"kernel of the ADDRESSED stamped copy (tamper witness; not a name)"};
+                seedA.stamp_geometry=r2.geometry;
+                const sB=new Blob([JSON.stringify(seedA,null,1)],{type:'application/json'});
+                dJ.href=URL.createObjectURL(sB);
+                await fetch(AXN_REGISTER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(seedA)});
+                rs.textContent='re-stamped — the copy now carries its address';
+                rs.style.background='var(--teal)';
+              }catch(e){ rs.disabled=false; rs.textContent='re-stamp failed: '+e.message; }
+            };
+            ro.appendChild(document.createElement('br'));
+            ro.appendChild(rs);
+          }
+          // bind copy LAST, after any storage rewrite, so the element still exists
+          const box=document.getElementById('axnbox');
+          if(box){
+            const doCopy=()=>{
+              // normalize to guarantee clean glyphs (never percent-encoded)
+              let txt=axnStr;
+              try{ if(txt.indexOf('%')>-1) txt=decodeURIComponent(txt); }catch(e){}
+              txt=txt.normalize('NFC');
+              const ok=()=>{const c=document.getElementById('axncopied');if(c){c.textContent='copied ✓';c.style.display='block';}};
+              if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok).catch(()=>fallbackCopy(txt,ok));}
+              else fallbackCopy(txt,ok);
+            };
+            box.addEventListener('click',doCopy);
+            box.addEventListener('touchend',function(ev){ev.preventDefault();doCopy();});
+          }
+        }
+        else{ro.textContent=(j.error||'unavailable')+(j.fallback?' — '+j.fallback:''); rb.style.display='inline-block'; rb.disabled=false;}
+      }catch(e){ro.textContent='offline — email the sidecar to the archive instead'; rb.style.display='inline-block'; rb.disabled=false;}
+    };
+    rb.onclick=doReg; doReg();
+    go.textContent='Stamp it';go.disabled=false;
+  }catch(e){
+    err.textContent='Could not stamp this file: '+e.message;err.style.display='block';
+    go.textContent='Stamp it';go.disabled=false;
+  }
+};
 </script>
 </body></html>
