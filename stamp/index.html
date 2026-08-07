@@ -36,9 +36,38 @@ button:hover{background:#086354}button:disabled{background:#aaa;cursor:default}
 .footer{margin-top:36px;padding-top:12px;border-top:1px solid var(--border);font-size:.75em;color:var(--dim)}
 .err{color:var(--accent2);font-size:.85em;display:none;margin:8px 0}
 </style>
-<link rel="stylesheet" href="/assets/msa.css">
+<style>
+/* The rail only. The site stylesheet is deliberately NOT loaded here: it would
+   impose the plates' serif typography and the page-long descent gradient on an
+   instrument that has neither, which is what made this page fade into
+   unreadability. Navigation should be identical everywhere; a page's own design
+   is its own. */
+.rail{--r-mono:ui-monospace,SFMono-Regular,Menlo,monospace;--r-ink:#241F1A;--r-ash:#5C5548;
+  --r-ash-d:#8A857A;--r-crimson:#9B1B1B;--r-line:rgba(120,104,70,.28);
+  display:flex;align-items:center;gap:14px;padding:14px 20px;flex-wrap:wrap;
+  border-bottom:1px solid var(--r-line);background:#F5F1E6}
+@media(min-width:820px){.rail{padding:16px 44px}}
+.rail .seal{width:30px;height:30px;display:block}
+.rail .wm{font-family:var(--r-mono);font-weight:600;font-size:13px;letter-spacing:.3em;
+  color:var(--r-ink);text-decoration:none}
+.rail .stations{margin-left:auto;display:flex;gap:0;font-family:var(--r-mono);font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase}
+.rail .stations a{color:var(--r-ash);text-decoration:none;padding:4px 11px;
+  border-left:1px solid var(--r-line)}
+.rail .stations a:first-child{border-left:0;padding-left:0}
+.rail .stations a:hover{color:var(--r-crimson)}
+.rail .stations a.here{color:var(--r-crimson);font-weight:600}
+.rail .stations a.here::before{content:"† ";color:var(--r-crimson)}
+.rail .calib{width:100%;font-family:var(--r-mono);font-size:8.5px;letter-spacing:.2em;
+  color:var(--r-ash-d);margin-top:2px}
+@media(max-width:700px){
+  .rail{gap:8px}
+  .rail .stations{margin-left:0;width:100%;flex-wrap:wrap}
+  .rail .calib{margin-top:4px}
+}
+</style>
 </head>
-<body><div class="zone surface" style="background:none">
+<body>
 <div class="rail">
   <img class="seal" src="/assets/brand/mark-dark-master.png" alt="">
   <a class="wm" href="/">A X N</a>
@@ -50,7 +79,6 @@ button:hover{background:#086354}button:disabled{background:#aaa;cursor:default}
     <a href="/stamp/" class="here">Stamp</a>
   </nav>
   <div class="calib">STAMP · COMPUTED IN THIS BROWSER · NOTHING IS UPLOADED TO COMPUTE IT</div>
-</div>
 </div>
 <div class="wrap">
 
