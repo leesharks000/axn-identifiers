@@ -1,0 +1,6 @@
+# axnidentifiers.org — the door to the AXN identifier system.
+# Everything here is meant to be read by machines. Nothing is disallowed.
+User-agent: *
+Allow: /
+
+Sitemap: https://axnidentifiers.org/sitemap.xml

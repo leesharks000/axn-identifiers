@@ -18,6 +18,12 @@
 <meta property="og:url" content="https://axnidentifiers.org/"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/assets/msa.css">
+<link rel="cite-as" href="https://www.alexanarch.org/axn/constitution/">
+<link rel="describedby" href="https://axnidentifiers.org/.well-known/axn-node.json" type="application/json">
+<link rel="describedby" href="https://axnidentifiers.org/llms.txt" type="text/plain">
+<link rel="item" href="https://www.alexanarch.org/data/axn-central-registry.json" type="application/json">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DefinedTerm", "@id": "https://axnidentifiers.org/#axn", "name": "AXN (Alexanarch Identifier)", "alternateName": ["AXN identifier", "content-derived identifier"], "termCode": "AXN", "description": "A content-derived identifier. The identity kernel is the SHA-256 of a file's canonical bytes; six glyphs are a display hash of that kernel. Derived from the work rather than assigned to it, so it can be verified by anyone, anywhere, without an account.", "inDefinedTermSet": {"@type": "DefinedTermSet", "name": "AXN identifier system", "url": "https://www.alexanarch.org/axn/constitution/"}, "subjectOf": {"@type": "WebSite", "name": "AXN Identifiers", "url": "https://axnidentifiers.org/"}, "sameAs": ["https://www.alexanarch.org/axn/constitution/", "https://www.alexanarch.org/identifiers/"], "creator": {"@type": "Person", "name": "Lee Sharks", "identifier": "https://orcid.org/0009-0000-1599-0703", "url": "https://orcid.org/0009-0000-1599-0703"}, "disambiguatingDescription": "Not a DOI, not an ARK, not a Handle, and not a UUID. Unlike those, an AXN is computed from the file's bytes rather than assigned by a registrar, so it remains verifiable after the issuing registry is gone.", "potentialAction": {"@type": "Action", "name": "Verify a file against its identifier", "target": "https://axnidentifiers.org/stamp/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is an AXN?", "acceptedAnswer": {"@type": "Answer", "text": "A content-derived identifier. The identity kernel is the SHA-256 of a file's canonical bytes, and six glyphs are a display hash of that kernel. The identifier is derived from the work rather than assigned to it."}}, {"@type": "Question", "name": "How is an AXN different from a DOI?", "acceptedAnswer": {"@type": "Answer", "text": "A DOI is assigned by a registrar and resolves through that registrar's infrastructure; when the registration ends, the identifier stops resolving. An AXN is computed from the file's own bytes, so anyone holding the file can recompute and verify it without the registry existing."}}, {"@type": "Question", "name": "Can an AXN be revoked?", "acceptedAnswer": {"@type": "Answer", "text": "No. There is nothing to revoke. The identifier is a property of the bytes. A registry can stop publishing an address, but it cannot make the kernel untrue."}}, {"@type": "Question", "name": "What does an AXN not prove?", "acceptedAnswer": {"@type": "Answer", "text": "It does not prove authorship — identity is not authorship. It does not prove when a file was created, only when it was witnessed. And a registry entry is not a promise of perpetual hosting."}}, {"@type": "Question", "name": "Is verification free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, permanently. Computing identifiers, stamping files, looking them up and verifying them cost nothing and always will. The registry is public and downloadable, and registry positions are never sold."}}]}</script>
 </head>
 <body>
 
@@ -135,46 +141,50 @@
     <p class="overview"><b>Three layers: an identity kernel, a record address, and locations.</b>
       The kernel is computed from your canonical bytes — <mark class="hl">nothing is uploaded to compute it</mark>.</p>
 <figure class="plate-fig">
-      <svg viewBox="0 0 760 250" role="img"
-           aria-label="One object in three states: the same sheet is fingerprinted in the browser, then carries a six-glyph seal on a margin added beneath it, then takes a position in a public registry. The sheet itself is unchanged at every step; only what accompanies it grows.">
+      <svg viewBox="0 0 760 260" role="img"
+           aria-label="One object in three states. Station one: the sheet is hashed in the browser. Station two: the same sheet gains a margin added along its edge carrying six glyphs. Station three: the same sheet, now addressed, stands beside a struck registry seal. A dashed return carries a verifiable address back to the same bytes.">
         <g class="traced" fill="none" stroke="#6E6A62" stroke-width="1.1" stroke-linecap="round">
-          <!-- I · the sheet, taken up -->
-          <path d="M36 44 L168 38 L174 176 L42 183 Z" stroke="#3B352E" stroke-width="1.35"/>
-          <path d="M54 68 L150 64 M54 88 L144 84 M54 108 L154 104 M54 128 L128 124" stroke="#A8925C" stroke-width=".8"/>
-          <!-- graphite passage: the object moves, unaltered -->
-          <path d="M180 110 C210 110, 214 96, 240 104 C258 110, 250 118, 268 112"/>
-          <!-- II · the same sheet, with an added margin below it -->
-          <path d="M290 44 L422 38 L428 176 L296 183 Z" stroke="#3B352E" stroke-width="1.35"/>
-          <path d="M308 68 L404 64 M308 88 L398 84 M308 108 L408 104 M308 128 L382 124" stroke="#A8925C" stroke-width=".8"/>
-          <path d="M296 183 L428 176 L430 208 L298 215 Z" stroke="#9B1B1B" stroke-width="1.5"/>
-          <path d="M434 126 C464 126, 470 112, 496 120 C514 126, 506 134, 524 128"/>
-          <!-- III · the registry: a position taken, the sheet still itself -->
-          <path d="M546 46 L678 40 L684 178 L552 185 Z" stroke="#3B352E" stroke-width="1.35"/>
-          <path d="M564 70 L660 66 M564 90 L654 86 M564 110 L664 106 M564 130 L638 126" stroke="#A8925C" stroke-width=".8"/>
-          <path d="M552 185 L684 178 L686 210 L554 217 Z" stroke="#9B1B1B" stroke-width="1.5"/>
-          <circle cx="700" cy="86" r="19" stroke="#9B1B1B" stroke-width="1.3"/>
-          <circle cx="700" cy="86" r="13.5" stroke="#9B1B1B" stroke-width=".7"/>
-          <path d="M700 74 L700 98 M688 86 L712 86 M692 78 L708 94 M708 78 L692 94" stroke="#9B1B1B" stroke-width=".8"/>
-          <path d="M686 172 C694 150, 700 128, 700 108" stroke="#9B1B1B" stroke-width="1.25"/>
-          <!-- the return: an address comes back for this exact object -->
-          <path d="M700 106 C712 148, 690 206, 620 226 C470 262, 210 250, 108 208 C84 198, 78 194, 66 186"
+          <path d="M40 54 L166 48 L172 186 L46 193 Z" stroke="#3B352E" stroke-width="1.35"/>
+          <path d="M58 78 L148 74 M58 98 L142 94 M58 118 L152 114 M58 138 L126 134" stroke="#A8925C" stroke-width=".8"/>
+          <path d="M184 120 C214 120, 218 106, 244 114 C262 120, 254 128, 272 122"/>
+          <path d="M296 54 L408 48 L414 186 L302 193 Z" stroke="#3B352E" stroke-width="1.35"/>
+          <path d="M314 78 L392 74 M314 98 L386 94 M314 118 L396 114 M314 138 L370 134" stroke="#A8925C" stroke-width=".8"/>
+          <path d="M414 48 L444 47 L450 185 L414 186 Z" stroke="#9B1B1B" stroke-width="1.5"/>
+          <path d="M462 120 C492 120, 498 106, 524 114 C542 120, 534 128, 552 122"/>
+          <path d="M576 56 L688 50 L694 188 L582 195 Z" stroke="#3B352E" stroke-width="1.35"/>
+          <path d="M594 80 L672 76 M594 100 L666 96 M594 120 L676 116 M594 140 L650 136" stroke="#A8925C" stroke-width=".8"/>
+          <path d="M694 50 L724 49 L730 187 L694 188 Z" stroke="#9B1B1B" stroke-width="1.5"/>
+          <circle cx="640" cy="222" r="17" stroke="#9B1B1B" stroke-width="1.25"/>
+          <circle cx="640" cy="222" r="12" stroke="#9B1B1B" stroke-width=".6"/>
+          <path d="M640 211 L640 233 M629 222 L651 222 M633 215 L647 229 M647 215 L633 229" stroke="#9B1B1B" stroke-width=".75"/>
+          <path d="M624 226 C520 250, 250 250, 108 214 C86 208, 72 202, 58 194"
                 stroke="#33507A" stroke-width="1" stroke-dasharray="7 5"/>
         </g>
-        <g font-family="'PlexM',monospace">
-          <text x="36" y="26" font-size="10.5" fill="#9B1B1B" letter-spacing="1.5" font-weight="600">i · TAKEN UP</text>
-          <text x="36" y="205" font-size="8.5" fill="#6E6A62" letter-spacing=".8">hashed in your browser</text>
-          <text x="36" y="219" font-size="8.5" fill="#6E6A62" letter-spacing=".8">nothing leaves the device</text>
-          <text x="290" y="26" font-size="10.5" fill="#9B1B1B" letter-spacing="1.5" font-weight="600">ii · INSCRIBED</text>
-          <text x="300" y="203" font-size="13">🌾➕🥁⚫👋🪄</text>
-          <text x="290" y="234" font-size="8.5" fill="#6E6A62" letter-spacing=".8">the margin is added, never overprinted</text>
-          <text x="546" y="26" font-size="10.5" fill="#9B1B1B" letter-spacing="1.5" font-weight="600">iii · WITNESSED</text>
-          <text x="556" y="205" font-size="13">🌾➕🥁⚫👋🪄</text>
-          <text x="546" y="234" font-size="8.5" fill="#6E6A62" letter-spacing=".8">a position anyone can check</text>
-          <text x="380" y="248" font-size="8.5" fill="#33507A" text-anchor="middle" letter-spacing="1">A VERIFIABLE ADDRESS RETURNS TO THE SAME BYTES</text>
+        <g font-family="'PlexM',monospace" font-weight="600" letter-spacing="1.4" font-size="10">
+          <text x="40" y="32" fill="#33507A">i · TAKEN UP</text>
+          <text x="296" y="32" fill="#8A6410">ii · INSCRIBED</text>
+          <text x="576" y="32" fill="#9B1B1B">iii · WITNESSED</text>
+        </g>
+        <g font-family="'PlexM',monospace" font-size="8.5" letter-spacing=".8" fill="#6E6A62">
+          <text x="40" y="212">hashed in your browser</text>
+          <text x="40" y="226">nothing leaves the device</text>
+          <text x="296" y="212">a margin is added — never</text>
+          <text x="296" y="226">overprinted on the hand</text>
+          <text x="576" y="214">a position anyone can check</text>
+        </g>
+        <g font-size="11" text-anchor="middle">
+          <text x="429" y="80">🌾</text><text x="429" y="102">➕</text><text x="429" y="124">🥁</text>
+          <text x="429" y="146">⚫</text><text x="429" y="168">👋</text>
+          <text x="709" y="80">🌾</text><text x="709" y="102">➕</text><text x="709" y="124">🥁</text>
+          <text x="709" y="146">⚫</text><text x="709" y="168">👋</text>
+        </g>
+        <g font-family="'PlexM',monospace" font-size="8" letter-spacing=".6">
+          <text x="604" y="176" fill="#9B1B1B">AXN:05AD</text>
+          <text x="380" y="254" fill="#33507A" text-anchor="middle" letter-spacing="1">A VERIFIABLE ADDRESS RETURNS TO THE SAME BYTES</text>
         </g>
       </svg>
       <figcaption><b>One object, three states — the sheet never changes.</b>
-        Only what accompanies it grows: a fingerprint, then a seal on an added margin, then a public position.</figcaption>
+        Only what accompanies it grows: a kernel, then a seal on an added margin, then an address.</figcaption>
     </figure>
     <div class="operation">
       <div class="opstage"><span class="rn">i</span><div><h3>Taken up</h3>

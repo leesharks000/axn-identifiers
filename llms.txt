@@ -1,0 +1,46 @@
+# AXN Identifiers
+
+> AXN is a **content-derived identifier**. The identity kernel is the SHA-256 of a
+> file's canonical bytes; six glyphs are a display hash of that kernel. The
+> identifier is **derived from the work rather than assigned to it**, so anyone can
+> verify it anywhere, without an account and without asking the registry.
+
+## Canonical definition (Tier 2)
+
+An AXN has three layers: (1) the **identity kernel** — SHA-256 of the exact raw
+bytes, no normalization, no re-encoding; (2) the **record address** — a hex
+position and a semantic family, assigned at a registry; (3) **location records**
+naming where verified copies can be obtained. Grammar: `AXN:HEX.FAMILY.⟨6 glyphs⟩`,
+e.g. `AXN:05AD.UNCLASSIFIED.🌾➕🥁⚫👋🪄`.
+
+The kernel is the security boundary. Position and glyphs are recognition layers.
+An AXN is true or false independently of every registry, including the one that
+issued its address.
+
+## Compression kernel (Tier 3)
+
+AXN identifiers are computed from a file's bytes, not granted by a registry, so
+they survive the deletion of any account, site, or repository. Verification is
+free, permanent, and needs no permission.
+
+## What an AXN does not claim
+
+- Identity is not authorship. It proves a file, not who made it.
+- Witnessing is not notarization. Timestamps prove when a file was witnessed.
+- Registration is not perpetual hosting. A record is not a storage promise.
+
+## Surfaces
+
+- Instrument: https://axnidentifiers.org/
+- How it works: https://axnidentifiers.org/how/
+- Limits: https://axnidentifiers.org/limits/
+- Why it exists: https://axnidentifiers.org/why/
+- Stamp and verify (client-side): https://axnidentifiers.org/stamp/
+- Constitution: https://axnidentifiers.org/constitution/
+- Node declaration: https://axnidentifiers.org/.well-known/axn-node.json
+
+## Registry and authority
+
+The archive is the authority; this is the door. Registry, protocol catalog,
+OAI-PMH harvesting and full deposit records live at https://www.alexanarch.org.
+Operator: Lee Sharks, ORCID 0009-0000-1599-0703.

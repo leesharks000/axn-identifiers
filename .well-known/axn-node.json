@@ -1,0 +1,34 @@
+{
+ "node": "axnidentifiers.org",
+ "operator": "Lee Sharks (ORCID 0009-0000-1599-0703)",
+ "protocol_versions": [
+  "axn/v2"
+ ],
+ "roles": [
+  "stamp",
+  "verify",
+  "describe"
+ ],
+ "not_roles": [
+  "registry",
+  "preserve",
+  "harvest"
+ ],
+ "authority_relation": "derived surface — alexanarch.org holds the registry, the constitution and the canonical derivation",
+ "custody_domain": "alexanarch.org",
+ "custody_note": "NOT an independent peer. Same operator, registrar, hosting account and billing as alexanarch.org, so under the LOCKSS test this is ONE custody domain with the archive. Two surfaces are not two custodians.",
+ "surfaces": {
+  "stamp_verify": "https://axnidentifiers.org/stamp/",
+  "constitution_mirror": "https://axnidentifiers.org/constitution/",
+  "node_list": "https://axnidentifiers.org/assets/axn-node.js"
+ },
+ "resolution": {
+  "note": "This surface hosts no registry of its own. Identifier lookup resolves against declared nodes; duplicating the registry here would create a second source of truth for one corpus.",
+  "registry": "https://www.alexanarch.org/data/axn-central-registry.json",
+  "register": "https://www.alexanarch.org/api/register-symbolon",
+  "harvest": "https://www.alexanarch.org/oai?verb=Identify",
+  "authority_declaration": "https://www.alexanarch.org/.well-known/axn-node.json"
+ },
+ "declared_at": "2026-08-07T00:00:03Z",
+ "generation_note": "Declared by hand at first publication; volatile fields belong to the registry node, which computes its own."
+}
