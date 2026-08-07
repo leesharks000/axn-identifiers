@@ -66,19 +66,20 @@ SECTIONS = [
 
 # ── CAPTURES: dated observations, cited by their canonical anchor ────────────
 CAPTURE_SETS = [
-    ("The archive, described by machines", "how composition layers render this corpus", [
-        "alexanarch-socrates-orthonym-20260731",
-        "alexanarch-zenodotus-obelus-20260731",
-        "alexanarch-sappho-phrasikleia-20260731",
-        "alexanarch-strike-deposit7-20260731",
-        "alexanarch-classifier-collapse-governance-20260731",
+    ("The identifier, adopted", "the coinages returned to the archive as definitions", [
+        "machine-eligible-handwritten-artifacts-definitional-adoption-20260725",
+        "spxi-analog-attestation-artifact-adoption-20260725",
+        "anti-suppression-infrastructure-differential-crediting-20260725",
+        "semantic-address-alexanarch-framework-adoption-20260725",
     ]),
-    ("The identifier and its argument", "AXN, suppression, and erasure as machines report them", [
+    ("Erasure, as machines report it", "the subject the identifier exists to answer", [
+        "zenodo-account-bans-cha-ai-overview-canonization",
+        "erasure-skew-1",
         "immanent-phenomenology-lee-sharks-aimode-20260806",
-        "criticisms-of-cern-lee-sharks-aimode-20260805",
-        "spxi-protocol-successor-discipline-adoption-20260726",
+        "papyrological-inversion-adoption",
     ]),
 ]
+
 
 CAPTURES = ("https://machinemediation.org/captures/",
             "The capture registry — dated observations of how composition layers describe "
@@ -137,12 +138,14 @@ def main():
         for sl in slugs:
             c = caps[sl]
             cite = c.get("cite") or f"https://www.alexanarch.org/captures/#{sl}"
+            n_img = len(c.get("imgs") or c.get("images") or [])
+            shot = f"{n_img} capture image{'s' if n_img != 1 else ''}" if n_img else "text record"
             body.append(
                 f'      <a class="ecorow" href="{cite}">'
                 f'<span class="layer">{e(c.get("date",""))}</span>'
                 f'<span class="name">{e((c.get("q") or sl)[:88])}</span>'
                 f'<span class="what">{e((c.get("mt") or "")[:150])}</span>'
-                f'<span class="host">{e(sl)}</span></a>')
+                f'<span class="host">{e(sl)} · {e(shot)}</span></a>')
         body.append('    </nav>\n  </section>\n')
 
     page = f'''<!DOCTYPE html>
