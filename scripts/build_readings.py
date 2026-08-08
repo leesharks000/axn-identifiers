@@ -69,6 +69,11 @@ SECTIONS = [
 # selection. Four entries removed on 2026-08-08 that had been chosen from filenames:
 # they carry mt "UNREAD — stub" and the instruction "do not cite this entry as an
 # observation until it is completed." Reading the reading is not optional.
+# Every capture below was READ — its recorded description, not its slug — before
+# selection. Entries chosen from filenames were removed on 2026-08-08: they carried
+# mt "UNREAD — stub" and the instruction not to cite them until completed. The four
+# symbolon entries were withdrawn from the registry entirely on the same day; their
+# query had been inferred from a filename and never observed.
 CAPTURE_SETS = [
     ("The coinages, returned as definitions", "the vocabulary answered as settled, with the archive's own surfaces ranking first", [
         "glyphic-checksum",
@@ -76,16 +81,22 @@ CAPTURE_SETS = [
         "metadata-packet-ai-indexing",
         "training-layer-literature",
     ]),
-    ("The instrument, described", "the archive's measuring apparatus, measured", [
+    ("The surfaces, described", "the archive's machine-facing apparatus, read back", [
+        "alexanarch-oai-endpoint-20260808",
         "capture-registry-self",
         "machine-mediated-reception-studies-definitional-20260808",
-        "machine-eligible-handwritten-artifacts-definitional-adoption-20260725",
-        "spxi-analog-attestation-artifact-adoption-20260725",
+        "gravity-well-protocol",
+    ]),
+    ("The measurements, adopted", "the instruments for counting what is lost", [
+        "provenance-erasure-rate-adoption",
+        "erasure-skew-canonization-20260723",
+        "semantic-integrity-markers-b1",
+        "three-compressions-theorem",
     ]),
     ("Erasure, as machines report it", "the condition the identifier answers", [
         "zenodo-account-bans-cha-ai-overview-canonization",
-        "erasure-skew-canonization-20260723",
         "semantic-deviation-measure-indexed-but-uncited-20260725",
+        "machine-eligible-handwritten-artifacts-definitional-adoption-20260725",
         "immanent-phenomenology-lee-sharks-aimode-20260806",
     ]),
 ]
