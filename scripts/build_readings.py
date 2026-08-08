@@ -65,23 +65,27 @@ SECTIONS = [
 ]
 
 # ── CAPTURES: dated observations, cited by their canonical anchor ────────────
+# Every capture below was READ — its recorded description, not its slug — before
+# selection. Four entries removed on 2026-08-08 that had been chosen from filenames:
+# they carry mt "UNREAD — stub" and the instruction "do not cite this entry as an
+# observation until it is completed." Reading the reading is not optional.
 CAPTURE_SETS = [
-    ("The instrument, received", "the stamp and the seal, as machines report them", [
-        "20260803-stamp-reception-chatgpt",
-        "20260803-symbolon-signedin-aimode",
-        "20260803-symbolon-incognito-aimode",
-        "20260804-alexanarch-oai-overview",
-    ]),
-    ("The vocabulary, adopted", "coinages returned as definitions, not as proposals", [
-        "machine-eligible-handwritten-artifacts-definitional-adoption-20260725",
+    ("The coinages, returned as definitions", "the vocabulary answered as settled, with the archive's own surfaces ranking first", [
+        "glyphic-checksum",
         "spxi-protocol",
+        "metadata-packet-ai-indexing",
         "training-layer-literature",
+    ]),
+    ("The instrument, described", "the archive's measuring apparatus, measured", [
+        "capture-registry-self",
         "machine-mediated-reception-studies-definitional-20260808",
+        "machine-eligible-handwritten-artifacts-definitional-adoption-20260725",
+        "spxi-analog-attestation-artifact-adoption-20260725",
     ]),
     ("Erasure, as machines report it", "the condition the identifier answers", [
         "zenodo-account-bans-cha-ai-overview-canonization",
-        "erasure-skew-1",
-        "spxi-analog-attestation-artifact-adoption-20260725",
+        "erasure-skew-canonization-20260723",
+        "semantic-deviation-measure-indexed-but-uncited-20260725",
         "immanent-phenomenology-lee-sharks-aimode-20260806",
     ]),
 ]
@@ -102,6 +106,21 @@ def main():
     by_n = {d["deposit_number"]: d for d in reg["deposits"] if d.get("deposit_number")}
 
     missing = [n for _, _, items in SECTIONS for n, _ in items if n not in by_n]
+    # A STUB IS NOT AN OBSERVATION. Four captures were seated here on 2026-08-08
+    # chosen from their filenames; all four carried mt "UNREAD — stub" and the
+    # explicit instruction not to cite them until completed. A reading list that
+    # cites an unread capture is asserting that a machine said something nobody
+    # has checked. The build now refuses rather than relying on the selector
+    # having read what they selected.
+    stubs = [c for _, _, slugs in CAPTURE_SETS for c in slugs
+             if c in caps and (str(caps[c].get("mt", "")).startswith("UNREAD")
+                               or str(caps[c].get("d", "")).startswith("STUB"))]
+    if stubs:
+        print(f"FAIL: unread stub captures in the selection: {stubs}", file=sys.stderr)
+        print("A stub records that images exist. It does not record what was observed.",
+              file=sys.stderr)
+        return 1
+
     miss_c = [c for _, _, slugs in CAPTURE_SETS for c in slugs if c not in caps]
     if miss_c:
         print(f"FAIL: listed captures absent from the capture registry: {miss_c}", file=sys.stderr)
