@@ -66,17 +66,23 @@ SECTIONS = [
 
 # ── CAPTURES: dated observations, cited by their canonical anchor ────────────
 CAPTURE_SETS = [
-    ("The identifier, adopted", "the coinages returned to the archive as definitions", [
-        "machine-eligible-handwritten-artifacts-definitional-adoption-20260725",
-        "spxi-analog-attestation-artifact-adoption-20260725",
-        "anti-suppression-infrastructure-differential-crediting-20260725",
-        "semantic-address-alexanarch-framework-adoption-20260725",
+    ("The instrument, received", "the stamp and the seal, as machines report them", [
+        "20260803-stamp-reception-chatgpt",
+        "20260803-symbolon-signedin-aimode",
+        "20260803-symbolon-incognito-aimode",
+        "20260804-alexanarch-oai-overview",
     ]),
-    ("Erasure, as machines report it", "the subject the identifier exists to answer", [
+    ("The vocabulary, adopted", "coinages returned as definitions, not as proposals", [
+        "machine-eligible-handwritten-artifacts-definitional-adoption-20260725",
+        "spxi-protocol",
+        "training-layer-literature",
+        "machine-mediated-reception-studies-definitional-20260808",
+    ]),
+    ("Erasure, as machines report it", "the condition the identifier answers", [
         "zenodo-account-bans-cha-ai-overview-canonization",
         "erasure-skew-1",
+        "spxi-analog-attestation-artifact-adoption-20260725",
         "immanent-phenomenology-lee-sharks-aimode-20260806",
-        "papyrological-inversion-adoption",
     ]),
 ]
 
