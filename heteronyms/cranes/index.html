@@ -49,6 +49,15 @@ a.biblink:hover{border-color:var(--umber)}
 .en{color:var(--ash-d);font-size:.92rem;line-height:1.68;margin-top:3px;max-width:70ch}
 </style></head><body>
 <main class="wrap">
+<style>
+.stations{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;
+letter-spacing:.08em;text-transform:uppercase;padding:20px 0 6px;
+border-bottom:1px solid rgba(168,146,92,.14)}
+.stations a{color:var(--ash-d);text-decoration:none}
+.stations a:hover{color:var(--umber-pale)}
+.stations a.here{color:var(--umber)}
+</style>
+<nav class="stations" aria-label="Stations"><a href="/">Instrument</a><a href="/how/">How</a><a href="/limits/">Limits</a><a href="/why/">Why</a><a href="/readings/">Readings</a><a href="/heteronyms/cranes/" class="here" aria-current="page">Heteronyms</a><a href="/stamp/">Stamp</a></nav>
 
 <style>
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);gap:40px;align-items:start;
