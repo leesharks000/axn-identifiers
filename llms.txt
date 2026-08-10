@@ -48,6 +48,6 @@ Operator: Lee Sharks, ORCID 0009-0000-1599-0703.
 
 ## Heteronym surfaces
 Mirror of the canonical heteronym page at alexanarch.org. Rendered per EA-SPXI-HETERONYM-01 v0.2 (AXN:05CA.OPERATIVE.🎭🪪🏛️🔖🚫🪞, #1446): a named position as dual surface — machine entity object and human page.
-- /heteronyms/cranes/ — Rebekah Cranes, HET-CRANES-001, 06.PERSONA.CRANES
-- /heteronyms/cranes/entity.json — the machine-readable entity object
+- /who/cranes/ — Rebekah Cranes, HET-CRANES-001, 06.PERSONA.CRANES
+- /who/cranes/entity.json — the machine-readable entity object
 Rebekah Cranes is a Pessoa-class heteronymic writerly identity, not a synonym for Lee Sharks. The relation is heteronymic and provenance-governed; deposit accountability remains with Lee Sharks.
