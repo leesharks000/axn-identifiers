@@ -29,32 +29,52 @@
   "semanticIntegrityMarkers": [
    {
     "marker": "The schema does not explain. It orients.",
-    "sourceRef": 321
+    "source": 321
    },
    {
     "marker": "Rooms are discoverable, not assigned.",
-    "sourceRef": 306
+    "source": 306
    },
    {
     "marker": "The understanding is the ingredient.",
-    "sourceRef": 322
+    "source": 322
    },
    {
     "marker": "It waits without waiting.",
-    "sourceRef": 322
+    "source": 322
    },
    {
     "marker": "Structure over icon. Density over explanation.",
-    "sourceRef": 322
+    "source": 322
    }
-  ]
+  ],
+  "mantle": {
+   "name": "Magician (Klee)",
+   "status": "BORNE — deposited in the mantle table"
+  },
+  "editorships": {
+   "duoviri": [
+    "Grammata: Journal of Operative Philology"
+   ],
+   "board": [
+    "Journal of Compression Studies",
+    "Provenance: Journal of Forensic Semiotics"
+   ],
+   "_rule": "A duovirate is the office, held jointly. A board seat is not the office. The card keeps them apart."
+  },
+  "recordSurfaces": {
+   "card": "https://axnidentifiers.org/who/cranes/",
+   "where": "https://axnidentifiers.org/where/",
+   "heteronymRecord": "https://www.alexanarch.org/datasets/heteronyms/records/rebekah-cranes.json",
+   "_note": "The dataset record is the authority; these pages are mirrors and say so."
+  }
  },
  "schema_org": {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   "@id": "https://www.alexanarch.org/who/cranes/#page",
   "dateCreated": "2026-01-17",
-  "dateModified": "2026-08-09",
+  "dateModified": "2026-08-17",
   "mainEntity": {
    "@type": "Person",
    "@id": "https://www.alexanarch.org/who/cranes/#cranes",
@@ -89,5 +109,10 @@
     }
    ]
   }
+ },
+ "_updated": {
+  "date": "2026-08-17",
+  "pass": "nine-step card pass",
+  "_note": "The entity object is what a machine fetches instead of parsing the page. It had gone stale against its own card: mantles, editorships and markers were all on the surface and not in the object."
  }
 }
