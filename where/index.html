@@ -8,7 +8,20 @@
 <link rel="cite-as" href="https://www.alexanarch.org/axn/constitution/">
 <link rel="item" href="https://www.alexanarch.org/data/registry.json" type="application/json">
 <meta name="axn:surface-role" content="mirror">
-</head><body class="flat">
+<style>
+/* /where/ carries an AXN chip on EVERY row; the card carries them sparsely.
+   msa.css sets .ecorow to a 118px first column, which a full AXN overruns —
+   the chip text then rides over the title. Widen the column here only, and
+   stack on narrow viewports rather than letting two columns collide. */
+.where .ecorow{grid-template-columns:minmax(0,15rem) minmax(0,1fr)}
+.where .ecorow .name{overflow-wrap:anywhere;line-height:1.45}
+.where .ecorow .name a.axn-chip{display:block}
+@media (max-width:720px){
+  .where .ecorow{grid-template-columns:1fr;gap:4px}
+  .where .ecorow .what{grid-column:1}
+}
+</style>
+</head><body class="flat where">
 <div class="zone surface">
 <div class="rail">
 <img class="seal" src="/assets/brand/mark-dark-master.png" alt="">
