@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://axnidentifiers.org/sitemap.xml
+Sitemap: https://www.axnidentifiers.org/sitemap.xml
