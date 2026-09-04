@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.axnidentifiers.org/</loc><lastmod>2026-08-17</lastmod><priority>1.0</priority></url>
-  <url><loc>https://www.axnidentifiers.org/constitution/</loc><lastmod>2026-08-17</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/design/landing-v1.1-sealed-dark/</loc><lastmod>2026-08-11</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/design/legacy-landing-2026-08/</loc><lastmod>2026-08-11</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/design/msa-proposal/</loc><lastmod>2026-08-11</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/design/msa-v2/</loc><lastmod>2026-08-11</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/design/specimen-v0.1/</loc><lastmod>2026-08-11</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/design/specimen-v0.2/</loc><lastmod>2026-08-11</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/how/</loc><lastmod>2026-08-17</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/limits/</loc><lastmod>2026-08-17</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/readings/</loc><lastmod>2026-08-17</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/stamp/</loc><lastmod>2026-08-17</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/where/</loc><lastmod>2026-08-17</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/who/cranes/</loc><lastmod>2026-08-17</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.axnidentifiers.org/why/</loc><lastmod>2026-08-17</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.axnidentifiers.org/</loc><lastmod>2026-09-04</lastmod><priority>1.0</priority></url>
+  <url><loc>https://www.axnidentifiers.org/constitution/</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.axnidentifiers.org/how/</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.axnidentifiers.org/limits/</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.axnidentifiers.org/readings/</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.axnidentifiers.org/stamp/</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.axnidentifiers.org/where/</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.axnidentifiers.org/who/cranes/</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.axnidentifiers.org/why/</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
 </urlset>
