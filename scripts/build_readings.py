@@ -45,8 +45,9 @@ SECTIONS = [
                "when it removes a record, written as something a machine can test."),
     ]),
     ("The argument", "precedent, theory, and the marks custody leaves", [
-        (1095, "AXN as anti-suppression infrastructure: historical precedents for the "
-               "destruction of collections, and what a content-derived identifier answers in them."),
+        (1606, "AXN as anti-suppression infrastructure: historical precedents for the "
+               "destruction of collections, and what a content-derived identifier answers in them. "
+               "The v5 text as seated; #1095 declared it and never carried it."),
         (1,    "Zenodotus' book-burning — deposit #1, and the archive's founding frame: "
                "exclusion at repository scale is old, and it has always been loud."),
         (1068, "The obelus and the tombstone: the two marks of custody, and what each one "
@@ -114,6 +115,19 @@ def main():
     with urllib.request.urlopen(CAPREG, timeout=60) as r:
         capreg = json.load(r)
     caps = {e["slug"]: e for e in capreg["entries"] if e.get("slug")}
+    # An anchor the registry has folded into another (a later observation of the same
+    # address) resolves by the registry's own _alias_redirects, and is cited at its
+    # target. The registry decides what a slug means; this page does not re-decide it.
+    alias = capreg.get("_alias_redirects") or {}
+    for i, (t_, s_, slugs) in enumerate(CAPTURE_SETS):
+        res = []
+        for c in slugs:
+            tgt = (alias.get(c) or {}).get("target")
+            if c not in caps and tgt in caps:
+                print(f"resolved {c} -> {tgt} ({alias[c].get('rule','')[:40]}…)")
+                c = tgt
+            res.append(c)
+        CAPTURE_SETS[i] = (t_, s_, res)
     by_n = {d["deposit_number"]: d for d in reg["deposits"] if d.get("deposit_number")}
 
     missing = [n for _, _, items in SECTIONS for n, _ in items if n not in by_n]
