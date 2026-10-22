@@ -135,9 +135,9 @@ button:hover{background:#086354}button:disabled{background:#aaa;cursor:default}
 </div>
 <div style="font-size:.74em;color:var(--dim);margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center">
 <span>examples:</span>
-<code class="exchip" style="cursor:pointer;background:#f2f2f2;border:1px solid var(--border);border-radius:5px;padding:3px 7px">05AD</code>
-<code class="exchip" style="cursor:pointer;background:#f2f2f2;border:1px solid var(--border);border-radius:5px;padding:3px 7px">AXN:05AD.UNCLASSIFIED.🌾➕🥁⚫👋🪄</code>
-<code class="exchip" style="cursor:pointer;background:#f2f2f2;border:1px solid var(--border);border-radius:5px;padding:3px 7px">sha256:1a908cc8…</code>
+<code class="exchip" style="cursor:pointer;background:#f2f2f2;border:1px solid var(--border);border-radius:5px;padding:3px 7px">0706</code>
+<code class="exchip" style="cursor:pointer;background:#f2f2f2;border:1px solid var(--border);border-radius:5px;padding:3px 7px">AXN:0706.GOVERNANCE.🐚🟠🔆🗡️🎇📚</code>
+<code class="exchip" style="cursor:pointer;background:#f2f2f2;border:1px solid var(--border);border-radius:5px;padding:3px 7px">sha256:7ac2ec5a…</code>
 </div>
 <div class="out" id="vout"></div>
 <script>
@@ -224,7 +224,7 @@ al.onclick=async()=>{
   else{vo.innerHTML='<div class="verdict" style="color:var(--accent2)">NOT FOUND</div><div class="v">No position or kernel in the central registry matches that identifier. It may be unregistered, a different version, or altered.</div>';}
 };
 aq.onkeydown=e=>{if(e.key==='Enter')al.click();};
-document.querySelectorAll('.exchip').forEach(c=>{c.onclick=()=>{let v=c.textContent;if(v.indexOf('1a908cc8')>-1)v='sha256:1a908cc8bf3ed5cc6adaf64181f8811e9e060840182c732df4b4629c9bdff357';aq.value=v;al.click();};});
+document.querySelectorAll('.exchip').forEach(c=>{c.onclick=()=>{let v=c.textContent;if(v.indexOf('7ac2ec5a')>-1)v='sha256:7ac2ec5ae849a417da7d6134f0050be8411f935c2558d2d99a849cec9e2adda8';aq.value=v;al.click();};});
 })();
 </script>
 <div class="footer">AXN schema v2 · glyph table and derivation identical to <span style="font-family:var(--mono)">scripts/axn_lib.py</span> · AXN-SYMBOLON-SPEC v0.2 · Alexanarch</div>

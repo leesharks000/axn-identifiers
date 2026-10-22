@@ -11,7 +11,7 @@ An AXN has three layers: (1) the **identity kernel** — SHA-256 of the exact ra
 bytes, no normalization, no re-encoding; (2) the **record address** — a hex
 position and a semantic family, assigned at a registry; (3) **location records**
 naming where verified copies can be obtained. Grammar: `AXN:HEX.FAMILY.⟨6 glyphs⟩`,
-e.g. `AXN:05AD.UNCLASSIFIED.🌾➕🥁⚫👋🪄`.
+e.g. `AXN:0706.GOVERNANCE.🐚🟠🔆🗡️🎇📚`.
 
 The kernel is the security boundary. Position and glyphs are recognition layers.
 An AXN is true or false independently of every registry, including the one that
