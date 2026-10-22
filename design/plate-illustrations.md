@@ -41,7 +41,7 @@ would read identically without the figure, the figure is wrong.
 | Slot | Plate | Ground | File | Subject the figure must carry |
 |---|---|---|---|---|
 | 0 | Hero | vellum | `plate-0-genesis.svg` | **Replaces the inline SVG.** Four stations — SOURCE → KERNEL → SEAL → WITNESS — with the registration thread and the returning verification arc. Must be legible in three seconds. |
-| I | The first material proof | vellum | *(photographic — none needed)* | Enli Lucente's Paper 198 is already the figure. Do not illustrate over a real holding. |
+| I | The first material proof | vellum | *(photographic — none needed)* | The stamped Effective Act (AXN:0706) is already the figure. Do not illustrate over a real holding. |
 | II | One object passing through states | soot | `plate-ii-states.svg` | One object in three states, not three objects: file contour → stamped margin → public witness plate. The same shape, altered. |
 | III | The membrane crossed both ways | soot | `plate-iii-membrane.svg` | Bidirectional: the file speaks to the registry, the registry returns an address. Six glyphs above the membrane, six byte-family rails below it. |
 | IV | Verification is the halves meeting | soot | `plate-iv-symbolon.svg` | Two cut halves of one plate. At rest, the fracture is open and the two hashes face each other; the fit is the proof. |
