@@ -8,7 +8,7 @@
 <meta name="axn-registry" content="https://www.alexanarch.org/data/axn-central-registry.json">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Symbolon Stamp — AXN inscription | Alexanarch</title>
-<meta name="description" content="Upload a file, receive it back AXN-stamped on an added margin plus its Seed A sidecar — the symbolon pair. Implements AXN-SYMBOLON-SPEC v0.2 (deposit #1432). Everything runs in your browser; nothing leaves your device.">
+<meta name="description" content="Upload a file, receive it back AXN-stamped on an added margin plus its Seed A sidecar — the symbolon pair. Implements AXN-SYMBOLON-SPEC v0.2 (deposit #1432). Hashing and stamping run in your browser. Registration sends the Seed A sidecar to the archive; your file is sent only if you choose storage.">
 <!-- Implements AXN:05A9.OPERATIVE.🐚🌪️🕖🫵⏩○ · AXN-SYMBOLON-SPEC v0.2 · alexanarch #1432 -->
 <style>
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
@@ -88,7 +88,7 @@ button:hover{background:#086354}button:disabled{background:#aaa;cursor:default}
 <div class="wrap">
 
 <h1>Symbolon Stamp</h1>
-<p>Upload a file and receive back the <strong>symbolon pair</strong>: your file stamped with its AXN identity kernel on an <em>added margin</em> — the original is never overprinted — and the <strong>Seed A sidecar</strong> (<span style="font-family:var(--mono)">.axn.json</span>) that makes the stamp verifiable. Everything runs in your browser via WebCrypto; <strong>nothing leaves your device</strong>.</p>
+<p>Upload a file and receive back the <strong>symbolon pair</strong>: your file stamped with its AXN identity kernel on an <em>added margin</em> — the original is never overprinted — and the <strong>Seed A sidecar</strong> (<span style="font-family:var(--mono)">.axn.json</span>) that makes the stamp verifiable. Hashing and stamping run in your browser via WebCrypto. Registration sends the Seed A sidecar to the archive; <strong>your file is sent only if you choose storage</strong>.</p>
 <p style="font-size:.85em;color:var(--dim)">Implements <a class="axn-chip" href="https://www.alexanarch.org/s/records/1432/">#1432 &middot; AXN:05A9.OPERATIVE.🐚🌪️🕖🫵⏩○</a>: the identifier splits into two halves — the kernel inscribed in the artifact, the verification data in the sidecar — because a hash cannot contain itself. Their meeting proves the work.</p>
 
 <h2>1 · Your file</h2>
@@ -122,7 +122,7 @@ button:hover{background:#086354}button:disabled{background:#aaa;cursor:default}
 
 <div class="note">
 <strong>What the stamp is.</strong> A footer strip appended <em>below</em> your content — added canvas for images, an added-margin line for PDFs, a comment block for text. It carries the six-glyph kernel and the SHA-256 prefix of your <em>original</em> bytes. <strong>What the sidecar is.</strong> The identity half: both kernels in full, the exact stamp geometry (so verification knows precisely where the stamp ends and your work begins), and the manifest. <strong>What to do with them.</strong> Circulate the stamped file freely; keep the sidecar with it, or send it to the archive. The stamp says what the work is; the sidecar proves it. Keeping your original file safe as well is ideal — it is the sealed core itself.
-<br><br><strong>Registration.</strong> The <em>Register with the archive</em> button witnesses your symbolon in the public record: the sidecar's internal consistency is checked (glyphs recomputed from hashes), a hex position is allocated from the sovereign AXN sequence, and the full identifier — <span style="font-family:var(--mono)">AXN:HEX.FAMILY.glyphs</span> — is composed and committed to the registry, publicly visible within about two minutes. Only Seed A crosses the wire; your file never does. Registration is automatic on stamping — one kernel, one position, deduplicated against the whole registry — and adds an address, not authority: the kernel in your stamp is true or false independently of any registry, including this one. Full deposit (body, record page, DOI-class treatment) remains available through the <a href="https://www.alexanarch.org/deposit/">deposit transport</a>.
+<br><br><strong>Registration.</strong> Registration witnesses your symbolon in the public record: the sidecar's internal consistency is checked (glyphs recomputed from hashes), a hex position is allocated from the sovereign AXN sequence, and the full identifier — <span style="font-family:var(--mono)">AXN:HEX.FAMILY.glyphs</span> — is composed and committed to the registry, publicly visible within about two minutes. Only Seed A crosses the wire; your file goes only if you tick storage. Registration is automatic on stamping — one kernel, one position, deduplicated against the whole registry — and adds an address, not authority: the kernel in your stamp is true or false independently of any registry, including this one. Full deposit (body, record page, DOI-class treatment) remains available through the <a href="https://www.alexanarch.org/deposit/">deposit transport</a>.
 </div>
 
 <h2 style="margin-top:34px">Verify</h2>
